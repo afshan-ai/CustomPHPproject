@@ -4,7 +4,7 @@
 */
 include("config.php");
 include("includes/header.php");
-
+ $salt="9@4b2mkN$^)M*Hzc^i(@spjm";
 ?>   
 <?php echo $msg; ?>
 
@@ -113,9 +113,9 @@ include("includes/header.php");
 ?>
 <tr>
    
-  <td align="left" valign="top" ><?php echo $cat->fullname; ?></td>
-    <td align="left" valign="top"><?php echo $cat->email; ?></td>
-    <td  align="left" valign="top"><?php echo $cat->phone; ?></td>
+  <td align="left" valign="top" ><?php echo str_replace($salt,'',base64_decode($cat->fullname)); ?></td>
+    <td align="left" valign="top"><?php echo str_replace($salt,'',base64_decode($cat->email)); ?></td>
+    <td  align="left" valign="top"><?php echo str_replace($salt,'',base64_decode($cat->phone)); ?></td>
    <td  align="left" valign="top"><?php echo $cat->registration_date; ?></td>
     <td align="left" valign="top"><span class="chat"><a href="chat-room.php?id=<?php echo $cat->id; ?>">Chat</a> </span>
       <span class="view"><a href="view_user.php?id=<?php echo $cat->id; ?>">View</a> </span>

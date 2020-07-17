@@ -2,6 +2,7 @@
 session_start();
  $username = $_SESSION['username'];
  $user_id = $_REQUEST['user_id'];
+  $salt="9@4b2mkN$^)M*Hzc^i(@spjm";
 include("config.php");
 
 
@@ -30,7 +31,7 @@ include("config.php");
                                             &nbsp; &nbsp;
                                             <span class="message-data-name">Admin</span>
                                         </div>
-                                        <div class="message other-message float-right"> <?php echo $result->message;?> </div>
+                                        <div class="message other-message float-right"> <?php echo str_replace($salt,'',base64_decode($result->message));?> </div>
                                     </li>
                                     <?php
         }
@@ -50,11 +51,11 @@ include("config.php");
         	?>
         	<li>
                                         <div class="message-data">
-                                            <span class="message-data-name"><?php echo ucfirst($result1->fullname);?> </span>
+                                            <span class="message-data-name"><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?> </span>
                                             <span class="message-data-time"><?php echo $result->dt;?></span>
                                         </div>
                                         <div class="message my-message">
-                                            <p><?php echo $result->message;?></p>
+                                            <p><?php echo str_replace($salt,'',base64_decode($result->message));?></p>
                                             <div class="row">
                                             </div>
                                         </div>

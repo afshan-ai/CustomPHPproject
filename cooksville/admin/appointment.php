@@ -4,7 +4,7 @@
 */
 include("config.php");
 include("includes/header.php");
-
+ $salt="9@4b2mkN$^)M*Hzc^i(@spjm";
 ?>   
 <?php echo $msg; ?>
 
@@ -110,7 +110,7 @@ include("includes/header.php");
 ?>
 <tr>
    
-	<td align="left" valign="top" ><?php echo $result1->fullname; ?></td>
+	<td align="left" valign="top" ><?php echo str_replace($salt,'',base64_decode($result1->fullname)); ?></td>
     <td  align="left" valign="top"><?php echo $cat->appointment_date; ?></td>
     <td align="left" valign="top"><?php echo $cat->appointment_time; ?></td>
    

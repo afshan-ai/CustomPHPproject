@@ -4,6 +4,7 @@
 */
 include("config.php");
 include("includes/header.php");
+ $salt="9@4b2mkN$^)M*Hzc^i(@spjm";
 ?>   
 <style type="text/css">
 	#chat-conversation, #chat_user
@@ -78,7 +79,7 @@ include("includes/header.php");
                              ?>
                                                 
                                                 <div class="about">
-                                                    <div class="name"><?php echo ucfirst($cat->fullname);?></div>
+                                                    <div class="name"><?php echo ucfirst(str_replace($salt,'',base64_decode($cat->fullname)));?></div>
                                                     <div class="status">
                                                         
                                                         </div>
@@ -131,13 +132,13 @@ include("includes/header.php");
                              }
                              ?>
                                 <div class="chat-about">
-                                    <div class="chat-with"><?php echo $result_user->fullname;?></div>
+                                    <div class="chat-with"><?php echo str_replace($salt,'',base64_decode($result_user->fullname));?></div>
                                     <div class="row action">
                                         <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <div class="chat-num-messages"><i class="fa fa-phone"></i> <span><?php echo $result_user->phone;?></span></div>
+                                            <div class="chat-num-messages"><i class="fa fa-phone"></i> <span><?php echo str_replace($salt,'',base64_decode($result_user->phone));?></span></div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <div class="chat-num-messages"><i class="fa fa-envelope"></i> <span><?php echo $result_user->email;?></span></div>
+                                            <div class="chat-num-messages"><i class="fa fa-envelope"></i> <span><?php echo str_replace($salt,'',base64_decode($result_user->email));?></span></div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-4">
                                             <div class="chat-num-messages"><i class="fa fa-calendar"></i> <span>Upcoming Appointment Date: <?php echo $result_user1->appointment_date;?></span></div>
@@ -174,7 +175,7 @@ include("includes/header.php");
                                             &nbsp; &nbsp;
                                             <span class="message-data-name">Admin</span>
                                         </div>
-                                        <div class="message other-message float-right"> <?php echo $result->message;?> </div>
+                                        <div class="message other-message float-right"> <?php echo str_replace($salt,'',base64_decode($result->message));?> </div>
                                     </li>
                                     <?php
         }
@@ -194,11 +195,11 @@ include("includes/header.php");
         	?>
         	<li>
                                         <div class="message-data">
-                                            <span class="message-data-name"><?php echo ucfirst($result1->fullname);?> </span>
+                                            <span class="message-data-name"><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?> </span>
                                             <span class="message-data-time"><?php echo $result->dt;?></span>
                                         </div>
                                         <div class="message my-message">
-                                            <p><?php echo $result->message;?></p>
+                                            <p><?php echo str_replace($salt,'',base64_decode($result->message));?></p>
                                             <div class="row">
                                             </div>
                                         </div>
