@@ -1,9 +1,5 @@
 <?php
-$host = 'mysql.appsforcompany.com';
-$db   = 'developer_marketing';
-$user = 'dev_marketing';
-$pass = '1W@tch0nUT3am';
-$charset = 'utf8';
+include('./dbinfo.php');
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
