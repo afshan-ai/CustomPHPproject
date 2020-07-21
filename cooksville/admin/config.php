@@ -1,5 +1,5 @@
 <?php
-include('../dbinfo.php');
+include('../../dbinfo.php');
 
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
