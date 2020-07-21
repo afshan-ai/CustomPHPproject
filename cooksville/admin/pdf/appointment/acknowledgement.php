@@ -80,7 +80,7 @@ $query_device = "select * from `dental1_patient_acknowledge_form` where user_id=
 
         $statement_device->execute(array("user_id"=>$_REQUEST['id']));
     $result = $statement_device->fetch();
-$salt="9@4b2mkN$^)M*Hzc^i(@spjm";
+
 
 $html = '
 <style>

@@ -258,10 +258,10 @@ $ongoing_query = "SELECT * from dental1_appointment where status='In Progress' o
                         ?>
                         
                         <div class="text">
-                            <h4><?php echo $result1->fullname;?></h4>
+                            <h4><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?></h4>
                             <span class="appType">Emergency Appointment</span>
                         </div>
-                        <a href="tel:<?php echo $result1->phone;?>" class="call"><i class="fa fa-phone"></i></a>
+                        <a href="tel:<?php echo str_replace($salt,'',base64_decode($result1->phone));?>" class="call"><i class="fa fa-phone"></i></a>
                     </div>
                     <div class="bottom">
                         <span class="time"><i class="fa fa-clock-o"></i> <?php echo $appointment->scheduled_time;?></span>

@@ -2,7 +2,7 @@
 session_start();
  $username = $_SESSION['username'];
  $user_id = $_REQUEST['user_id'];
- $salt="9@4b2mkN$^)M*Hzc^i(@spjm";
+
 include("config.php");
 
 

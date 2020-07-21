@@ -80,7 +80,7 @@ $query_device = "select * from `dental1_patient_screening_form` where appointmen
         $statement_device->execute(array("appointment_id"=>$_REQUEST['id']));
     $result = $statement_device->fetch();
 
-$salt="9@4b2mkN$^)M*Hzc^i(@spjm";
+
 $html = '<style>
     @import url("https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700&display=swap");
     body {font-family: "Open Sans", sans-serif;font-weight: normal;padding: 0;margin: 0;font-size: 16px; background: #fff; scroll-behavior: smooth; color: #0c0c0c; }

@@ -71,7 +71,7 @@ include("includes/header.php");
 ?>
 <tr>
    
-  <td align="left" valign="top" ><?php echo $result1->fullname; ?></td>
+  <td align="left" valign="top" ><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname))); ?></td>
     <td  align="left" valign="top"><?php echo $cat->rating; ?></td>
     <td align="left" valign="top"><?php echo $cat->review; ?></td>
    

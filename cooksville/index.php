@@ -5,7 +5,7 @@
 /*$data = array("email"=>"paul","password"=>"123456","device_type"=>"android","device_id"=>"dlJE1EWt-Kw:APA91bGbfRwG0mLr9Iz9DH9w5JOhh5sIkYRfF9nFcAn9IUfA3cWfnFURTIymPbbz8VSz6sfBxM3-8VRRMoFtUIVf6rnye-13X9bcJnxscY6cvzYNxTFrTi-N_Ys5YZ_HmwGNBNpzqP6V","actiontype"=>"login");*/
 //$data = array("user_id"=>24,"actiontype"=>"notification");
 //$data = array("actiontype"=>"provider_home");
-//$data = array("user_id"=>53,"token"=>"159492026353","actiontype"=>"provider_list");
+$data = array("user_id"=>53,"token"=>"159498729353","actiontype"=>"provider_list");
 //$data = array("user_id"=>48,"token"=>"159488710348","actiontype"=>"appointment_type");
 
 /*$data = array("user_id"=>2,"appointment_type"=>"2","provider_id"=>"1","note"=>"Lorem Ipsum","appointment_time"=>"11:00 am","appointment"=>"In Person","office"=>"Toronto","appointment_date"=>"2020-06-10","actiontype"=>"create_appointment");*/
@@ -22,7 +22,7 @@
 //$data = array("actiontype"=>"new_user_question");
 //$data = array("actiontype"=>"covid_question");
 
-$data = array("user_id"=>53,"token"=>"159492026353","type"=>"upcoming","actiontype"=>"my_appointmeent");
+//$data = array("user_id"=>53,"token"=>"159492026353","type"=>"upcoming","actiontype"=>"my_appointmeent");
 //$data = array("provider_id"=>1,"user_id"=>30,"rating"=>"2.5","review"=>"Very happy with appointment","actiontype"=>"add_review");
 //$data = array("provider_id"=>1,"actiontype"=>"get_review");
 

@@ -8,10 +8,15 @@ error_reporting(E_ALL); */
 //ob_start();
 
 include "config.php";
-$site = 'http://developer.marketingplatform.ca/dentalapp/cooksville/admin/';
-$site1 = 'http://developer.marketingplatform.ca/dentalapp/cooksville/image/';
+$uri = str_replace('post.php','',$_SERVER['REQUEST_URI']);
+$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$url = $protocol . $_SERVER['HTTP_HOST'] . $uri;
 
-$salt="9@4b2mkN$^)M*Hzc^i(@spjm";
+
+$site = $url.'admin/';
+$site1 = $url.'image/';
+
+
 
 //include "config_mysql.php";
 
@@ -21,7 +26,7 @@ $event_encoded = json_decode($jsonInput, true);*/
 
 $event_encoded = json_decode(file_get_contents('php://input'),true);
 
-$key ='AIzaSyCiqx2ipC9RPdq6NsuW5D5uaNuE8C07eRs';
+
 $ip_address=$_SERVER['REMOTE_ADDR'];
 $geopluginURL='http://www.geoplugin.net/php.gp?ip='.$ip_address;
 $addrDetailsArr = unserialize(file_get_contents($geopluginURL));
@@ -1856,6 +1861,7 @@ $parent['token']='yes';
           $meal[$i]['category']=$result1->title;
           $meal[$i]['image']=$site.'provider/'.$result->image;
           $meal[$i]['id']=$result->id;
+        
         
           $i++;
         }

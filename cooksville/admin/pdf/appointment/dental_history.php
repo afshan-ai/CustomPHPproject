@@ -79,7 +79,7 @@ $query_device = "select * from `dental1_history_form` where appointment_id=:appo
 
         $statement_device->execute(array("appointment_id"=>$_REQUEST['id']));
     $result = $statement_device->fetch();
-$salt="9@4b2mkN$^)M*Hzc^i(@spjm";
+
 
 $html = '<style>
 @import url("https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,600,700&display=swap");

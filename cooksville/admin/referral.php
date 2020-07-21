@@ -62,7 +62,7 @@ include("includes/header.php");
   <td align="left" valign="top" ><?php echo $cat->name; ?></td>
     <td align="left" valign="top" ><?php echo $cat->email; ?></td>
   <td align="left" valign="top" ><?php echo $cat->message; ?></td>
-    <td align="left" valign="top" ><?php echo $result1->fullname; ?></td>
+    <td align="left" valign="top" ><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname))); ?></td>
   
   
     <td align="left" valign="top">

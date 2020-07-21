@@ -4,7 +4,7 @@
 */
 include("config.php");
 include("includes/header.php");
- $salt="9@4b2mkN$^)M*Hzc^i(@spjm";
+
 ?>   
 <style type="text/css">
 	#chat-conversation, #chat_user

@@ -1,5 +1,9 @@
 <?php
-include('../../dbinfo.php');
+$host = 'mysql.appsforcompany.com';
+$db   = 'developer_marketing';
+$user = 'dev_marketing';
+$pass = '1W@tch0nUT3am';
+$charset = 'utf8';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
@@ -9,4 +13,12 @@ $opt = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 $pdo = new PDO($dsn, $user, $pass, $opt);
+
+ $ongoing_query1 = "SELECT * from dental1_key";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute();
+        $result2 = $statement1->fetch();
+$salt=$result2->salt;
 
