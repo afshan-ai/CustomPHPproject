@@ -1313,6 +1313,37 @@ if($event_encoded["type"]=='completed')
            
             ));
         $result1 = $statement1->fetch();
+
+        $ongoing_query1 = "SELECT * from dental1_patient_acknowledge_form where  user_id=:id";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute(array( "id" =>$result->id
+         
+           
+           
+            ));
+         $num_rows11 = $statement1->rowCount();
+        $ongoing_query1 = "SELECT * from dental1_patient_screening_form where  appointment_id=:id";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute(array( "id" =>$result->id
+         
+           
+           
+            ));
+         $num_rows22=$statement1->rowCount();
+        $ongoing_query1 = "SELECT * from dental1_history_form where  appointment_id=:id";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute(array( "id" =>$result->id
+         
+           
+           
+            ));
+         $num_rows33=$statement1->rowCount();
           
           $meal[$i]['appointment_date']=$result->appointment_date;
           $meal[$i]['appointment_time']=$result->appointment_time;
@@ -1326,6 +1357,30 @@ if($event_encoded["type"]=='completed')
             $meal[$i]['scheduled_time']=$result->scheduled_time;
           $meal[$i]['appointment_status']=$result->status;
           $meal[$i]['id']=$result->id;
+          if($num_rows11>0)
+          {
+            $meal[$i]['isAckSubmitted']='yes';
+          }
+          else
+          {
+            $meal[$i]['isAckSubmitted']='no';
+          }
+          if($num_rows22>0)
+          {
+            $meal[$i]['isScreeningSubmitted']='yes';
+          }
+          else
+          {
+            $meal[$i]['isScreeningSubmitted']='no';
+          }
+          if($num_rows33>0)
+          {
+            $meal[$i]['isMedicalSubmitted']='yes';
+          }
+          else
+          {
+            $meal[$i]['isMedicalSubmitted']='no';
+          }
          
         
           $i++;
