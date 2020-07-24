@@ -15,30 +15,10 @@ $opt = [
 $pdo = new PDO($dsn, $user, $pass, $opt);
 
 
- 
-
-
-
-       
-
-
-
-
-      
-
-
-            $ongoing_query = "ALTER TABLE `dentalsb_user`
-  ADD PRIMARY KEY (`id`)";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute();
-
-
            
 
          $ongoing_query = "ALTER TABLE `dentalsb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62";
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100";
 
         $statement = $pdo->prepare($ongoing_query);
 
