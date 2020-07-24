@@ -10,7 +10,7 @@ error_reporting(E_ALL); */
 if(isset($_REQUEST['sub']))
 {
   //echo '<pre>';print_r($_REQUEST);echo '</pre>';
-		$ongoing_query ="Update `dental2_appointment` set `scheduled_time`=:appointment_time,appointment_date=:appointment_date,new_user=:new_user,status=:status where id=:id";
+		$ongoing_query ="Update `dentalsb_appointment` set `scheduled_time`=:appointment_time,appointment_date=:appointment_date,new_user=:new_user,status=:status where id=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -26,7 +26,7 @@ if(isset($_REQUEST['sub']))
             ));
 
 
-define('API_ACCESS_KEY', 'AAAAvndyczY:APA91bE_FvpUq9Fq4R_ra7xTPrSW2LtryGWtn3vEd3vTE84PeyIOCqVnSlOrrhoxjBEsur7TjldACiJ3TE20Ae5qt9P3gokSVDegKEgk6EFl0YRHA7nnk27txytav45UDj9VSGbX1I6_');
+define('API_ACCESS_KEY', 'AAAAJk58EGo:APA91bGKMn-R87__ENexWq65M1yJbFefVXLdLh7e7Q-uyfvgYpfJM3kH_9y-cuAeemBIMtkwJPUsajC7uKrv3rHqR_uPsKz9TZZyVSiTKlbdbnLclC5_t3NaSmlwjDKLONUC0ZOoNrqd');
   $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
   if($_REQUEST["status"]=='approved')
 $message = "Admin has successfully approved your appointment.";
@@ -54,7 +54,7 @@ $message = "The scheduled appointment is completed.";
 
 
 
-$query_device = "select * from `dental2_user_device` where user_id=:user_id";
+$query_device = "select * from `dentalsb_user_device` where user_id=:user_id";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -91,7 +91,7 @@ $query_device = "select * from `dental2_user_device` where user_id=:user_id";
     }
   }
 
-  $ongoing_query ="Insert into `dental2_notification` set `user_id`=:user_id,notification_date=:notification_date,notification_type=:notification_type,message=:message,notification_attr=:status";
+  $ongoing_query ="Insert into `dentalsb_notification` set `user_id`=:user_id,notification_date=:notification_date,notification_type=:notification_type,message=:message,notification_attr=:status";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -108,7 +108,7 @@ $query_device = "select * from `dental2_user_device` where user_id=:user_id";
             ));
 
 }
- $query_device = "select * from `dental2_appointment` where id=:id";
+ $query_device = "select * from `dentalsb_appointment` where id=:id";
 
         $statement_device = $pdo->prepare($query_device);
 

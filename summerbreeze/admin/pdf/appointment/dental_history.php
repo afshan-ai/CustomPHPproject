@@ -27,7 +27,7 @@
 
 // Include the main TCPDF library (search for installation path).
 require_once('tcpdf_include.php');
-include("../../config.php");
+include("config.php");
 // create new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -73,7 +73,7 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 
 $pdf->AddPage();
-$query_device = "select * from `dental2_history_form` where appointment_id=:appointment_id";
+$query_device = "select * from `dental1_history_form` where appointment_id=:appointment_id";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -363,7 +363,7 @@ table{ border:none; }
                 <td width="250px">
                     <table width="100%">
                         <tr>';
-                        if($result->salutation=='Mr.')
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Mr.')
                         {
                         $html .='
                             <td width="40px">
@@ -383,7 +383,7 @@ table{ border:none; }
                                 </table>
                             </td>'; 
                         }
-                        if($result->salutation=='Mrs.')
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Mrs.')
                         {
                         $html .='
                             <td>
@@ -403,7 +403,7 @@ table{ border:none; }
                                 </table>
                             </td>'; 
                         }
-                            if($result->salutation=='Miss.')
+                            if(str_replace($salt,'',base64_decode($result->salutation))=='Miss.')
                         {
                         $html .='
                             <td>
@@ -423,7 +423,7 @@ table{ border:none; }
                                 </table>
                             </td>'; 
                         }
-                        if($result->salutation=='Ms.')
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Ms.')
                         {
                         $html .='
                             <td>
@@ -443,7 +443,7 @@ table{ border:none; }
                                 </table>
                             </td>'; 
                         }
-                        if($result->salutation=='Dr.')
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Dr.')
                         {
                         $html .='
                             <td>
@@ -471,7 +471,7 @@ table{ border:none; }
                 <td>
                     <label>Given Name:</label>
                     <table width="100%">
-                    <tr><th style="width:110px;">'.$result->fname.'</th></tr>
+                    <tr><th style="width:110px;">'.str_replace($salt,'',base64_decode($result->fname)).'</th></tr>
                     </table>
                 </td>
                 <td width="150px">
@@ -487,7 +487,7 @@ table{ border:none; }
                 <td>
                     <label>Surname:</label>
                     <table width="100%">
-                    <tr><th style="width:130px;">'.$result->lname.'</th></tr>
+                    <tr><th style="width:130px;">'.str_replace($salt,'',base64_decode($result->lname)).'</th></tr>
                     </table>
                 </td>
                 <td>
@@ -521,19 +521,19 @@ table{ border:none; }
                 <td>
                     <label>Home Phone:</label>
                     <table width="100%">
-                    <tr><th style="width:120px;">'.$result->home_phone.'</th></tr>
+                    <tr><th style="width:120px;">'.str_replace($salt,'',base64_decode($result->home_phone)).'</th></tr>
                     </table>
                 </td>
                 <td>
                     <label>Work Phone:</label>
                     <table width="100%">
-                    <tr><th style="width:120px;">'.$result->work_phone.'</th></tr>
+                    <tr><th style="width:120px;">'.str_replace($salt,'',base64_decode($result->work_phone)).'</th></tr>
                     </table>
                 </td>
                 <td>
                     <label>Date of Birth:</label>
                     <table width="100%">
-                    <tr><th style="width:130px;">'.$result->dob.'</th></tr>
+                    <tr><th style="width:130px;">'.str_replace($salt,'',base64_decode($result->dob)).'</th></tr>
                     </table>
                 </td>
                 </tr>
@@ -555,7 +555,7 @@ table{ border:none; }
                 <td width="260px">
                     <table width="100%">
                         <tr>';
-                        if($result->gender=='Male')
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Male')
                         {
                         $html .='
                             <td width="60px">
@@ -575,7 +575,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->gender=='Female')
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Female')
                         {
                         $html .='
                             <td>
@@ -595,7 +595,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->gender=='Adult')
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Adult')
                         {
                         $html .='
                             <td>
@@ -615,7 +615,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->gender=='Child')
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Child')
                         {
                         $html .='
                             <td>
@@ -666,7 +666,7 @@ table{ border:none; }
                 <td>
                     <label>eMail Address:</label>
                     <table width="100%">
-                    <tr><th style="width:210px;">'.$result->email.'</th></tr>
+                    <tr><th style="width:210px;">'.str_replace($salt,'',base64_decode($result->email)).'</th></tr>
                     </table>
                 </td>
                 <td>
@@ -744,13 +744,13 @@ table{ border:none; }
                 <td>
                     <label>Relation:</label>
                     <table width="100%">
-                    <tr><th style="width:120px;">'.$result->notify_relation.'</th></tr>
+                    <tr><th style="width:120px;">'.str_replace($salt,'',base64_decode($result->notify_relation)).'</th></tr>
                     </table>
                 </td>
                 <td>
                     <label>Phone:</label>
                     <table width="100%">
-                    <tr><th style="width:160px;">'.$result->notify_phone.'</th></tr>
+                    <tr><th style="width:160px;">'.str_replace($salt,'',base64_decode($result->notify_phone)).'</th></tr>
                     </table>
                 </td>
                 </tr>
@@ -799,7 +799,7 @@ table{ border:none; }
                 <td>
                     <label>Name:</label>
                     <table width="100%">
-                    <tr><th style="width:260px;">'.$result->notify_name.'</th></tr>
+                    <tr><th style="width:260px;">'.str_replace($salt,'',base64_decode($result->notify_name)).'</th></tr>
                     </table>
                 </td>
                 <td>
@@ -861,13 +861,13 @@ table{ border:none; }
                         <td>
                             <label>Subscriber:</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->primary_name.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_name)).'</th></tr>
                             </table>
                         </td>
                         <td>
                             <label>Date of Birth:</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->primary_dob.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_dob)).'</th></tr>
                             </table>
                         </td>
                         </tr>
@@ -879,7 +879,7 @@ table{ border:none; }
                             <table width="100%">
                             <tr>
                             ';
-                            if($result->primary_realtion=='self')
+                            if(str_replace($salt,'',base64_decode($result->primary_realtion))=='self')
                         {
                         $html .='
                             <td>
@@ -899,7 +899,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->primary_realtion=='spouse')
+                        if(str_replace($salt,'',base64_decode($result->primary_realtion))=='spouse')
                         {
                         $html .='
                             <td>
@@ -919,7 +919,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->primary_realtion=='other')
+                        if(str_replace($salt,'',base64_decode($result->primary_realtion))=='other')
                         {
                         $html .='
                             <td>
@@ -952,7 +952,7 @@ table{ border:none; }
                         <td>
                             <label>Subscriber I.D.</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->primary_id.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_id)).'</th></tr>
                             </table>
                         </td>
                         <td>
@@ -968,7 +968,7 @@ table{ border:none; }
                         <td>
                             <label>Insurance Co:</label>
                             <table width="100%">
-                            <tr><th style="width:160px;">'.$result->primary_company.'</th></tr>
+                            <tr><th style="width:160px;">'.str_replace($salt,'',base64_decode($result->primary_company)).'</th></tr>
                             </table>
                         </td>
                         
@@ -980,13 +980,13 @@ table{ border:none; }
                         <td>
                             <label>Policy/Plan #:</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->primary_policy.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_policy)).'</th></tr>
                             </table>
                         </td>
                         <td>
                             <label>Division/Sect. #:</label>
                             <table width="100%">
-                            <tr><th style="width:50px;">'.$result->primary_sector.'</th></tr>
+                            <tr><th style="width:50px;">'.str_replace($salt,'',base64_decode($result->primary_sector)).'</th></tr>
                             </table>
                         </td>
                         </tr>
@@ -999,7 +999,7 @@ table{ border:none; }
                             <table width="100%">
                             <tr>
                             ';
-                            if($result->primary_familiar=='yes')
+                            if(str_replace($salt,'',base64_decode($result->primary_familiar))=='yes')
                             {
                                 $html .='<td><u>Yes</u></td>';
                             }
@@ -1007,7 +1007,7 @@ table{ border:none; }
                             {
                                 $html .='<td>Yes</td>';
                             }
-                            if($result->primary_familiar=='no')
+                            if(str_replace($salt,'',base64_decode($result->primary_familiar))=='no')
                             {
                                 $html .='<td><u>No</u></td>';
                             }
@@ -1030,13 +1030,13 @@ table{ border:none; }
                         <td>
                             <label>Subscriber:</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->secondary_name.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_name)).'</th></tr>
                             </table>
                         </td>
                         <td>
                             <label>Date of Birth:</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->secondary_dob.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_dob)).'</th></tr>
                             </table>
                         </td>
                         </tr>
@@ -1048,7 +1048,7 @@ table{ border:none; }
                             <table width="100%">
                             <tr>
                              ';
-                            if($result->secondary_realtion=='self')
+                            if(str_replace($salt,'',base64_decode($result->secondary_realtion))=='self')
                         {
                         $html .='
                             <td>
@@ -1068,7 +1068,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->secondary_realtion=='spouse')
+                        if(str_replace($salt,'',base64_decode($result->secondary_realtion))=='spouse')
                         {
                         $html .='
                             <td>
@@ -1088,7 +1088,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->secondary_realtion=='other')
+                        if(str_replace($salt,'',base64_decode($result->secondary_realtion))=='other')
                         {
                         $html .='
                             <td>
@@ -1120,7 +1120,7 @@ table{ border:none; }
                         <td>
                             <label>Subscriber I.D.</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->secondary_id.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_id)).'</th></tr>
                             </table>
                         </td>
                         <td>
@@ -1136,7 +1136,7 @@ table{ border:none; }
                         <td>
                             <label>Insurance Co:</label>
                             <table width="100%">
-                            <tr><th style="width:160px;">'.$result->secondary_company.'</th></tr>
+                            <tr><th style="width:160px;">'.str_replace($salt,'',base64_decode($result->secondary_company)).'</th></tr>
                             </table>
                         </td>
                         
@@ -1148,13 +1148,13 @@ table{ border:none; }
                         <td>
                             <label>Policy/Plan #:</label>
                             <table width="100%">
-                            <tr><th style="width:60px;">'.$result->secondary_policy.'</th></tr>
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_policy)).'</th></tr>
                             </table>
                         </td>
                         <td>
                             <label>Division/Sect. #:</label>
                             <table width="100%">
-                            <tr><th style="width:50px;">'.$result->secondary_sector.'</th></tr>
+                            <tr><th style="width:50px;">'.str_replace($salt,'',base64_decode($result->secondary_sector)).'</th></tr>
                             </table>
                         </td>
                         </tr>
@@ -1166,7 +1166,7 @@ table{ border:none; }
                             <label>Are You Familiar with Your Plan Details?</label>
                             <table width="100%">
                             <tr>';
-                            if($result->secondary_familiar=='yes')
+                            if(str_replace($salt,'',base64_decode($result->secondary_familiar))=='yes')
                             {
                                 $html .='<td><u>Yes</u></td>';
                             }
@@ -1174,7 +1174,7 @@ table{ border:none; }
                             {
                                 $html .='<td>Yes</td>';
                             }
-                            if($result->secondary_familiar=='no')
+                            if(str_replace($salt,'',base64_decode($result->secondary_familiar))=='no')
                             {
                                 $html .='<td><u>No</u></td>';
                             }
@@ -1267,7 +1267,7 @@ table{ border:none; }
                     <td class="newCol2" width="100px">
                         <table width="100%">
                             <tr>';
-                            if($result->question1=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question1))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1289,7 +1289,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question1=='no')
+                        if(str_replace($salt,'',base64_decode($result->question1))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1332,7 +1332,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question2=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question2))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1354,7 +1354,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question2=='no')
+                        if(str_replace($salt,'',base64_decode($result->question2))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1376,7 +1376,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                            $html .='
+                           $html .='
                             </tr>
                         </table>
                     </td>
@@ -1390,7 +1390,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question3=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question3))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1412,7 +1412,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question3=='no')
+                        if(str_replace($salt,'',base64_decode($result->question3))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1453,7 +1453,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question4=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question4))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1475,7 +1475,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question4=='no')
+                        if(str_replace($salt,'',base64_decode($result->question4))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1511,7 +1511,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question5=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question5))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1533,7 +1533,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question5=='no')
+                        if(str_replace($salt,'',base64_decode($result->question5))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1574,7 +1574,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                            ';
-                            if($result->question6=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question6))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1596,7 +1596,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question6=='no')
+                        if(str_replace($salt,'',base64_decode($result->question6))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1637,7 +1637,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question7=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question7))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1659,7 +1659,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question7=='no')
+                        if(str_replace($salt,'',base64_decode($result->question7))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1727,7 +1727,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question8=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question8))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1749,7 +1749,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question8=='no')
+                        if(str_replace($salt,'',base64_decode($result->question8))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1785,7 +1785,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question9=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question9))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1807,7 +1807,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question9=='no')
+                        if(str_replace($salt,'',base64_decode($result->question9))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1843,7 +1843,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question10=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question10))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1865,7 +1865,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question10=='no')
+                        if(str_replace($salt,'',base64_decode($result->question10))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1901,7 +1901,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question11=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question11))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1923,7 +1923,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question11=='no')
+                        if(str_replace($salt,'',base64_decode($result->question11))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -1959,7 +1959,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question12=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question12))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -1981,7 +1981,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question12=='no')
+                        if(str_replace($salt,'',base64_decode($result->question12))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -2017,7 +2017,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question13=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question13))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -2039,7 +2039,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question13=='no')
+                        if(str_replace($salt,'',base64_decode($result->question13))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -2075,7 +2075,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question14=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question14))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -2097,7 +2097,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question14=='no')
+                        if(str_replace($salt,'',base64_decode($result->question14))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -2133,7 +2133,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                            ';
-                            if($result->question15=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question15))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -2155,7 +2155,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question15=='no')
+                        if(str_replace($salt,'',base64_decode($result->question15))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -2191,7 +2191,7 @@ table{ border:none; }
                         <table width="100%">
                             <tr>
                             ';
-                            if($result->question16=='yes')
+                            if(str_replace($salt,'',base64_decode($result->question16))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -2213,7 +2213,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->question16=='no')
+                        if(str_replace($salt,'',base64_decode($result->question16))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -2826,7 +2826,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                        ';
-                            if($result->questiond1=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond1))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -2848,7 +2848,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond1=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond1))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -2883,7 +2883,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                        ';
-                            if($result->questiond2=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond2))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -2905,7 +2905,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond2=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond2))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3042,7 +3042,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond3=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond3))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3064,7 +3064,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond3=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond3))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3153,7 +3153,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond4=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond4))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3175,7 +3175,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond4=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond4))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3211,7 +3211,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond5=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond5))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3233,7 +3233,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond5=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond5))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3269,7 +3269,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond6=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond6))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3291,7 +3291,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond6=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond6))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3327,7 +3327,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                        ';
-                            if($result->questiond7=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond7))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3349,7 +3349,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond7=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond7))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3385,7 +3385,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond8=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond8))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3407,7 +3407,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond8=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond8))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3443,7 +3443,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond9=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond9))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3465,7 +3465,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond9=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond9))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3555,7 +3555,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                        ';
-                            if($result->questiond10=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond10))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3577,7 +3577,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond10=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond10))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3614,7 +3614,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond11=='yes')
+                             if(str_replace($salt,'',base64_decode($result->questiond11))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3636,7 +3636,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond11=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond11))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3677,7 +3677,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond12=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond12))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3699,7 +3699,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond12=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond12))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3735,7 +3735,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond13=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond13))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3757,7 +3757,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond13=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond13))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3798,7 +3798,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                        ';
-                            if($result->questiond14=='yes')
+                           if(str_replace($salt,'',base64_decode($result->questiond14))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3820,7 +3820,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond14=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond14))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3842,7 +3842,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                            $html .='
+                           $html .='
                         </tr>
                     </table>
                 </td>
@@ -3861,7 +3861,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond15=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond15))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3883,7 +3883,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond15=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond15))=='no')
                         {
                         $html .='
                             <td class="newcolin2">
@@ -3925,7 +3925,7 @@ table{ border:none; }
                     <table width="100%">
                         <tr>
                         ';
-                            if($result->questiond16=='yes')
+                            if(str_replace($salt,'',base64_decode($result->questiond16))=='yes')
                         {
                         $html .='
                             <td class="newcolin1">
@@ -3947,7 +3947,7 @@ table{ border:none; }
                                 </table>
                             </td>';
                         }
-                        if($result->questiond16=='no')
+                        if(str_replace($salt,'',base64_decode($result->questiond16))=='no')
                         {
                         $html .='
                             <td class="newcolin2">

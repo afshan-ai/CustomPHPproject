@@ -8,7 +8,7 @@ include("includes/header.php");
 
 ?>
 <?php
-  $query_device = "select * from `dental2_appointment` where id=:id";
+  $query_device = "select * from `dentalsb_appointment` where id=:id";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -17,7 +17,7 @@ include("includes/header.php");
 
    // echo '<pre>';print_r($cat);echo '</pre>';
     
-      $ongoing_query1 = "SELECT * from dental2_user where id=:id";
+      $ongoing_query1 = "SELECT * from dentalsb_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -29,7 +29,7 @@ include("includes/header.php");
         $result1 = $statement1->fetch();
 
 
-      $ongoing_query1 = "SELECT * from dental2_provider where id=:id";
+      $ongoing_query1 = "SELECT * from dentalsb_provider where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -41,7 +41,7 @@ include("includes/header.php");
         $result2 = $statement1->fetch();
 
 
-          $ongoing_query1 = "SELECT * from dental2_appointment_type where id=:id";
+          $ongoing_query1 = "SELECT * from dentalsb_appointment_type where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -52,7 +52,7 @@ include("includes/header.php");
             ));
         $result3 = $statement1->fetch();
 
-         $ongoing_query1 = "SELECT * from dental2_checkin_status where appointment_id=:id";
+         $ongoing_query1 = "SELECT * from dentalsb_checkin_status where appointment_id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 

@@ -5,7 +5,7 @@
 include("config.php");
 include("includes/header.php");
 
-$query_device = "select * from `dental2_dentalxchange` where id=:id";
+$query_device = "select * from `dentalsb_dentalxchange` where id=:id";
 
         $statement_device = $pdo->prepare($query_device);
 

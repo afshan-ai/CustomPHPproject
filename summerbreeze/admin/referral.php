@@ -38,7 +38,7 @@ include("includes/header.php");
   <td align="left" valign="top"><strong>Action</strong> </td>
   </tr>
  <?php
-  $query_device = "select * from `dental2_referral` order by id desc";
+  $query_device = "select * from `dentalsb_referral` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -48,7 +48,7 @@ include("includes/header.php");
     foreach($result_devices as $cat)
     {
       
-      $query_device = "select * from `dental2_user` where id=:id";
+      $query_device = "select * from `dentalsb_user` where id=:id";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -62,7 +62,7 @@ include("includes/header.php");
   <td align="left" valign="top" ><?php echo $cat->name; ?></td>
     <td align="left" valign="top" ><?php echo $cat->email; ?></td>
   <td align="left" valign="top" ><?php echo $cat->message; ?></td>
-    <td align="left" valign="top" ><?php echo $result1->fullname; ?></td>
+    <td align="left" valign="top" ><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname))); ?></td>
   
   
     <td align="left" valign="top">
@@ -80,7 +80,7 @@ include("includes/header.php");
 <?php
 if(isset($_REQUEST['id']))
 {
-  $ongoing_query1 = "Delete from dental2_referral where id=:id";
+  $ongoing_query1 = "Delete from dentalsb_referral where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 

@@ -7,7 +7,7 @@ include("includes/header.php");
 
 
 <?php
-$ongoing_query = "SELECT * from dental2_appointment where status='In Progress' or status='approved'";
+$ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' or status='approved'";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -19,7 +19,7 @@ $ongoing_query = "SELECT * from dental2_appointment where status='In Progress' o
             ));
         
          $num_rows=$statement->rowCount();
-        $ongoing_query = "SELECT * from dental2_appointment where status='completed'";
+        $ongoing_query = "SELECT * from dentalsb_appointment where status='completed'";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -32,7 +32,7 @@ $ongoing_query = "SELECT * from dental2_appointment where status='In Progress' o
         
          $num_rows1=$statement->rowCount();
 
-          $ongoing_query = "SELECT * from dental2_review";
+          $ongoing_query = "SELECT * from dentalsb_review";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -219,7 +219,7 @@ $ongoing_query = "SELECT * from dental2_appointment where status='In Progress' o
             
             <ul class="patinet">
                 <?php
-                    $query_device = "select * from `dental2_appointment` where status='approved' order by id desc";
+                    $query_device = "select * from `dentalsb_appointment` where status='approved' order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -229,7 +229,7 @@ $ongoing_query = "SELECT * from dental2_appointment where status='In Progress' o
  foreach($appointments as $appointment)
  {
 
-    $ongoing_query1 = "SELECT * from dental2_user where id=:id";
+    $ongoing_query1 = "SELECT * from dentalsb_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -258,10 +258,10 @@ $ongoing_query = "SELECT * from dental2_appointment where status='In Progress' o
                         ?>
                         
                         <div class="text">
-                            <h4><?php echo $result1->fullname;?></h4>
+                            <h4><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?></h4>
                             <span class="appType">Emergency Appointment</span>
                         </div>
-                        <a href="tel:<?php echo $result1->phone;?>" class="call"><i class="fa fa-phone"></i></a>
+                        <a href="tel:<?php echo str_replace($salt,'',base64_decode($result1->phone));?>" class="call"><i class="fa fa-phone"></i></a>
                     </div>
                     <div class="bottom">
                         <span class="time"><i class="fa fa-clock-o"></i> <?php echo $appointment->scheduled_time;?></span>

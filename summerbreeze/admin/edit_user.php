@@ -4,20 +4,21 @@
 */
 include("config.php");
 include("includes/header.php");
+ 
 if(isset($_REQUEST['sub']))
 {
  
 	
-        $ongoing_query = "update `dental2_user` set `fullname`=:fullname,email=:email,phone=:phone,total_coverage=:total_coverage where id=:id";
+        $ongoing_query = "update `dentalsb_user` set `fullname`=:fullname,email=:email,phone=:phone,total_coverage=:total_coverage where id=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);
 
         $statement->execute(array(
          
-           "fullname"=>$_REQUEST["fullname"],
-           "email"=>$_REQUEST["email"],
-            "phone"=>$_REQUEST["phone"],
+           "fullname"=>base64_encode($salt.$_REQUEST["fullname"]),
+           "email"=>base64_encode($salt.$_REQUEST["email"]),
+            "phone"=>base64_encode($salt.$_REQUEST["phone"]),
             "total_coverage"=>$_REQUEST["total_coverage"],
             
             "id"=>$_REQUEST['id']
@@ -28,7 +29,7 @@ if(isset($_REQUEST['sub']))
 
 ?>
 <?php
- $query_device = "select * from `dental2_user` where id=:id order by id desc";
+ $query_device = "select * from `dentalsb_user` where id=:id order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -43,14 +44,14 @@ if(isset($_REQUEST['sub']))
 <input type="hidden" name="id" value="<?php echo $_REQUEST["id"]; ?>"  />
 <div class="shedule-form">
   <p><label><span>*</span>Name :</label>
-  <input type="text" name="fullname" value="<?php echo $provider->fullname;?>" required />
+  <input type="text" name="fullname" value="<?php echo str_replace($salt,'',base64_decode($provider->fullname));?>" required />
   </p>
   
   <p><label><span>*</span>Email :</label>
-  <input type="text" name="email" value="<?php echo $provider->email;?>" required />
+  <input type="text" name="email" value="<?php echo str_replace($salt,'',base64_decode($provider->email));?>" required />
   </p>
   <p><label><span>*</span>Phone :</label>
-  <input type="text" name="phone" value="<?php echo $provider->phone;?>" required />
+  <input type="text" name="phone" value="<?php echo str_replace($salt,'',base64_decode($provider->phone));?>" required />
   </p>
   <p><label>Total Coverage :</label>
   <input type="text" name="total_coverage" value="<?php echo $provider->total_coverage;?>" />

@@ -11,7 +11,7 @@ if(isset($_REQUEST['sub']))
 	$con=	$folder.$time.$_FILES['image']['name'];
 	$file = $time.$_FILES['image']['name'];
 	move_uploaded_file($_FILES['image']['tmp_name'], $con);
-	$ongoing_query = "Insert into `dental2_provider` set `title`=:title,bio=:bio,cat_id=:cat_id,page=:page,image=:image";
+	$ongoing_query = "Insert into `dentalsb_provider` set `title`=:title,bio=:bio,cat_id=:cat_id,page=:page,image=:image";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -44,7 +44,7 @@ if(isset($_REQUEST['sub']))
   <p><label><span>*</span>Designation :</label>
   	<select name="cat_id">
   	<?php
-  	 $query_device = "select * from `dental2_category`";
+  	 $query_device = "select * from `dentalsb_category`";
 
         $statement_device = $pdo->prepare($query_device);
 

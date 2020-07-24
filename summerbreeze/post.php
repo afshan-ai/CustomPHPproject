@@ -8,8 +8,15 @@ error_reporting(E_ALL); */
 //ob_start();
 
 include "config.php";
-$site = 'http://developer.marketingplatform.ca/dentalapp/summerbreeze/admin/';
-$site1 = 'http://developer.marketingplatform.ca/dentalapp/summerbreeze/image/';
+$uri = str_replace('post.php','',$_SERVER['REQUEST_URI']);
+$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$url = $protocol . $_SERVER['HTTP_HOST'] . $uri;
+
+
+$site = $url.'admin/';
+$site1 = $url.'image/';
+
+
 
 //include "config_mysql.php";
 
@@ -19,7 +26,7 @@ $event_encoded = json_decode($jsonInput, true);*/
 
 $event_encoded = json_decode(file_get_contents('php://input'),true);
 
-$key ='AIzaSyCiqx2ipC9RPdq6NsuW5D5uaNuE8C07eRs';
+
 $ip_address=$_SERVER['REMOTE_ADDR'];
 $geopluginURL='http://www.geoplugin.net/php.gp?ip='.$ip_address;
 $addrDetailsArr = unserialize(file_get_contents($geopluginURL));
@@ -42,12 +49,27 @@ $current_date = date("Y-m-d H:i:s");
 
 if($event_encoded["actiontype"] == "change_password")
 {
-     $sel_user_query1 = "SELECT * FROM dental2_user WHERE id = :id AND password=:password";
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+     $sel_user_query1 = "SELECT * FROM dentalsb_user WHERE id = :id AND password=:password";
 
       $statement1 = $pdo->prepare($sel_user_query1);
      $statement1->execute(array(
           "id" => $event_encoded["user_id"],
-          "password"=> md5($event_encoded["old_password"])
+          "password"=> md5($salt.$event_encoded["old_password"])
           ));
       
     $num_rows=$statement1->rowCount();
@@ -57,12 +79,12 @@ if($event_encoded["actiontype"] == "change_password")
     
     if($num_rows>0){
 
-      $sel_user_query1 = "Update dental2_user set password=:password WHERE id = :id";
+      $sel_user_query1 = "Update dentalsb_user set password=:password WHERE id = :id";
 
       $statement1 = $pdo->prepare($sel_user_query1);
      $statement1->execute(array(
           "id" => $event_encoded["user_id"],
-          "password"=> md5($event_encoded["new_password"])
+          "password"=> md5($salt.$event_encoded["new_password"])
           ));
       
               $parent["status"]="yes";
@@ -71,96 +93,32 @@ if($event_encoded["actiontype"] == "change_password")
             {
               $parent["status"]="no";
             }
+          }
+          else
+          {
+            $parent['token']='no';
+          }
         
 }
-else if($event_encoded["actiontype"] == "get_offer") {
-    
-    
-    
-     $ongoing_query = "SELECT * from dental2_offer order by id desc";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute(array(
-         
-           
-           
-            ));
-        
-         $num_rows=$statement->rowCount();
-
-    if($num_rows > 0)
-    {
-        $parent['status']='yes';
-      
-        $results = $statement->fetchAll();
-        $i=0;
-         foreach($results as $result)
-        {
-         
-
-       
-          $meal[$i]['title']=$result->title;
-          $meal[$i]['description']=$result->description;
-         $meal[$i]['code']=$result->code;
-          $meal[$i]['id']=$result->id;
-        
-          $i++;
-        }
-    }
-    else
-    {
-       $parent['status']='no';
-    }
-        
-}
-else if($event_encoded["actiontype"] == "reminder") {
-
-   
 
 
-
-  $ongoing_query = "SELECT * from dental2_notification where notification_type=:notification_type";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute(array(
-         
-           "notification_type"=>$event_encoded["notification_type"]
-           
-            ));
-        
-         $num_rows=$statement->rowCount();
-
-    if($num_rows > 0)
-    {
-        $parent['status']='no';
-      
-        
-    }
-    else
-    {
-       $parent['status']='yes';
-        $ongoing_query ="Insert into `dental2_notification` set `user_id`=:user_id,notification_date=:notification_date,notification_type=:notification_type,message=:message,notification_attr=:status";
-   
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute(array(
-         
-           "message"=>'You have an appointment tomorrow',
-            "notification_date"=>date('Y-m-d h:i:sa'),
-           "status"=>'upcoming',
-           "user_id"=>$event_encoded["user_id"],
-"notification_type"=>$event_encoded["notification_type"]
-           
-           
-            ));
-    }
-  }
 else if($event_encoded["actiontype"] == "settings") {
-    
-    $ongoing_query = "Update `dental2_user` set `profile_pic`=:profile_pic,`total_coverage`=:total_coverage,`phone`=:phone,`fullname`=:fullname where  `id`=:id";
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+    $parent['token']='yes';
+    $ongoing_query = "Update `dentalsb_user` set `profile_pic`=:profile_pic,`total_coverage`=:total_coverage,`phone`=:phone,`fullname`=:fullname where  `id`=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -169,8 +127,8 @@ else if($event_encoded["actiontype"] == "settings") {
          
       "profile_pic" => $event_encoded["profile_pic"],
       "total_coverage" => $event_encoded["total_coverage"],
-      "phone" => $event_encoded["phone"],
-       "fullname" => $event_encoded["fullname"],
+      "phone" => base64_encode($salt.$event_encoded["phone"]),
+       "fullname" => base64_encode($salt.$event_encoded["fullname"]),
             "id" => $event_encoded["user_id"]
             ));
          
@@ -181,11 +139,30 @@ else if($event_encoded["actiontype"] == "settings") {
           $meal['id'] = $event_encoded["user_id"];
             
             $parent["status"]="yes";
+          }
+          else
+          {
+            $parenr['token']='no';
+          }
 }
 
  else if($event_encoded["actiontype"] == "get_review") {
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-  $ongoing_query = "SELECT * from dental2_review where provider_id=:provider_id and approve=1 order by id desc";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+$parent['token']='yes';
+  $ongoing_query = "SELECT * from dentalsb_review where provider_id=:provider_id and approve=1 order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -201,7 +178,7 @@ else if($event_encoded["actiontype"] == "settings") {
     {
         $parent['status']='yes';
 
-      $ongoing_query1 = "SELECT avg(`rating`) as `rating` from dental2_review where  provider_id=:provider_id and approve=1";
+      $ongoing_query1 = "SELECT avg(`rating`) as `rating` from dentalsb_review where  provider_id=:provider_id and approve=1";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -214,7 +191,7 @@ else if($event_encoded["actiontype"] == "settings") {
 $parent['avg_rating'] = $result2->rating;
 $parent['rating_count'] = $num_rows;
 
-$ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id and rating>1 and rating<2 and approve=1";
+$ongoing_query1 = "SELECT * from dentalsb_review where  provider_id=:provider_id and rating>1 and rating<2 and approve=1";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -225,7 +202,7 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
             ));
         $rating_count1=$statement1->rowCount();
         $parent['rating_count1'] = $rating_count1;
-        $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id and rating>2 and rating<3 and approve=1";
+        $ongoing_query1 = "SELECT * from dentalsb_review where  provider_id=:provider_id and rating>2 and rating<3 and approve=1";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -236,7 +213,7 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
             ));
         $rating_count1=$statement1->rowCount();
         $parent['rating_count2'] = $rating_count1;
-        $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id and rating>3 and rating<4 and approve=1";
+        $ongoing_query1 = "SELECT * from dentalsb_review where  provider_id=:provider_id and rating>3 and rating<4 and approve=1";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -247,7 +224,7 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
             ));
         $rating_count1=$statement1->rowCount();
         $parent['rating_count3'] = $rating_count1;
-        $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id and rating>4 and rating<5 and approve=1";
+        $ongoing_query1 = "SELECT * from dentalsb_review where  provider_id=:provider_id and rating>4 and rating<5 and approve=1";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -258,7 +235,7 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
             ));
         $rating_count1=$statement1->rowCount();
         $parent['rating_count4'] = $rating_count1;
-        $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id and rating=5 and approve=1";
+        $ongoing_query1 = "SELECT * from dentalsb_review where  provider_id=:provider_id and rating=5 and approve=1";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -274,7 +251,7 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
          foreach($results as $result)
         {
           
-          $ongoing_query1 = "SELECT * from dental2_user where  id=:id order by id";
+          $ongoing_query1 = "SELECT * from dentalsb_user where  id=:id order by id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -287,7 +264,7 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
           
           $meal[$i]['review']=$result->review;
           $meal[$i]['rating']=$result->rating;
-          $meal[$i]['name']=$result1->fullname;
+          $meal[$i]['name']=str_replace($salt,'',base64_decode($result1->fullname));
           $meal[$i]['id']=$result->id;
          
         
@@ -299,9 +276,28 @@ $ongoing_query1 = "SELECT * from dental2_review where  provider_id=:provider_id 
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
 else if($event_encoded["actiontype"] == "add_review") {
-	
-	$ongoing_query = "SELECT * from dental2_review where provider_id=:provider_id and user_id=:user_id";
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+	$parent['token']='yes';
+	$ongoing_query = "SELECT * from dentalsb_review where provider_id=:provider_id and user_id=:user_id";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -321,7 +317,7 @@ else if($event_encoded["actiontype"] == "add_review") {
     }
     else
     {
-	  $ongoing_query = "Insert into `dental2_review` set `provider_id`=:provider_id,`rating`=:rating,review=:review,user_id=:user_id";
+	  $ongoing_query = "Insert into `dentalsb_review` set `provider_id`=:provider_id,`rating`=:rating,review=:review,user_id=:user_id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -339,10 +335,29 @@ else if($event_encoded["actiontype"] == "add_review") {
    $parent['status'] = "yes";
 }
 }
+else
+{
+  $parent['token']='no';
+}
+}
 else if($event_encoded["actiontype"] == "add_referral") {
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
   
-  
-    $ongoing_query = "Insert into `dental2_referral` set `email`=:email,`message`=:message,name=:name,user_id=:user_id";
+  $parent['token']='yes';
+    $ongoing_query = "Insert into `dentalsb_referral` set `email`=:email,`message`=:message,name=:name,user_id=:user_id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -389,12 +404,17 @@ $meal['name'] = $event_encoded["name"];
 
 
    $parent['status'] = "yes";
+ }
+ else
+ {
+  $parent['token']='no';
+ }
 
 }
 else if($event_encoded["actiontype"] == "questionnaire") {
 	$question_id = implode(',',json_decode($event_encoded["question_id"]));
 	$answer = implode(',',json_decode($event_encoded["answer_id"]));
-	  $ongoing_query = "Insert into `dental2_questionnaire` set `cat_id`=:cat_id,`question_id`=:question_id,answer=:answer,user_id=:user_id";
+	  $ongoing_query = "Insert into `dentalsb_questionnaire` set `cat_id`=:cat_id,`question_id`=:question_id,answer=:answer,user_id=:user_id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -412,8 +432,22 @@ else if($event_encoded["actiontype"] == "questionnaire") {
    $parent['status'] = "yes";
 }
 else if($event_encoded["actiontype"] == "patient_screening_form") {
+$ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-    $ongoing_query = "Insert into `dental2_patient_screening_form` set `name`=:name,`age`=:age,email=:email,phone=:phone,other=:other,staff=:staff,appointment_id=:appointment_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,answered=:answered";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+    $ongoing_query = "Insert into `dentalsb_patient_screening_form` set `name`=:name,`age`=:age,email=:email,phone=:phone,other=:other,staff=:staff,appointment_id=:appointment_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,answered=:answered";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -421,25 +455,25 @@ else if($event_encoded["actiontype"] == "patient_screening_form") {
         $statement->execute(array(
          
            
-            "name" => $event_encoded["name"],
-            "age" => $event_encoded["age"],
-            "email" => $event_encoded["email"],
+            "name" => base64_encode($salt.$event_encoded["name"]),
+            "age" => base64_encode($salt.$event_encoded["age"]),
+            "email" => base64_encode($salt.$event_encoded["email"]),
             "appointment_id" => $event_encoded["appointment_id"],
-            "phone" => $event_encoded["phone"],
-            "other" => $event_encoded["other"],
-            "staff" => $event_encoded["staff"],
-            "question1" => $event_encoded["question1"],
-            "question2" => $event_encoded["question2"],
-            "question3" => $event_encoded["question3"],
-            "question4" => $event_encoded["question4"],
-            "question5" => $event_encoded["question5"],
-            "question6" => $event_encoded["question6"],
+            "phone" => base64_encode($salt.$event_encoded["phone"]),
+            "other" => base64_encode($salt.$event_encoded["other"]),
+            "staff" => base64_encode($salt.$event_encoded["staff"]),
+            "question1" => base64_encode($salt.$event_encoded["question1"]),
+            "question2" => base64_encode($salt.$event_encoded["question2"]),
+            "question3" => base64_encode($salt.$event_encoded["question3"]),
+            "question4" => base64_encode($salt.$event_encoded["question4"]),
+            "question5" => base64_encode($salt.$event_encoded["question5"]),
+            "question6" => base64_encode($salt.$event_encoded["question6"]),
 
-            "question7" => $event_encoded["question7"],
-            "question8" => $event_encoded["question8"],
+            "question7" => base64_encode($salt.$event_encoded["question7"]),
+            "question8" => base64_encode($salt.$event_encoded["question8"]),
             
 
-            "answered" => $event_encoded["answered"]
+            "answered" => base64_encode($salt.$event_encoded["answered"])
             ));  
             
                 
@@ -463,10 +497,29 @@ else if($event_encoded["actiontype"] == "patient_screening_form") {
         
          
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
   }
   else if($event_encoded["actiontype"] == "patient_acknowledge_form") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-    $ongoing_query = "Insert into `dental2_patient_acknowledge_form` set user_id=:user_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,question9=:question9,question10=:question10,question11=:question11";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+$parent['token']='yes';
+    $ongoing_query = "Insert into `dentalsb_patient_acknowledge_form` set user_id=:user_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,question9=:question9,question10=:question10,question11=:question11";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -475,20 +528,20 @@ else if($event_encoded["actiontype"] == "patient_screening_form") {
          
            
           
-            "user_id" => $event_encoded["user_id"],
+            "user_id" => $event_encoded["appointment_id"],
             
-            "question1" => $event_encoded["question1"],
-            "question2" => $event_encoded["question2"],
-            "question3" => $event_encoded["question3"],
-            "question4" => $event_encoded["question4"],
-            "question5" => $event_encoded["question5"],
-            "question6" => $event_encoded["question6"],
+            "question1" => base64_encode($salt.$event_encoded["question1"]),
+            "question2" => base64_encode($salt.$event_encoded["question2"]),
+            "question3" => base64_encode($salt.$event_encoded["question3"]),
+            "question4" => base64_encode($salt.$event_encoded["question4"]),
+            "question5" => base64_encode($salt.$event_encoded["question5"]),
+            "question6" => base64_encode($salt.$event_encoded["question6"]),
 
-            "question7" => $event_encoded["question7"],
-            "question8" => $event_encoded["question8"],
-            "question9" => $event_encoded["question9"],
-            "question10" => $event_encoded["question10"],
-            "question11" => $event_encoded["question11"]
+            "question7" => base64_encode($salt.$event_encoded["question7"]),
+            "question8" => base64_encode($salt.$event_encoded["question8"]),
+            "question9" => base64_encode($salt.$event_encoded["question9"]),
+            "question10" => base64_encode($salt.$event_encoded["question10"]),
+            "question11" => base64_encode($salt.$event_encoded["question11"])
             ));  
             
                 
@@ -508,10 +561,30 @@ else if($event_encoded["actiontype"] == "patient_screening_form") {
         
          
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
   }
 else if($event_encoded["actiontype"] == "dental_history_form") {
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-    $ongoing_query = "Insert into `dental2_history_form` set appointment_id=:appointment_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,question9=:question9,question10=:question10,question11=:question11,question12=:question12,question13=:question13,question14=:question14,question15=:question15,question16=:question16,questiond1=:questiond1,questiond2=:questiond2,questiond3=:questiond3,questiond4=:questiond4,questiond5=:questiond5,questiond6=:questiond6,questiond7=:questiond7,questiond8=:questiond8,questiond9=:questiond9,questiond10=:questiond10,questiond11=:questiond11,questiond12=:questiond12,questiond13=:questiond13,questiond14=:questiond14,questiond15=:questiond15,questiond16=:questiond16,questiond17=:questiond17,questiond18=:questiond18,salutation=:salutation,fname=:fname,lname=:lname,home_phone=:home_phone,work_phone=:work_phone,email=:email,dob=:dob,gender=:gender,notify=:notify,notify_name=:notify_name,notify_email=:notify_email,notify_phone=:notify_phone,notify_relation=:notify_relation,primary_name=:primary_name,primary_dob=:primary_dob,primary_realtion=:primary_realtion,primary_other=:primary_other,primary_id=:primary_id,primary_company=:primary_company,primary_policy=:primary_policy,primary_sector=:primary_sector,primary_familiar=:primary_familiar,secondary_name=:secondary_name,secondary_dob=:secondary_dob,secondary_realtion=:secondary_realtion,secondary_other=:secondary_other,secondary_id=:secondary_id,secondary_company=:secondary_company,secondary_policy=:secondary_policy,secondary_sector=:secondary_sector,secondary_familiar=:secondary_familiar,initial=:initial,dt=:dt";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+
+    $ongoing_query = "Insert into `dentalsb_history_form` set appointment_id=:appointment_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,question9=:question9,question10=:question10,question11=:question11,question12=:question12,question13=:question13,question14=:question14,question15=:question15,question16=:question16,questiond1=:questiond1,questiond2=:questiond2,questiond3=:questiond3,questiond4=:questiond4,questiond5=:questiond5,questiond6=:questiond6,questiond7=:questiond7,questiond8=:questiond8,questiond9=:questiond9,questiond10=:questiond10,questiond11=:questiond11,questiond12=:questiond12,questiond13=:questiond13,questiond14=:questiond14,questiond15=:questiond15,questiond16=:questiond16,questiond17=:questiond17,questiond18=:questiond18,salutation=:salutation,fname=:fname,lname=:lname,home_phone=:home_phone,work_phone=:work_phone,email=:email,dob=:dob,gender=:gender,notify=:notify,notify_name=:notify_name,notify_email=:notify_email,notify_phone=:notify_phone,notify_relation=:notify_relation,primary_name=:primary_name,primary_dob=:primary_dob,primary_realtion=:primary_realtion,primary_other=:primary_other,primary_id=:primary_id,primary_company=:primary_company,primary_policy=:primary_policy,primary_sector=:primary_sector,primary_familiar=:primary_familiar,secondary_name=:secondary_name,secondary_dob=:secondary_dob,secondary_realtion=:secondary_realtion,secondary_other=:secondary_other,secondary_id=:secondary_id,secondary_company=:secondary_company,secondary_policy=:secondary_policy,secondary_sector=:secondary_sector,secondary_familiar=:secondary_familiar,initial=:initial,dt=:dt";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -522,75 +595,75 @@ else if($event_encoded["actiontype"] == "dental_history_form") {
           
             "appointment_id" => $event_encoded["appointment_id"],
             
-            "question1" => $event_encoded["question1"],
-            "question2" => $event_encoded["question2"],
-            "question3" => $event_encoded["question3"],
-            "question4" => $event_encoded["question4"],
-            "question5" => $event_encoded["question5"],
-            "question6" => $event_encoded["question6"],
+            "question1" => base64_encode($salt.$event_encoded["question1"]),
+            "question2" => base64_encode($salt.$event_encoded["question2"]),
+            "question3" => base64_encode($salt.$event_encoded["question3"]),
+            "question4" => base64_encode($salt.$event_encoded["question4"]),
+            "question5" => base64_encode($salt.$event_encoded["question5"]),
+            "question6" => base64_encode($salt.$event_encoded["question6"]),
 
-            "question7" => $event_encoded["question7"],
-            "question8" => $event_encoded["question8"],
-            "question9" => $event_encoded["question9"],
-            "question10" => $event_encoded["question10"],
-             "question11" => $event_encoded["question11"],
-            "question12" => $event_encoded["question12"],
-            "question13" => $event_encoded["question13"],
-            "question14" => $event_encoded["question14"],
-            "question15" => $event_encoded["question15"],
-            "question16" => $event_encoded["question16"],
+            "question7" => base64_encode($salt.$event_encoded["question7"]),
+            "question8" => base64_encode($salt.$event_encoded["question8"]),
+            "question9" => base64_encode($salt.$event_encoded["question9"]),
+            "question10" => base64_encode($salt.$event_encoded["question10"]),
+             "question11" => base64_encode($salt.$event_encoded["question11"]),
+            "question12" => base64_encode($salt.$event_encoded["question12"]),
+            "question13" => base64_encode($salt.$event_encoded["question13"]),
+            "question14" => base64_encode($salt.$event_encoded["question14"]),
+            "question15" => base64_encode($salt.$event_encoded["question15"]),
+            "question16" => base64_encode($salt.$event_encoded["question16"]),
 
-            "questiond1" => $event_encoded["questiond1"],
-            "questiond2" => $event_encoded["questiond2"],
-            "questiond3" => $event_encoded["questiond3"],
-            "questiond4" => $event_encoded["questiond4"],
-            "questiond5" => $event_encoded["questiond5"],
-            "questiond6" => $event_encoded["questiond6"],
-            "questiond7" => $event_encoded["questiond7"],
-            "questiond8" => $event_encoded["questiond8"],
-            "questiond9" => $event_encoded["questiond9"],
-            "questiond10" => $event_encoded["questiond10"],
-            "questiond11" => $event_encoded["questiond11"],
-            "questiond12" => $event_encoded["questiond12"],
-            "questiond13" => $event_encoded["questiond13"],
-            "questiond14" => $event_encoded["questiond14"],
-            "questiond15" => $event_encoded["questiond15"],
-            "questiond16" => $event_encoded["questiond16"],
-            "questiond17" => $event_encoded["questiond17"],
-            "questiond18" => $event_encoded["questiond18"],
-            "salutation" => $event_encoded["salutation"],
-            "fname" => $event_encoded["fname"],
-            "lname" => $event_encoded["lname"],
-            "home_phone" => $event_encoded["home_phone"],
-            "work_phone" => $event_encoded["work_phone"],
-            "email" => $event_encoded["email"],
-            "dob" => $event_encoded["dob"],
-            "gender" => $event_encoded["gender"],
-            "notify" => $event_encoded["notify"],
-            "notify_name" => $event_encoded["notify_name"],
-            "notify_email" => $event_encoded["notify_email"],
-            "notify_phone" => $event_encoded["notify_phone"],
-            "notify_relation" => $event_encoded["notify_relation"],
-            "primary_name" => $event_encoded["primary_name"],
-            "primary_dob" => $event_encoded["primary_dob"],
-            "primary_realtion" => $event_encoded["primary_realtion"],
-            "primary_other" => $event_encoded["primary_other"],
-            "primary_id" => $event_encoded["primary_id"],
-            "primary_company" => $event_encoded["primary_company"],
-            "primary_policy" => $event_encoded["primary_policy"],
-            "primary_sector" => $event_encoded["primary_sector"],
-            "primary_familiar" => $event_encoded["primary_familiar"],
-            "secondary_name" => $event_encoded["secondary_name"],
-            "secondary_dob" => $event_encoded["secondary_dob"],
-            "secondary_realtion" => $event_encoded["secondary_realtion"],
-            "secondary_other" => $event_encoded["secondary_other"],
-            "secondary_id" => $event_encoded["secondary_id"],
-            "secondary_policy" => $event_encoded["secondary_policy"],
-            "secondary_sector" => $event_encoded["secondary_sector"],
-            "secondary_familiar" => $event_encoded["secondary_familiar"],
-            "secondary_company" => $event_encoded["secondary_company"],
-            "initial" => $event_encoded["initial"],
-            "dt" => $event_encoded["dt"]
+            "questiond1" => base64_encode($salt.$event_encoded["questiond1"]),
+            "questiond2" => base64_encode($salt.$event_encoded["questiond2"]),
+            "questiond3" => base64_encode($salt.$event_encoded["questiond3"]),
+            "questiond4" => base64_encode($salt.$event_encoded["questiond4"]),
+            "questiond5" => base64_encode($salt.$event_encoded["questiond5"]),
+            "questiond6" => base64_encode($salt.$event_encoded["questiond6"]),
+            "questiond7" => base64_encode($salt.$event_encoded["questiond7"]),
+            "questiond8" => base64_encode($salt.$event_encoded["questiond8"]),
+            "questiond9" => base64_encode($salt.$event_encoded["questiond9"]),
+            "questiond10" => base64_encode($salt.$event_encoded["questiond10"]),
+            "questiond11" => base64_encode($salt.$event_encoded["questiond11"]),
+            "questiond12" => base64_encode($salt.$event_encoded["questiond12"]),
+            "questiond13" => base64_encode($salt.$event_encoded["questiond13"]),
+            "questiond14" => base64_encode($salt.$event_encoded["questiond14"]),
+            "questiond15" => base64_encode($salt.$event_encoded["questiond15"]),
+            "questiond16" => base64_encode($salt.$event_encoded["questiond16"]),
+            "questiond17" => base64_encode($salt.$event_encoded["questiond17"]),
+            "questiond18" => base64_encode($salt.$event_encoded["questiond18"]),
+            "salutation" => base64_encode($salt.$event_encoded["salutation"]),
+            "fname" => base64_encode($salt.$event_encoded["fname"]),
+            "lname" => base64_encode($salt.$event_encoded["lname"]),
+            "home_phone" => base64_encode($salt.$event_encoded["home_phone"]),
+            "work_phone" => base64_encode($salt.$event_encoded["work_phone"]),
+            "email" => base64_encode($salt.$event_encoded["email"]),
+            "dob" => base64_encode($salt.$event_encoded["dob"]),
+            "gender" => base64_encode($salt.$event_encoded["gender"]),
+            "notify" => base64_encode($salt.$event_encoded["notify"]),
+            "notify_name" => base64_encode($salt.$event_encoded["notify_name"]),
+            "notify_email" => base64_encode($salt.$event_encoded["notify_email"]),
+            "notify_phone" => base64_encode($salt.$event_encoded["notify_phone"]),
+            "notify_relation" => base64_encode($salt.$event_encoded["notify_relation"]),
+            "primary_name" => base64_encode($salt.$event_encoded["primary_name"]),
+            "primary_dob" => base64_encode($salt.$event_encoded["primary_dob"]),
+            "primary_realtion" => base64_encode($salt.$event_encoded["primary_realtion"]),
+            "primary_other" => base64_encode($salt.$event_encoded["primary_other"]),
+            "primary_id" => base64_encode($salt.$event_encoded["primary_id"]),
+            "primary_company" => base64_encode($salt.$event_encoded["primary_company"]),
+            "primary_policy" => base64_encode($salt.$event_encoded["primary_policy"]),
+            "primary_sector" => base64_encode($salt.$event_encoded["primary_sector"]),
+            "primary_familiar" => base64_encode($salt.$event_encoded["primary_familiar"]),
+            "secondary_name" => base64_encode($salt.$event_encoded["secondary_name"]),
+            "secondary_dob" => base64_encode($salt.$event_encoded["secondary_dob"]),
+            "secondary_realtion" => base64_encode($salt.$event_encoded["secondary_realtion"]),
+            "secondary_other" => base64_encode($salt.$event_encoded["secondary_other"]),
+            "secondary_id" => base64_encode($salt.$event_encoded["secondary_id"]),
+            "secondary_policy" => base64_encode($salt.$event_encoded["secondary_policy"]),
+            "secondary_sector" => base64_encode($salt.$event_encoded["secondary_sector"]),
+            "secondary_familiar" => base64_encode($salt.$event_encoded["secondary_familiar"]),
+            "secondary_company" => base64_encode($salt.$event_encoded["secondary_company"]),
+            "initial" => base64_encode($salt.$event_encoded["initial"]),
+            "dt" => base64_encode($salt.$event_encoded["dt"])
 
             ));  
             
@@ -794,12 +867,31 @@ $headers .= 'From: Dentistry At Cooksville <senjuti.r@gmail.com>' . "\r\n";
 mail($to,$subject,$body,$headers);*/
 
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
   }
 
  
   else if($event_encoded["actiontype"] == "checkin_status") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-              $ongoing_query = "Insert into `dental2_checkin_status` set `appointment_id`=:appointment_id,`checkin_status`=:checkin_status,checkin_note=:checkin_note";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+$parent['token']='yes';
+              $ongoing_query = "Insert into `dentalsb_checkin_status` set `appointment_id`=:appointment_id,`checkin_status`=:checkin_status,checkin_note=:checkin_note";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -819,11 +911,31 @@ mail($to,$subject,$body,$headers);*/
           
          
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
   }
 
 else if($event_encoded["actiontype"] == "create_appointment") {
+  $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-              $ongoing_query = "Insert into `dental2_appointment` set `appointment_type`=:appointment_type,`provider_id`=:provider_id,note=:note,appointment_time=:appointment_time,appointment_date=:appointment_date,status='In Progress',user_id=:user_id,appointment=:appointment,scheduled_time=:scheduled_time,new_user=:new_user,office=:office";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+
+              $ongoing_query = "Insert into `dentalsb_appointment` set `appointment_type`=:appointment_type,`provider_id`=:provider_id,note=:note,appointment_time=:appointment_time,appointment_date=:appointment_date,status='In Progress',user_id=:user_id,appointment=:appointment,scheduled_time=:scheduled_time,new_user=:new_user,office=:office";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -855,19 +967,38 @@ else if($event_encoded["actiontype"] == "create_appointment") {
           $meal['appointment_status'] = 'pending';
          
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
   }
   else if($event_encoded["actiontype"] == "add_chat") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+$parent['token']='yes';
                        $time= date('Y-m-d h:i:sa');
 
-    $ongoing_query = "Insert into `dental2_chat` set `message`=:message,user_id=0,dt=:dt,from_user=:user_id";
+    $ongoing_query = "Insert into `dentalsb_chat` set `message`=:message,user_id=0,dt=:dt,from_user=:user_id";
 
 
     $statement = $pdo->prepare($ongoing_query);
 
     $statement->execute(array(
      
-       "message"=>$event_encoded["message"],
+       "message"=>base64_encode($salt.$event_encoded["message"]),
        
         "user_id" =>$event_encoded["from_user"],
         "dt"=>$time
@@ -881,9 +1012,29 @@ else if($event_encoded["actiontype"] == "create_appointment") {
         
          
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
   }
   else if($event_encoded["actiontype"] == "add_insurance") {
-$ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+$ongoing_query = "SELECT * from dentalsb_insurance where  user_id=:user_id";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -897,7 +1048,7 @@ $ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
          if($num_rows>0)
          {
 
-              $ongoing_query = "Update `dental2_insurance` set `insurance_id`=:insurance_id,`dental_amount`=:dental_amount,vision_amount=:vision_amount,total_coverage=:total_coverage where user_id=:user_id";
+              $ongoing_query = "Update `dentalsb_insurance` set `insurance_id`=:insurance_id,`dental_amount`=:dental_amount,vision_amount=:vision_amount,total_coverage=:total_coverage where user_id=:user_id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -915,7 +1066,7 @@ $ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
             }
             else
             {
-               $ongoing_query = "Insert into `dental2_insurance` set `insurance_id`=:insurance_id,`dental_amount`=:dental_amount,vision_amount=:vision_amount,user_id=:user_id,total_coverage=:total_coverage";
+               $ongoing_query = "Insert into `dentalsb_insurance` set `insurance_id`=:insurance_id,`dental_amount`=:dental_amount,vision_amount=:vision_amount,user_id=:user_id,total_coverage=:total_coverage";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -939,11 +1090,74 @@ $ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
         
          
         $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
             
   }
-  else if($event_encoded["actiontype"] == "notification") {
+   else if($event_encoded["actiontype"] == "reminder") {
 
-  $ongoing_query = "SELECT * from dental2_notification where user_id=:user_id order by id desc";
+   
+
+
+
+  $ongoing_query = "SELECT * from dentalsb_notification where notification_type=:notification_type";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "notification_type"=>$event_encoded["notification_type"]
+           
+            ));
+        
+         $num_rows=$statement->rowCount();
+
+    if($num_rows > 0)
+    {
+        $parent['status']='no';
+      
+        
+    }
+    else
+    {
+       $parent['status']='yes';
+        $ongoing_query ="Insert into `dentalsb_notification` set `user_id`=:user_id,notification_date=:notification_date,notification_type=:notification_type,message=:message,notification_attr=:status";
+   
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "message"=>'You have an appointment tomorrow',
+            "notification_date"=>date('Y-m-d h:i:sa'),
+           "status"=>'upcoming',
+           "user_id"=>$event_encoded["user_id"],
+"notification_type"=>$event_encoded["notification_type"]
+           
+           
+            ));
+    }
+  }
+  else if($event_encoded["actiontype"] == "notification") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+  $ongoing_query = "SELECT * from dentalsb_notification where user_id=:user_id order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -966,7 +1180,7 @@ $ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
           
           
           $meal[$i]['message']=$result->message;
-           $meal[$i]['notification_type']=$result->notification_type;
+           $meal[$i]['notification_type']='Appointment';
             $meal[$i]['notification_date']=$result->notification_date;
              $meal[$i]['notification_attr']=$result->notification_attr;
           $meal[$i]['id']=$result->id;
@@ -980,9 +1194,28 @@ $ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
   else if($event_encoded["actiontype"] == "gallery") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-  $ongoing_query = "SELECT * from dental2_gallery order by id desc";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+$parent['token']='yes';
+  $ongoing_query = "SELECT * from dentalsb_gallery order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1017,19 +1250,39 @@ $ongoing_query = "SELECT * from dental2_insurance where  user_id=:user_id";
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
     else if($event_encoded["actiontype"] == "my_appointmeent") {
+      $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
 
 if($event_encoded["type"]=='upcoming')
 {
-  $ongoing_query = "SELECT * from dental2_appointment where (status='approved' or status='In Progress') and user_id=:user_id order by id";
+  $ongoing_query = "SELECT * from dentalsb_appointment where (status='approved' or status='In Progress') and user_id=:user_id order by id";
 }
 if($event_encoded["type"]=='cancelled')
 {
-  $ongoing_query = "SELECT * from dental2_appointment where status='cancelled' and user_id=:user_id order by id";
+  $ongoing_query = "SELECT * from dentalsb_appointment where status='cancelled' and user_id=:user_id order by id";
 }
 if($event_encoded["type"]=='completed')
 {
-  $ongoing_query = "SELECT * from dental2_appointment where status='completed' and user_id=:user_id order by id";
+  $ongoing_query = "SELECT * from dentalsb_appointment where status='completed' and user_id=:user_id order by id";
 }
 
        $statement = $pdo->prepare($ongoing_query);
@@ -1050,7 +1303,7 @@ if($event_encoded["type"]=='completed')
         $i=0;
          foreach($results as $result)
         {
-          $ongoing_query1 = "SELECT * from dental2_provider where  id=:id order by id";
+          $ongoing_query1 = "SELECT * from dentalsb_provider where  id=:id order by id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -1060,6 +1313,37 @@ if($event_encoded["type"]=='completed')
            
             ));
         $result1 = $statement1->fetch();
+
+        $ongoing_query1 = "SELECT * from dentalsb_patient_acknowledge_form where  user_id=:id";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute(array( "id" =>$result->id
+         
+           
+           
+            ));
+         $num_rows11 = $statement1->rowCount();
+        $ongoing_query1 = "SELECT * from dentalsb_patient_screening_form where  appointment_id=:id";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute(array( "id" =>$result->id
+         
+           
+           
+            ));
+         $num_rows22=$statement1->rowCount();
+        $ongoing_query1 = "SELECT * from dentalsb_history_form where  appointment_id=:id";
+
+        $statement1 = $pdo->prepare($ongoing_query1);
+
+        $statement1->execute(array( "id" =>$result->id
+         
+           
+           
+            ));
+         $num_rows33=$statement1->rowCount();
           
           $meal[$i]['appointment_date']=$result->appointment_date;
           $meal[$i]['appointment_time']=$result->appointment_time;
@@ -1073,6 +1357,30 @@ if($event_encoded["type"]=='completed')
             $meal[$i]['scheduled_time']=$result->scheduled_time;
           $meal[$i]['appointment_status']=$result->status;
           $meal[$i]['id']=$result->id;
+          if($num_rows11>0)
+          {
+            $meal[$i]['isAckSubmitted']='yes';
+          }
+          else
+          {
+            $meal[$i]['isAckSubmitted']='no';
+          }
+          if($num_rows22>0)
+          {
+            $meal[$i]['isScreeningSubmitted']='yes';
+          }
+          else
+          {
+            $meal[$i]['isScreeningSubmitted']='no';
+          }
+          if($num_rows33>0)
+          {
+            $meal[$i]['isMedicalSubmitted']='yes';
+          }
+          else
+          {
+            $meal[$i]['isMedicalSubmitted']='no';
+          }
          
         
           $i++;
@@ -1083,9 +1391,29 @@ if($event_encoded["type"]=='completed')
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
   else if($event_encoded["actiontype"] == "get_insurance") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-  $ongoing_query = "SELECT * from dental2_insurance where user_id=:user_id order by id";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+
+  $ongoing_query = "SELECT * from dentalsb_insurance where user_id=:user_id order by id";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1106,7 +1434,7 @@ if($event_encoded["type"]=='completed')
         $i=0;
          foreach($results as $result)
         {
-           /*$ongoing_query1 = "SELECT * from dental2_insurance_provider where  id=:id order by id";
+           /*$ongoing_query1 = "SELECT * from dentalsb_insurance_provider where  id=:id order by id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -1135,9 +1463,28 @@ if($event_encoded["type"]=='completed')
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
   else if($event_encoded["actiontype"] == "get_chat") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-  $ongoing_query1 = "SELECT * from `dental2_chat` where (`user_id`=:user_id and `from_user`=0) or (`from_user`=:from_user and `user_id`=0) order by id";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+$parent['token']='yes';
+  $ongoing_query1 = "SELECT * from `dentalsb_chat` where (`user_id`=:user_id and `from_user`=0) or (`from_user`=:from_user and `user_id`=0) order by id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -1158,7 +1505,7 @@ if($event_encoded["type"]=='completed')
         $i=0;
          foreach($results as $result)
         {
-          $ongoing_query1 = "SELECT * from dental2_user where id=:user_id";
+          $ongoing_query1 = "SELECT * from dentalsb_user where id=:user_id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -1170,18 +1517,18 @@ if($event_encoded["type"]=='completed')
         $result1 = $statement1->fetch();
         
           
-          $meal[$i]['message']=$result->message;
+          $meal[$i]['message']= str_replace($salt,'',base64_decode($result->message));
           $meal[$i]['dt']=$result->dt;
           $meal[$i]['user_id']=$result->user_id;
           $meal[$i]['from_user']=$result->from_user;
           if($result->user_id==0)
              $meal[$i]['to_user'] ='admin';
            if($result->user_id!=0)
-             $meal[$i]['to_user'] =$result1->fullname;
+             $meal[$i]['to_user'] =str_replace($salt,'',base64_decode($result1->fullname));
            if($result->from_user==0)
              $meal[$i]['from_user'] ='admin';
            if($result->from_user!=0)
-             $meal[$i]['from_user'] =$result1->fullname;
+             $meal[$i]['from_user'] =str_replace($salt,'',base64_decode($result1->fullname));
           $meal[$i]['id']=$result->id;
          
         
@@ -1193,9 +1540,29 @@ if($event_encoded["type"]=='completed')
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
    else if($event_encoded["actiontype"] == "get_checkin_status") {
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-  $ongoing_query = "SELECT * from dental2_checkin_status where appointment_id=:appointment_id order by id";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+
+  $ongoing_query = "SELECT * from dentalsb_checkin_status where appointment_id=:appointment_id order by id";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1232,9 +1599,15 @@ if($event_encoded["type"]=='completed')
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+
+  }
   else if($event_encoded["actiontype"] == "covid_question") {
 
-  $ongoing_query = "SELECT * from dental2_question where cat_id=2 order by id";
+  $ongoing_query = "SELECT * from dentalsb_question where cat_id=2 order by id";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1276,7 +1649,7 @@ if($event_encoded["type"]=='completed')
   }
   else if($event_encoded["actiontype"] == "new_user_question") {
 
-  $ongoing_query = "SELECT * from dental2_question where cat_id=1 order by id";
+  $ongoing_query = "SELECT * from dentalsb_question where cat_id=1 order by id";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1315,8 +1688,22 @@ if($event_encoded["type"]=='completed')
     }
   }
 else if($event_encoded["actiontype"] == "appointment_type") {
+$ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
 
-  $ongoing_query = "SELECT * from dental2_appointment_type";
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+  $ongoing_query = "SELECT * from dentalsb_appointment_type";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1351,11 +1738,29 @@ else if($event_encoded["actiontype"] == "appointment_type") {
        $parent['status']='no';
     }
   }
+  else
+  {
+    $parent['token']='no';
+  }
+  }
   else if($event_encoded["actiontype"] == "insurance_provider_list") {
     
-    
-    
-     $ongoing_query = "SELECT * from dental2_insurance_provider order by id desc";
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+    $parent['token']='yes';
+     $ongoing_query = "SELECT * from dentalsb_insurance_provider order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1375,7 +1780,7 @@ else if($event_encoded["actiontype"] == "appointment_type") {
         $i=0;
          foreach($results as $result)
         {
-          $ongoing_query1 = "SELECT * from dental2_category where id=:id";
+          $ongoing_query1 = "SELECT * from dentalsb_category where id=:id";
 
        
           $meal[$i]['title']=$result->title;
@@ -1390,13 +1795,30 @@ else if($event_encoded["actiontype"] == "appointment_type") {
     {
        $parent['status']='no';
     }
-        
+       
+       }
+       else{
+        $parent['token']='no';
+       } 
 }
-else if($event_encoded["actiontype"] == "provider_list") {
+  else if($event_encoded["actiontype"] == "get_offer") {
     
-    
-    
-     $ongoing_query = "SELECT * from dental2_provider order by id desc";
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+    $parent['token']='yes';
+     $ongoing_query = "SELECT * from dentalsb_offer order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1416,7 +1838,69 @@ else if($event_encoded["actiontype"] == "provider_list") {
         $i=0;
          foreach($results as $result)
         {
-          $ongoing_query1 = "SELECT * from dental2_category where id=:id";
+         
+
+       
+          $meal[$i]['title']=$result->title;
+          $meal[$i]['description']=$result->description;
+         $meal[$i]['code']=$result->code;
+          $meal[$i]['id']=$result->id;
+        
+          $i++;
+        }
+    }
+    else
+    {
+       $parent['status']='no';
+    }
+  }
+  else
+  {
+    $parent['token']='no';
+  }
+        
+}
+else if($event_encoded["actiontype"] == "provider_list") {
+    
+    $ongoing_query = "SELECT * from dentalsb_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+$parent['token']='yes';
+
+    
+     $ongoing_query = "SELECT * from dentalsb_provider order by id desc";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           
+           
+            ));
+        
+         $num_rows=$statement->rowCount();
+
+    if($num_rows > 0)
+    {
+        $parent['status']='yes';
+      
+        $results = $statement->fetchAll();
+        $i=0;
+         foreach($results as $result)
+        {
+          $ongoing_query1 = "SELECT * from dentalsb_category where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -1433,6 +1917,7 @@ else if($event_encoded["actiontype"] == "provider_list") {
           $meal[$i]['image']=$site.'provider/'.$result->image;
           $meal[$i]['id']=$result->id;
         
+        
           $i++;
         }
     }
@@ -1440,13 +1925,18 @@ else if($event_encoded["actiontype"] == "provider_list") {
     {
        $parent['status']='no';
     }
+  }
+  else
+  {
+    $parent['token']='no';
+  }
         
 }
 else if($event_encoded["actiontype"] == "provider_home") {
     
     
     
-     $ongoing_query = "SELECT * from dental2_provider where page='1' order by id desc";
+     $ongoing_query = "SELECT * from dentalsb_provider where page='1' order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -1487,12 +1977,12 @@ else if($event_encoded["actiontype"] == "provider_home") {
 
 
 
-   $sel_user_query1 = "SELECT * FROM dental2_user WHERE username = :username AND password=:password";
+   $sel_user_query1 = "SELECT * FROM dentalsb_user WHERE username = :username AND password=:password";
 
       $statement1 = $pdo->prepare($sel_user_query1);
      $statement1->execute(array(
-          "username" => $event_encoded["email"],
-          "password"=> md5($event_encoded["password"])
+          "username" => base64_encode($salt.$event_encoded["email"]),
+          "password"=> md5($salt.$event_encoded["password"])
           ));
       
     $num_rows=$statement1->rowCount();
@@ -1501,23 +1991,35 @@ else if($event_encoded["actiontype"] == "provider_home") {
    
     
     if($num_rows>0){
+     
     	$user_details = $statement1->fetch();
-    	
+    	 $token = time().$user_details->id;
+      $sel_user_query12 = "Update  dentalsb_user set token=:token WHERE id = :user_id";
+
+          $statement12 = $pdo->prepare($sel_user_query12);
+        $statement12->execute(array(
+            
+            "token" => $token,
+            "user_id" => $user_details->id
+            
+          
+          ));
     	
 	    			$parent["status"]="yes";
-			      	$meal["username"]=$user_details->username;
-			      	$meal["email"]=$user_details->email;
+			      	$meal["username"]=str_replace($salt,'',base64_decode($user_details->username));
+			      	$meal["email"]=str_replace($salt,'',base64_decode($user_details->email));
 			      	$meal["id"]=$user_details->id;
-			      	$meal["fullname"]=$user_details->fullname;
+			      	$meal["fullname"]=str_replace($salt,'',base64_decode($user_details->fullname));
               $meal["profile_pic"]=$site1.$user_details->profile_pic;
               $meal["total_coverage"]=$user_details->total_coverage;
-			      $meal["phone"]=$user_details->phone;
+			      $meal["phone"]=str_replace($salt,'',base64_decode($user_details->phone));
+            $meal["token"]=$token;
 			      	
 			      	$meal["registration_date"]=$user_details->registration_date;
 
 
 			 
-       $sel_user_query2 = "SELECT * FROM dental2_user_device WHERE device_id = :device_id";
+       $sel_user_query2 = "SELECT * FROM dentalsb_user_device WHERE device_id = :device_id";
 
       $statement2 = $pdo->prepare($sel_user_query2);
      $statement2->execute(array(
@@ -1529,7 +2031,7 @@ else if($event_encoded["actiontype"] == "provider_home") {
           if($num_rows2>0)
           {
 
-        $sel_user_query12 = "Update  dental2_user_device set user_id=:user_id,device_type=:device_type WHERE device_id = :device_id";
+        $sel_user_query12 = "Update  dentalsb_user_device set user_id=:user_id,device_type=:device_type WHERE device_id = :device_id";
 
           $statement12 = $pdo->prepare($sel_user_query12);
         $statement12->execute(array(
@@ -1543,7 +2045,7 @@ else if($event_encoded["actiontype"] == "provider_home") {
           }
           else
           {
-                 $sel_user_query12 = "Insert into  dental2_user_device set user_id=:user_id,device_id=:device_id,device_type=:device_type";
+                 $sel_user_query12 = "Insert into  dentalsb_user_device set user_id=:user_id,device_id=:device_id,device_type=:device_type";
 
           $statement12 = $pdo->prepare($sel_user_query12);
         $statement12->execute(array(
@@ -1575,16 +2077,15 @@ else if($event_encoded["actiontype"] == "signup")
 {
   $email = $event_encoded["email"];
   $username = $event_encoded["username"];
-    /*if (!preg_match("/\\s/", $email))
-     {*/
+    
        if($email!='')
        {
-        $ongoing_query = "SELECT * FROM `dental2_user` where email=:email";
+        $ongoing_query = "SELECT * FROM `dentalsb_user` where email=:email";
 
         $statement = $pdo->prepare($ongoing_query);
 
         $statement->execute(array(
-        "email" => $email));
+        "email" => base64_encode($salt.$email)));
 
         $num_rows = $statement->rowCount();
       }
@@ -1593,17 +2094,17 @@ else if($event_encoded["actiontype"] == "signup")
         $num_rows=0;
       }
 
-         $ongoing_query1 = "SELECT * FROM `dental2_user` where username=:username";
+         $ongoing_query1 = "SELECT * FROM `dentalsb_user` where username=:username";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
         $statement1->execute(array(
-        "username" => $username));
+        "username" => base64_encode($salt.$username)));
 
         $num_rows1 = $statement1->rowCount();
         if($num_rows==0 && $num_rows1==0){
 
-            $ongoing_query = "Insert into `dental2_user` set `fullname`=:fullname,`email`=:email,username=:username,password=:password,phone=:phone,total_coverage='',profile_pic='',registration_date=:dt";
+          $ongoing_query = "Insert into `dentalsb_user` set `fullname`=:fullname,`email`=:email,username=:username,password=:password,phone=:phone,total_coverage='',profile_pic='',registration_date=:dt";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -1611,19 +2112,72 @@ else if($event_encoded["actiontype"] == "signup")
         $statement->execute(array(
          
            
-            "fullname" => $event_encoded["fullname"],
-            "email" => $event_encoded["email"],
-            "username" => $event_encoded["username"],
-            "password" => md5($event_encoded["password"]),
-            "phone" => $event_encoded["phone"],
+            "fullname" => base64_encode($salt.$event_encoded["fullname"]),
+            "email" => base64_encode($salt.$event_encoded["email"]),
+            "username" => base64_encode($salt.$event_encoded["username"]),
+            "password" => md5($salt.$event_encoded["password"]),
+            "phone" => base64_encode($salt.$event_encoded["phone"]),
+            
             "dt"=>date('Y-m-d')
             ));  
             
                 
         
          $id = $pdo->lastInsertId();
+
+
+       $sel_user_query2 = "SELECT * FROM dentalsb_user_device WHERE device_id = :device_id";
+
+      $statement2 = $pdo->prepare($sel_user_query2);
+     $statement2->execute(array(
+          "device_id" => $event_encoded["device_id"]
+          
+          ));
       
+    $num_rows2=$statement2->rowCount();     
+          if($num_rows2>0)
+          {
+
+        $sel_user_query12 = "Update  dentalsb_user_device set user_id=:user_id,device_type=:device_type WHERE device_id = :device_id";
+
+          $statement12 = $pdo->prepare($sel_user_query12);
+        $statement12->execute(array(
+            
+            "device_id" => $event_encoded["device_id"],
+            "user_id" => $id,
+            "device_type" => $event_encoded["device_type"]
+            
+          
+          ));
+          }
+          else
+          {
+                 $sel_user_query12 = "Insert into  dentalsb_user_device set user_id=:user_id,device_id=:device_id,device_type=:device_type";
+
+          $statement12 = $pdo->prepare($sel_user_query12);
+        $statement12->execute(array(
+            
+            "device_id" => $event_encoded["device_id"],
+            "user_id" => $id,
+            "device_type" => $event_encoded["device_type"]
+           
+          
+          ));
+              
+          }
+
       
+       $token = time().$id;
+      $sel_user_query12 = "Update  dentalsb_user set token=:token WHERE id = :user_id";
+
+          $statement12 = $pdo->prepare($sel_user_query12);
+        $statement12->execute(array(
+            
+            "token" => $token,
+            "user_id" => $id
+            
+          
+          ));
           
               $meal["username"]=$event_encoded["username"];
              $meal["email"]=$event_encoded["email"];
@@ -1632,6 +2186,7 @@ else if($event_encoded["actiontype"] == "signup")
               $meal["profile_pic"]='';
               $meal["total_coverage"]='';
             $meal["phone"]=$event_encoded["phone"];
+             $meal["token"]=$token;
 
 $meal["registration_date"]=date('Y-m-d');
 
@@ -1648,7 +2203,7 @@ $meal["registration_date"]=date('Y-m-d');
         }
         
 
- } 
+ }
 
 $parent['data'] = $meal;
 echo json_encode($parent);

@@ -4,7 +4,7 @@
 */
 include("config.php");
 include("includes/header.php");
-
+ 
 ?>   
 <?php echo $msg; ?>
 
@@ -41,7 +41,7 @@ include("includes/header.php");
  <?php
  if(isset($_REQUEST['search']))
  {
-    $query_device = "select * from `dental2_user` where fullname like :search order by id desc";
+    $query_device = "select * from `dentalsb_user` where fullname like :search order by id desc";
      $statement_device = $pdo->prepare($query_device);
 
         $statement_device->execute(array("search"=>"%".$_REQUEST['search']."%"));
@@ -50,7 +50,7 @@ include("includes/header.php");
  }
  else
  {
- $query_device = "select * from `dental2_user` order by id desc";
+ $query_device = "select * from `dentalsb_user` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -64,7 +64,7 @@ include("includes/header.php");
       else
         $home="No";
 
-      $ongoing_query1 = "SELECT * from dental2_user where id=:id";
+      $ongoing_query1 = "SELECT * from dentalsb_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -76,7 +76,7 @@ include("includes/header.php");
         $result1 = $statement1->fetch();
 
 
-      $ongoing_query1 = "SELECT * from dental2_provider where id=:id";
+      $ongoing_query1 = "SELECT * from dentalsb_provider where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -88,7 +88,7 @@ include("includes/header.php");
         $result2 = $statement1->fetch();
 
 
-          $ongoing_query1 = "SELECT * from dental2_appointment_type where id=:id";
+          $ongoing_query1 = "SELECT * from dentalsb_appointment_type where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -99,7 +99,7 @@ include("includes/header.php");
             ));
         $result3 = $statement1->fetch();
 
- $ongoing_query1 = "SELECT * from dental2_appointment where user_id=:id order by id desc";
+ $ongoing_query1 = "SELECT * from dentalsb_appointment where user_id=:id order by id desc";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -113,9 +113,9 @@ include("includes/header.php");
 ?>
 <tr>
    
-  <td align="left" valign="top" ><?php echo $cat->fullname; ?></td>
-    <td align="left" valign="top"><?php echo $cat->email; ?></td>
-    <td  align="left" valign="top"><?php echo $cat->phone; ?></td>
+  <td align="left" valign="top" ><?php echo str_replace($salt,'',base64_decode($cat->fullname)); ?></td>
+    <td align="left" valign="top"><?php echo str_replace($salt,'',base64_decode($cat->email)); ?></td>
+    <td  align="left" valign="top"><?php echo str_replace($salt,'',base64_decode($cat->phone)); ?></td>
    <td  align="left" valign="top"><?php echo $cat->registration_date; ?></td>
     <td align="left" valign="top"><span class="chat"><a href="chat-room.php?id=<?php echo $cat->id; ?>">Chat</a> </span>
       <span class="view"><a href="view_user.php?id=<?php echo $cat->id; ?>">View</a> </span>
@@ -134,7 +134,7 @@ include("includes/header.php");
 <?php
 if(isset($_REQUEST['id']))
 {
-  $ongoing_query1 = "Delete from dental2_user where id=:id";
+  $ongoing_query1 = "Delete from dentalsb_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 

@@ -7,7 +7,7 @@ include("includes/header.php");
 
   
 
- $query_device = "select * from `dental2_user` where id=:id order by id desc";
+ $query_device = "select * from `dentalsb_user` where id=:id order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
