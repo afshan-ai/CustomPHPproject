@@ -878,19 +878,8 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 
         $statement = $pdo->prepare($ongoing_query);
 
-        $statement->execute();
-          $ongoing_query = "ALTER TABLE `dentalsb_question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute();
-          $ongoing_query = "ALTER TABLE `dentalsb_questionnaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute();
+        
+         
           $ongoing_query = "ALTER TABLE `dentalsb_referral`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8";
 
@@ -920,12 +909,7 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 
         $statement->execute();
 
-         $ongoing_query = "ALTER TABLE `dentalsb_user_answer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute();
+         
 
          $ongoing_query = "ALTER TABLE `dentalsb_user_device`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
