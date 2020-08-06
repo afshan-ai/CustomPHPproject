@@ -73,7 +73,7 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 
 $pdf->AddPage();
-$query_device = "select * from `dental1_history_form` where appointment_id=:appointment_id";
+$query_device = "select * from `dentalsb_history_form` where appointment_id=:appointment_id";
 
         $statement_device = $pdo->prepare($query_device);
 

@@ -1,0 +1,300 @@
+@media (max-width : 1920px) {}
+
+@media (min-width : 1680px) {
+
+   .header .navbar  .container-fluid{ max-width: 1600px;}
+    
+    
+}
+@media (max-width : 1680px) {
+
+    
+   .sidebar .browse-Category-holder .category-list li{ width: 29%;}
+    
+    .home-banner-text{left: 18%;}
+}
+
+@media (max-width : 1439px) {
+  
+      /*Business dashboard*/
+    .dashboard-color-cards .right-text{ padding-right: 0;}
+    
+
+}
+@media (max-width : 1366px) {
+
+ .heading { margin-bottom: 40px;}
+  h2.head-line{ font-size: 45px; padding-bottom: 5px;}
+  .banner-text h5{ font-size: 26px; }
+  .next-prev-button{margin: 10px auto 0;}
+  .search-form{ height:55px; max-width:800px; }
+  .browse-Category-holder .category-list .img-box h6{ font-size:13px; }
+  .browse-Category-holder .category-list .img-box{ max-width: 90px; min-width: 90px; padding: 14px 10px; }
+  .browse-Category-holder .category-list .img-box img { width: 40px; height: 28px;}
+  .wraper-home-help{ padding-top: 25px; padding-bottom: 25px; }
+  .blog-date h5 { font-size: 26px; }
+  .blog-date p {  font-size: 13px;}
+  .blog-date h6 { font-size: 16px;}
+  .description p{ font-size:13px; }
+  .section-local-directory .calender-list li , .calender-list li{ font-size:13px;}
+  
+    .home-banner-text{} 
+    .home-banner-text h3{ margin: 10px 0 5px; font-size: 15px;}
+    .home-banner-text h5{ font-size: 12px;width: 90%;}
+    
+    
+  .section-forums-view p , .section-blog-view .box-img-holder .description p{ font-size:14px;}
+  .section{ padding: 50px 0; }
+   .section-blog-view , .section-forums-view , .section-local-directory{ padding-bottom:20px; }
+   .footer-up p{ font-size:14px; }
+    
+    
+    .sidebar .browse-Category-holder .category-list li .img-box{ max-width: 100%;}
+ 
+}
+@media (max-width : 1339px) {
+
+  
+
+
+}
+@media (max-width : 1199px) {
+
+}
+@media (max-width : 1024px) {
+    
+    .top-offers-text-wrap .view-offer{    padding: 5px 0px; font-size: 13px;}
+    
+    
+    /*Business dashboard*/
+    .dashboard-cards h2{padding-right: 0;padding-left: 0; font-size: 50px;}
+    .dashboard-cards h4{ margin-left: 10px;}
+    
+     /*business listing page css*/
+     .operating-hours .form-check{ position: relative; top: -10px;}
+    
+    
+    /*directory listing page css*/
+    .btm-directory{ flex-wrap: wrap;}
+    
+    
+     /*directory details page css*/
+    .business-cont-box-inner{ min-height: auto;}
+    .business-hours-box{ margin-top: 0;}
+    
+    
+}
+
+@media (max-width : 1199px) and (min-width : 991px) {
+    
+     /*Business dashboard*/
+    .dashboard-color-cards .right-text h2{ font-size: 50px;}
+    .dashboard-color-cards .left-icon-inner{width: 90px;height: 90px;}
+    .dashboard-color-cards .left-icon-inner span{ height: 90px; width: 90px; padding: 25px 25px 0;}
+}
+
+
+
+
+@media (max-width : 991px) and (min-width : 768px) {
+    .section_banner img.banner-img{height: auto;  object-fit: cover; min-height: 800px;}
+    
+    
+    /*business listing page css*/
+    .operating-hours .form-control{ width: 35%;}
+    .operating-hours .form-check{ position: relative; top: 0px;}
+    
+    
+     /*Directory listing page css*/
+    .section-local-directory .text-holder .justify-content-between{ display: block !important;}
+    .section-local-directory .text-holder .justify-content-between .right-btm-directory{ text-align: left; justify-content:flex-start !important;}
+    .section-local-directory .text-holder .justify-content-between .pl-2{ padding-left: 0 !important;}
+    .directory-listing-share{ text-align: left !important; margin-top: 15px;} 
+    .right-btm-directory{padding-left: 0 !important; text-align: left !important;}
+    .right-btm-directory .pl-2{ padding-left: 0 !important;}
+}
+
+
+
+@media (min-width : 992px) {
+  
+.nav-item.dropdown .dropdown-menu{ top:100px; display: block; opacity: 0; visibility: hidden; transition:all 0.2s ease; }
+.nav-item.dropdown:hover .dropdown-menu{ top: 100%; opacity: 1; visibility: visible; transition:all 0.5s ease; } 
+}
+
+
+
+
+
+@media (max-width : 991px) {
+   h2.head-line { font-size: 30px;}
+   header.header .navbar{ padding-left:15px; padding-right:15px}
+   .navbar-collapse{ margin-top:15px;}
+   .navbar-collapse .nav { padding:20px 0; background:#fff; }
+   .navbar-collapse .right-nav.nav{ padding-top:0; background:#fff;}
+   header.header .navbar-brand img{ max-height:30px; }
+   .navbar-toggler {  padding: .15rem .25rem;}
+   nav.navbar .navbar-nav .nav-item{ line-height:25px;}
+   nav.navbar .navbar-nav .nav-item.dropdown .nav-link:after{ right:0;}
+   .banner-text{ bottom:27%;}
+   .section-forums-view .media{ max-width: inherit;}
+    
+    .top-offers-text-wrap .view-offer{ font-size: 14px;}
+    
+    
+    
+    /*offer page css*/
+    .view-offer-wrap{ text-align: left; margin-top: 10px;} 
+
+}
+
+
+
+
+@media (max-width : 767px) {
+
+.search-form{flex-wrap: wrap; height:auto;}
+.search-form .input-box {width: 49%;margin-right: 1%; margin-bottom:1%; height:45px;}
+.search-form .input-box.search-holder {flex-basis: 49%;width: 49%; margin: 0 0 1%;}
+.search-form .btn{ width:100%;}
+.banner-text {bottom: 17%;}
+.browse-Category-holder .category-list{    flex-wrap: wrap;}
+    
+    
+    
+    /*top nav*/
+    .navbar-nav .dropdown-menu{ box-shadow: none;}
+    header .dropdown-menu a{font-weight: normal; font-size: 12px;padding: 0 10px;}
+    
+    /*home banner css*/
+    .section_banner img.banner-img {height: auto; min-height: 900px;}
+    .banner-text h2:before,.banner-text h2:after{ display: none;}
+    .wraper-home-help .home-help-right .btn{ margin-top: 15px;}
+    
+    /*footer css*/
+    .list-link-box{ margin-bottom: 20px;}
+    
+    
+    /*sidebar css*/
+    .left-sidebar-fixed{ padding: 0;}
+    .left-sidebar-wrap{ min-height: inherit; width: 100%;}
+    .left-sidebar-wrap .navbar-header{ margin: 0 auto; display: block;}
+    .left-sidebar-wrap .navbar-toggle{ width: 40px; height: 35px; background-image: url(../images/mobile-menu.png); background-repeat: no-repeat; background-color: #fff; border: 1px solid rgba(0,0,0,.1);border-radius: 5px; background-position: 6px center;}
+    .left-sidebar-fixed .navbar-ex1-collapse{ display: none;}
+    .left-sidebar-fixed .navbar-ex1-collapse.show{ display: block;}
+    
+    
+    .sidebar .search-form .input-box{width: 100%; margin-right: 0;height: auto;}
+    
+    
+    
+    
+    /* inner pages comon css*/
+    .profile-pages-wrap {margin-top: 30px;padding-left: 15px;padding-right: 15px;}
+    .inner-right-content{ margin-top: 30px;}
+    
+    
+    
+      /*business listing page css*/
+    .operating-hours .form-control{ width: 35%;}
+    .operating-hours .form-check{ position: relative; top: 0px;}
+    .cards-social-media .card .close{ margin-bottom: 15px;}
+    .cards-social-media .card .add-new{ float: right;}
+    
+    
+    
+    
+    
+    /*login page css*/    
+    .login-section{padding: 15px 0;}
+    
+    
+     /*business profile page css*/
+    .upload-profile-pic{display: block; text-align: center;}
+    .upload-pic{ margin: 0 auto;display: block; margin-bottom: 25px;}
+    
+    
+    
+      /*Directory listing page css*/  
+     .section-local-directory .text-holder .justify-content-between{flex-flow: column;}
+    .section-local-directory .text-holder .justify-content-between .right-btm-directory{ text-align: left; justify-content:flex-start !important;}
+    .section-local-directory .text-holder .justify-content-between .pl-2{ padding-left: 0 !important;}
+    .directory-listing-share{ text-align: left !important; margin-top: 15px;} 
+    .right-btm-directory{padding-left: 0 !important; text-align: left !important;}
+    .right-btm-directory .pl-2{ padding-left: 0 !important;}
+    .inner-right-content .text-holder {padding: 15px;}
+    
+   
+    
+    
+    /*Business my list*/
+    .business-my-list-content .nav.nav-tabs li a{ padding: 5px 10px;}
+    .business-my-list-box-holder .buttons-holder{justify-content: left;}
+    
+    
+    
+    
+    
+    /*offer page css*/
+    .offer-page .btm-directory{flex-flow: column;}
+    .inner-right-content .box-img-holder{ max-width: 360px;margin: 0 auto;}
+    .view-offer-wrap{ text-align: center;}
+    
+    
+    
+
+}
+
+
+
+@media (max-width : 576px) {
+ 
+
+}
+
+
+
+
+@media (max-width : 480px) {
+
+    
+    
+
+
+}
+
+
+
+@media (max-width : 440px) {
+
+    /*home banner css*/
+    .banner-text {bottom: 2%;}
+    .section_banner img.banner-img {min-height: 810px;}
+    h2.head-line {font-size: 24px;}
+    .banner-text h5 {font-size: 18px;}
+    .home-banner-text h5 {font-size: 12px;}
+    .search-form .input-box ,.search-form .input-box.search-holder{width: 100%; margin-right: 0;height: 40px; flex-basis: 100%;}
+    .browse-Category-holder {margin-top: 30px;}
+    
+    
+    /*footer css*/
+    .footer-btm p{line-height: 22px;}
+    
+    
+    
+    
+}
+
+
+
+@media (max-width : 360px) {
+
+
+}
+
+
+
+
+@media (max-width : 340px) {
+
+}

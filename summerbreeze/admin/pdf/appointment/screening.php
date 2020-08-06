@@ -73,7 +73,7 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 
 $pdf->AddPage();
-$query_device = "select * from `dental1_patient_screening_form` where appointment_id=:appointment_id order by id desc limit 0,1";
+$query_device = "select * from `dentalsb_patient_screening_form` where appointment_id=:appointment_id order by id desc limit 0,1";
 
         $statement_device = $pdo->prepare($query_device);
 
