@@ -17,11 +17,12 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 
 
         
-
+/*
          $ongoing_query = "ALTER TABLE `dentalmarcelo_user_device`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=444";
 
 
         $statement = $pdo->prepare($ongoing_query);
 
-        $statement->execute();
+        $statement->execute();*/
+        
