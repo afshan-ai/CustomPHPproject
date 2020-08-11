@@ -51,7 +51,7 @@ include("includes/header.php");
       $fname = str_replace($salt,'',base64_decode($cat1->fullname));
       //echo $fname;
       //echo '<br>'.stripos( $fname,$_REQUEST['search']).'</br>';
-      if (stripos( $fname,$_REQUEST['search'])!='') {
+       if (trim(stripos( $fname,$_REQUEST['search']))!='') {
 
      $u_id = $cat1->id;
     $query_device1 = "select * from `dental1_user` where id='$u_id'";
