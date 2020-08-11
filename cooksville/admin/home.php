@@ -141,7 +141,7 @@ $ongoing_query = "SELECT * from dental1_appointment where status='In Progress' o
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <div class="whiteBox">
-            <h3 class="heading">Upcomming Appointments<a href="" class="linkCal">June - July</a></h3>
+            <h3 class="heading">Upcoming Appointments<a href="" class="linkCal"><?php echo date('M');?> - <?php echo date('M',strtotime('first day of +1 month'));?></a></h3>
             
             
             <div Class="secDate">
@@ -228,6 +228,8 @@ $ongoing_query = "SELECT * from dental1_appointment where status='In Progress' o
 
  foreach($appointments as $appointment)
  {
+    if($appointment->appointment_date>date('Y-m-d'))
+{
 
     $ongoing_query1 = "SELECT * from dental1_user where id=:id";
 
@@ -270,6 +272,7 @@ $ongoing_query = "SELECT * from dental1_appointment where status='In Progress' o
                 </li>
                 <?php
             }
+        }
             ?>
                
             </ul>

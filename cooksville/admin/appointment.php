@@ -126,7 +126,8 @@ include("includes/header.php");
       <span class="edit"><a href="edit_appointment.php?id=<?php echo $cat->id; ?>">Edit</a> </span>
    <span class="delete">   <a href="appointment.php?del=<?php echo $cat->id; ?>" onclick="return confirm('Are you sure?');" >Delete</a></span>
    <span class="pdf1"><a href="pdf/appointment/screening.php?id=<?php echo $cat->id; ?>" target="_blank">Patient Screening Form</a> </span>
-   <span class="pdf2"><a href="pdf/appointment/dental_history.php?id=<?php echo $cat->id; ?>" target="_blank">patient Dental History</a> </span> </td>
+   <span class="pdf2"><a href="pdf/appointment/dental_history.php?id=<?php echo $cat->id; ?>" target="_blank">Patient Medical & Dental History Form</a> </span> 
+ <span class="pdf2" ><a href="pdf/appointment/acknowledgement.php?id=<?php echo $cat->id; ?>" target="_blank" style="background:magenta;">Patient Acknowledgement Form</a> </span></td>
 </tr>
 <?php 
 }

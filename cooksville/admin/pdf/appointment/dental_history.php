@@ -3990,15 +3990,16 @@ table{ border:none; }
 
         
         <div class="textFildSec">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+            <p><b>Privacy Act Notofication:</b> I have been informed of the privacy policy of this office and understand that all information I have supplied will be used and disclosed as set out within this office policy.</p>
+             <p><b>Office Policy:</b> Your appointment time will be reserved for you. If you are unable to keep the appointment we will require 24 hours notice, otherwise it may be necessary to charge for the time lost.</p>
+            <p><b>Patient Release:</b> I, the undersigned, certify that I have provided an accurate and complete personal and medical-dental history and have not knowingly omitted any information. I have had the oppurtunity to ask questions and receive answers to any questions regarding my medical-dental history. I authorize the dentist to perform diagnostic procedures and treatment as may be necessary for proper dental care. I also understand that consultation with my medical doctor may be required, and I consent to my physician being contacted as necessary. I understand that responsibility for payment for the dental services provided for myself and my dependant is mine, and I will assume responsibility for fees associated with these services.</p>
         </div>
         
         <table class="newRowSec"  width="100%">
             <tr>
                 <td>
                     <table width="100%">
-                        <tr><th style="width:300px; border: 1px solid #505050;"></th></tr>
+                        <tr><th style="width:300px; border: 1px solid #505050;">'.str_replace($salt,'',base64_decode($result->initial)).'</th></tr>
                         <br>
                     </table>
                     <table width="100%">
@@ -4052,7 +4053,7 @@ table{ border:none; }
                 <td>
                     <table width="100%">
                         <tr>
-                        <th style="width:120px; border: 1px solid #505050;"></th>
+                        <th style="width:120px; border: 1px solid #505050;">'.str_replace($salt,'',base64_decode($result->dt)).'</th>
                         <th style="width:170px; border: 1px solid #505050;"></th>
                         </tr>
                         <br>
