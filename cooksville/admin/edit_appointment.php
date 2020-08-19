@@ -128,17 +128,68 @@ $query_device = "select * from `dental1_user_device` where user_id=:user_id";
   <p><label><span>*</span>Appointment Time :</label>
   	<select name="appointment_time">
   	<option value="9.00 am" <?php if($result_devices->scheduled_time=="9.00 am") echo 'selected="selected"';?>>9.00 am</option>
+    <option value="9.15 am" <?php if($result_devices->scheduled_time=="9.15 am") echo 'selected="selected"';?>>9.15 am</option>
+    <option value="9.30 am" <?php if($result_devices->scheduled_time=="9.30 am") echo 'selected="selected"';?>>9.30 am</option>
+    <option value="9.45 am" <?php if($result_devices->scheduled_time=="9.45 am") echo 'selected="selected"';?>>9.45 am</option>
+    
     <option value="10.00 am" <?php if($result_devices->scheduled_time=="10.00 am") echo 'selected="selected"';?>>10.00 am</option>
+     <option value="10.15 am" <?php if($result_devices->scheduled_time=="10.15 am") echo 'selected="selected"';?>>10.15 am</option>
+      <option value="10.30 am" <?php if($result_devices->scheduled_time=="10.30 am") echo 'selected="selected"';?>>10.30 am</option>
+       <option value="10.45 am" <?php if($result_devices->scheduled_time=="10.45 am") echo 'selected="selected"';?>>10.45 am</option>
+
     <option value="11.00 am"  <?php if($result_devices->scheduled_time=="11.00 am") echo 'selected="selected"';?>>11.00 am</option>
+    <option value="11.15 am"  <?php if($result_devices->scheduled_time=="11.15 am") echo 'selected="selected"';?>>11.15 am</option>
+    <option value="11.30 am"  <?php if($result_devices->scheduled_time=="11.30 am") echo 'selected="selected"';?>>11.30 am</option>
+    <option value="11.45 am"  <?php if($result_devices->scheduled_time=="11.45 am") echo 'selected="selected"';?>>11.45 am</option>
+
     <option value="12.00 pm"  <?php if($result_devices->scheduled_time=="12.00 pm") echo 'selected="selected"';?>>12.00 pm</option>
+    <option value="12.15 pm"  <?php if($result_devices->scheduled_time=="12.15 pm") echo 'selected="selected"';?>>12.15 pm</option>
+    <option value="12.30 pm"  <?php if($result_devices->scheduled_time=="12.30 pm") echo 'selected="selected"';?>>12.30 pm</option>
+    <option value="12.45 pm"  <?php if($result_devices->scheduled_time=="12.45 pm") echo 'selected="selected"';?>>12.45 pm</option>
+
     <option value="1.00 pm"  <?php if($result_devices->scheduled_time=="1.00 pm") echo 'selected="selected"';?>>1.00 pm</option>
+    <option value="1.15 pm"  <?php if($result_devices->scheduled_time=="1.15 pm") echo 'selected="selected"';?>>1.15 pm</option>
+    <option value="1.30 pm"  <?php if($result_devices->scheduled_time=="1.30 pm") echo 'selected="selected"';?>>1.30 pm</option>
+    <option value="1.45 pm"  <?php if($result_devices->scheduled_time=="1.45 pm") echo 'selected="selected"';?>>1.45 pm</option>
+
     <option value="2.00 pm"  <?php if($result_devices->scheduled_time=="2.00 pm") echo 'selected="selected"';?>>2.00 pm</option>
+    <option value="2.15 pm"  <?php if($result_devices->scheduled_time=="2.15 pm") echo 'selected="selected"';?>>2.15 pm</option>
+    <option value="2.30 pm"  <?php if($result_devices->scheduled_time=="2.30 pm") echo 'selected="selected"';?>>2.30 pm</option>
+    <option value="2.45 pm"  <?php if($result_devices->scheduled_time=="2.45 pm") echo 'selected="selected"';?>>2.45 pm</option>
+
     <option value="3.00 pm"  <?php if($result_devices->scheduled_time=="3.00 pm") echo 'selected="selected"';?>>3.00 pm</option>
+    <option value="3.15 pm"  <?php if($result_devices->scheduled_time=="3.15 pm") echo 'selected="selected"';?>>3.15 pm</option>
+    <option value="3.30 pm"  <?php if($result_devices->scheduled_time=="3.30 pm") echo 'selected="selected"';?>>3.30 pm</option>
+    <option value="3.45 pm"  <?php if($result_devices->scheduled_time=="3.45 pm") echo 'selected="selected"';?>>3.45 pm</option>
+
     <option value="4.00 pm"  <?php if($result_devices->scheduled_time=="4.00 pm") echo 'selected="selected"';?>>4.00 pm</option>
+    <option value="4.15 pm"  <?php if($result_devices->scheduled_time=="4.15 pm") echo 'selected="selected"';?>>4.15 pm</option>
+    <option value="4.30 pm"  <?php if($result_devices->scheduled_time=="4.30 pm") echo 'selected="selected"';?>>4.30 pm</option>
+    <option value="4.45 pm"  <?php if($result_devices->scheduled_time=="4.45 pm") echo 'selected="selected"';?>>4.45 pm</option>
+
     <option value="5.00 pm"  <?php if($result_devices->scheduled_time=="5.00 pm") echo 'selected="selected"';?>>5.00 pm</option>
+    <option value="5.15 pm"  <?php if($result_devices->scheduled_time=="5.15 pm") echo 'selected="selected"';?>>5.15 pm</option>
+    <option value="5.30 pm"  <?php if($result_devices->scheduled_time=="5.30 pm") echo 'selected="selected"';?>>5.30 pm</option>
+    <option value="5.45 pm"  <?php if($result_devices->scheduled_time=="5.45 pm") echo 'selected="selected"';?>>5.45 pm</option>
+
     <option value="6.00 pm"  <?php if($result_devices->scheduled_time=="6.00 pm") echo 'selected="selected"';?>>6.00 pm</option>
+    <option value="6.15 pm"  <?php if($result_devices->scheduled_time=="6.15 pm") echo 'selected="selected"';?>>6.15 pm</option>
+    <option value="6.30 pm"  <?php if($result_devices->scheduled_time=="6.30 pm") echo 'selected="selected"';?>>6.30 pm</option>
+    <option value="6.45 pm"  <?php if($result_devices->scheduled_time=="6.45 pm") echo 'selected="selected"';?>>6.45 pm</option>
+
+
     <option value="7.00 pm"  <?php if($result_devices->scheduled_time=="7.00 pm") echo 'selected="selected"';?>>7.00 pm</option>
+    <option value="7.15 pm"  <?php if($result_devices->scheduled_time=="7.15 pm") echo 'selected="selected"';?>>7.15 pm</option>
+    <option value="7.30 pm"  <?php if($result_devices->scheduled_time=="7.30 pm") echo 'selected="selected"';?>>7.30 pm</option>
+    <option value="7.45 pm"  <?php if($result_devices->scheduled_time=="7.45 pm") echo 'selected="selected"';?>>7.45 pm</option>
+
+
     <option value="8.00 pm"  <?php if($result_devices->scheduled_time=="8.00 pm") echo 'selected="selected"';?>>8.00 pm</option>
+    <option value="8.15 pm"  <?php if($result_devices->scheduled_time=="8.15 pm") echo 'selected="selected"';?>>8.15 pm</option>
+    <option value="8.30 pm"  <?php if($result_devices->scheduled_time=="8.30 pm") echo 'selected="selected"';?>>8.30 pm</option>
+    <option value="8.45 pm"  <?php if($result_devices->scheduled_time=="8.45 pm") echo 'selected="selected"';?>>8.45 pm</option>
+
+
     <option value="9.00 pm"  <?php if($result_devices->scheduled_time=="9.00 pm") echo 'selected="selected"';?>>9.00 pm</option>
 <select>
 	  </p>  
