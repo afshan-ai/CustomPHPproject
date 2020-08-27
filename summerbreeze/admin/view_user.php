@@ -22,17 +22,17 @@ include("includes/header.php");
 <input type="hidden" name="id" value="<?php echo $_REQUEST["id"]; ?>"  />
 <div class="shedule-form">
   <p><label><span>*</span>Name :</label>
-  <?php echo $provider->fullname;?>
+  <?php echo str_replace($salt,'',base64_decode($provider->fullname));?>
   </p>
   <p><label><span>*</span>Username :</label>
-  <?php echo $provider->username;?>
+  <?php echo str_replace($salt,'',base64_decode($provider->username));?>
   </p>
   
   <p><label><span>*</span>Email :</label>
-  <?php echo $provider->email;?>
+  <?php echo str_replace($salt,'',base64_decode($provider->email));?>
   </p>
   <p><label><span>*</span>Phone :</label>
-  <?php echo $provider->phone;?>
+  <?php echo str_replace($salt,'',base64_decode($provider->phone));?>
   </p>
   <p><label>Total Coverage :</label>
   <?php echo $provider->total_coverage;?>

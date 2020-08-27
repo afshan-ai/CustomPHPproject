@@ -180,12 +180,8 @@ h2{ font-size:24px; display:block;}
                 </tr>
                 <tr>
                     <td>
-                        <p>Do you have a fever or have felt hot or feverish anytime in the last two weeks?</p>
-                        <div class="tableInrForm">
-                            <span class="tableText">Patient temperature at appointment:</span>
-                            <span class="customSect1" style="width:100px; border-bottom:1px solid #000;"></span>
-                            <span class="tableText">If elevated, provide mask to patient.</span>
-                        </div>
+                        <p>Have you travelled outside of Canada in the past 14 days?</p>
+                        
                     </td>
                     <td>
                     <table width="100%">
@@ -217,7 +213,7 @@ h2{ font-size:24px; display:block;}
                     </td>
                 </tr>
                 <tr>
-                    <td><p>Do you have any of these symptoms: Dry cough? Shortness of breath? Difficulty breathing? Sore throat? Runny nose?</p></td>
+                    <td><p>Have you tested positive to COVID-19 or had close contact with a confirmed case of COVID-19 without wearing appropriate PPE?</p></td>
                     <td>
                     <table width="100%">
                     <tr>
@@ -247,7 +243,21 @@ h2{ font-size:24px; display:block;}
                     </td>
                 </tr>
                 <tr>
-                    <td><p>Have you experienced a recent loss of smell or taste?</p></td>
+                    <td><p>Do you have any of the following symptoms:</p>
+• Fever<br>
+• New onset of cough<br>
+• Worsening chronic cough<br>
+• Shortness of breath<br>
+• Difficulty breathing<br>
+• Sore throat<br>
+• Difficulty swallowing<br>
+• Decrease or loss of sense of taste or smell<br>
+• Chills<br>
+• Headaches<br>
+• Unexplained fatigue/malaise/muscle aches (myalgias)<br>
+• Nausea/vomiting, diarrhea, abdominal pain<br>
+• Pink eye (conjunctivitis)<br>
+• Runny nose/nasal congestion without other known cause<br></td>
                     <td>
                     <table width="100%">
                     <tr>
@@ -277,7 +287,11 @@ h2{ font-size:24px; display:block;}
                     </td>
                 </tr>
                 <tr>
-                    <td><p>Have you been in contact with any confirmed COVID-19 positive patients, or persons self-isolating because of a determined risk for COVID-19?</p></td>
+                    <td><p>If you are 70 years of age or older, are you experiencing any of the following symptoms: </p>
+                    • Delirium<br>
+                    • Unexplained or increased number of falls<br>
+                    • Acute functional decline<br>
+                    • Worsening of chronic conditions?</td>
                     <td>
                     <table width="100%">
                     <tr>
@@ -306,126 +320,9 @@ h2{ font-size:24px; display:block;}
                         </table>
                     </td>
                 </tr>
-                <tr>
-                    <td><p>Have you returned from travel outside of Canada in the last 14 days?</p></td>
-                    <td>
-                    <table width="100%">
-                    <tr>
-                        ';
-                    if(str_replace($salt,'',base64_decode($result->question5))=='Yes')
-                    {
-                        $html .='<td class="csfild"><u>YES</u></td>
-                        <td class="csfild">NO</td>';
-                    }
-                    else
-                    {
-                            $html .='<td class="csfild">YES</td>
-                        <td class="csfild"><u>NO</u></td>';
-                    }
-                       
-                   $html .='
-                   </tr>
-                   </table>
-                    </td>
-                    <td>
-                        <table width="100%">
-                        <tr>
-                        <td class="csfild">YES</td>
-                        <td class="csfild">NO</td>
-                        </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Have you returned from travel within Canada from a location known affected with COVID-19?</p></td>
-                    <td>
-                    <table width="100%">
-                    <tr>
-                        ';
-                    if(str_replace($salt,'',base64_decode($result->question6))=='Yes')
-                    {
-                        $html .='<td class="csfild"><u>YES</u></td>
-                        <td class="csfild">NO</td>';
-                    }
-                    else
-                    {
-                            $html .='<td class="csfild">YES</td>
-                        <td class="csfild"><u>NO</u></td>';
-                    }
-                       
-                   $html .='
-                   </tr>
-                   </table>
-                    </td>
-                    <td>
-                        <table width="100%">
-                        <tr>
-                        <td class="csfild">YES</td>
-                        <td class="csfild">NO</td>
-                        </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Are you over the age of 60?</p></td>
-                    <td>
-                    <table width="100%">
-                    <tr>
-                        ';
-                    if(str_replace($salt,'',base64_decode($result->question7))=='Yes')
-                    {
-                        $html .='<td class="csfild"><u>YES</u></td>
-                        <td class="csfild">NO</td>';
-                    }
-                    else
-                    {
-                            $html .='<td class="csfild">YES</td>
-                        <td class="csfild"><u>NO</u></td>';
-                    }
-                       
-                   $html .='
-                   </tr>
-                   </table>
-                    </td>
-                    <td>
-                        <table width="100%">
-                        <tr>
-                        <td class="csfild">YES</td>
-                        <td class="csfild">NO</td>
-                        </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Do you have any of the following? Heart disease, lung disease, kidney disease, diabetes or any auto-immune disorder?</p></td>
-                    <td>
-                    <table width="100%">
-                    <tr>
-                       ';
-                    if(str_replace($salt,'',base64_decode($result->question8))=='Yes')
-                    {
-                        $html .='<td class="csfild"><u>YES</u></td>
-                        <td class="csfild">NO</td>';
-                    }
-                    else
-                    {
-                            $html .='<td class="csfild">YES</td>
-                        <td class="csfild"><u>NO</u></td>';
-                    }
-                       
-                   $html .='
-                   </tr>
-                   </table>
-                    </td>
-                    <td>
-                        <table width="100%">
-                        <tr>
-                        <td class="csfild">YES</td>
-                        <td class="csfild">NO</td>
-                        </tr>
-                        </table>
-                    </td>
-                </tr>
+                
+               
+               
             </table>
             <div class="footerText">
                 <ul>

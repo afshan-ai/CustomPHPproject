@@ -141,7 +141,7 @@ $ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' 
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <div class="whiteBox">
-            <h3 class="heading">Upcomming Appointments<a href="" class="linkCal">June - July</a></h3>
+            <h3 class="heading">Upcoming Appointments<a href="" class="linkCal"><?php echo date('M');?> - <?php echo date('M',strtotime('first day of +1 month'));?></a></h3>
             
             
             <div Class="secDate">
