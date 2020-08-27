@@ -26,7 +26,7 @@ if(isset($_REQUEST['sub']))
             ));
 
 
-define('API_ACCESS_KEY', 'AAAAJk58EGo:APA91bGKMn-R87__ENexWq65M1yJbFefVXLdLh7e7Q-uyfvgYpfJM3kH_9y-cuAeemBIMtkwJPUsajC7uKrv3rHqR_uPsKz9TZZyVSiTKlbdbnLclC5_t3NaSmlwjDKLONUC0ZOoNrqd');
+define('API_ACCESS_KEY', 'AAAAvndyczY:APA91bE_FvpUq9Fq4R_ra7xTPrSW2LtryGWtn3vEd3vTE84PeyIOCqVnSlOrrhoxjBEsur7TjldACiJ3TE20Ae5qt9P3gokSVDegKEgk6EFl0YRHA7nnk27txytav45UDj9VSGbX1I6_');
   $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
   if($_REQUEST["status"]=='approved')
 $message = "Admin has successfully approved your appointment.";
