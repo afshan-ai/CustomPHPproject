@@ -44,7 +44,7 @@ include("includes/header.php");
  
  
 
- $query_device = "select * from `dental3_appointment` order by id desc";
+ $query_device = "select * from `dentalfor_appointment` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -58,7 +58,7 @@ include("includes/header.php");
       else
         $home="No";
 
-      $ongoing_query1 = "SELECT * from dental3_user where id=:id";
+      $ongoing_query1 = "SELECT * from dentalfor_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -70,7 +70,7 @@ include("includes/header.php");
         $result1 = $statement1->fetch();
 
 
-      $ongoing_query1 = "SELECT * from dental3_provider where id=:id";
+      $ongoing_query1 = "SELECT * from dentalfor_provider where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -82,7 +82,7 @@ include("includes/header.php");
         $result2 = $statement1->fetch();
 
 
-          $ongoing_query1 = "SELECT * from dental3_appointment_type where id=:id";
+          $ongoing_query1 = "SELECT * from dentalfor_appointment_type where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -93,7 +93,7 @@ include("includes/header.php");
             ));
         $result3 = $statement1->fetch();
 
-         $ongoing_query1 = "SELECT * from dental3_checkin_status where appointment_id=:id";
+         $ongoing_query1 = "SELECT * from dentalfor_checkin_status where appointment_id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -110,7 +110,7 @@ include("includes/header.php");
 ?>
 <tr>
    
-	<td align="left" valign="top" ><?php echo $result1->fullname; ?></td>
+	<td align="left" valign="top" ><?php echo str_replace($salt,'',base64_decode($result1->fullname)); ?></td>
     <td  align="left" valign="top"><?php echo $cat->appointment_date; ?></td>
     <td align="left" valign="top"><?php echo $cat->appointment_time; ?></td>
    
@@ -126,7 +126,8 @@ include("includes/header.php");
       <span class="edit"><a href="edit_appointment.php?id=<?php echo $cat->id; ?>">Edit</a> </span>
    <span class="delete">   <a href="appointment.php?del=<?php echo $cat->id; ?>" onclick="return confirm('Are you sure?');" >Delete</a></span>
    <span class="pdf1"><a href="pdf/appointment/screening.php?id=<?php echo $cat->id; ?>" target="_blank">Patient Screening Form</a> </span>
-   <span class="pdf2"><a href="pdf/appointment/dental_history.php?id=<?php echo $cat->id; ?>" target="_blank">patient Dental History</a> </span> </td>
+   <span class="pdf2"><a href="pdf/appointment/dental_history.php?id=<?php echo $cat->id; ?>" target="_blank">patient Dental History</a> </span> 
+ <span class="pdf2" ><a href="pdf/appointment/acknowledgement.php?id=<?php echo $cat->id; ?>" target="_blank" style="background:magenta;">Patient Acknowledgement Form</a> </span> </td>
 </tr>
 <?php 
 }
@@ -138,7 +139,7 @@ include("includes/header.php");
 <?php
 if(isset($_REQUEST['del']))
 {
-  $ongoing_query1 = "Delete from dental3_appointment where id=:id";
+  $ongoing_query1 = "Delete from dentalfor_appointment where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 

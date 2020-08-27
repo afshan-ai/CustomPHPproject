@@ -5,19 +5,21 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL); */
  $username = $_SESSION['username'];
  $user_id = $_REQUEST['user_id'];
+
+
 include("config.php");
 
 
          $time= date('Y-m-d h:i:sa');
 
-    $ongoing_query = "Insert into `dental3_chat` set `message`=:message,user_id=:user_id,dt=:dt,from_user=0";
+    $ongoing_query = "Insert into `dentalfor_chat` set `message`=:message,user_id=:user_id,dt=:dt,from_user=0";
 
 
     $statement = $pdo->prepare($ongoing_query);
 
     $statement->execute(array(
      
-       "message"=>$_REQUEST["ch"],
+       "message"=>base64_encode($salt.$_REQUEST["ch"]),
        
 "user_id"=>$user_id,
        
@@ -25,7 +27,7 @@ include("config.php");
         "dt"=>$time
         ));
 
-     $ongoing_query1 = "SELECT * from dental3_chat where (user_id=:user_id and from_user=0) or (from_user=:from_user and user_id=0) order by id";
+     $ongoing_query1 = "SELECT * from dentalfor_chat where (user_id=:user_id and from_user=0) or (from_user=:from_user and user_id=0) order by id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -48,13 +50,13 @@ include("config.php");
                                             &nbsp; &nbsp;
                                             <span class="message-data-name">Admin</span>
                                         </div>
-                                        <div class="message other-message float-right"> <?php echo $result->message;?> </div>
+                                        <div class="message other-message float-right"> <?php echo str_replace($salt,'',base64_decode($result->message));?> </div>
                                     </li>
                                     <?php
         }
         else
         {
-        	 $ongoing_query1 = "SELECT * from dental3_user where id=:user_id";
+        	 $ongoing_query1 = "SELECT * from dentalfor_user where id=:user_id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -67,11 +69,11 @@ include("config.php");
         	?>
         	<li>
                                         <div class="message-data">
-                                            <span class="message-data-name"><?php echo ucfirst($result1->fullname);?> </span>
+                                            <span class="message-data-name"><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?> </span>
                                             <span class="message-data-time"><?php echo $result->dt;?></span>
                                         </div>
                                         <div class="message my-message">
-                                            <p><?php echo $result->message;?></p>
+                                            <p><?php echo str_replace($salt,'',base64_decode($result->message));?></p>
                                             <div class="row">
                                             </div>
                                         </div>
@@ -80,7 +82,7 @@ include("config.php");
         }
     }
 
-    define('API_ACCESS_KEY', 'AAAAkJHy9qU:APA91bHcM60Y8meDjdg0IxZw0YX9JkTTbB44DHpcvytiLKq0vN13ALRUgHIhbynW1_8F9mdn4UHTDnlM9WXb6Rv6xcD2O1ldyJgMJvIULRrOfXFs5gdAyzW7D5Zo5jk-nwlD3GbMmy2V');
+    define('API_ACCESS_KEY', 'AAAAJk58EGo:APA91bGKMn-R87__ENexWq65M1yJbFefVXLdLh7e7Q-uyfvgYpfJM3kH_9y-cuAeemBIMtkwJPUsajC7uKrv3rHqR_uPsKz9TZZyVSiTKlbdbnLclC5_t3NaSmlwjDKLONUC0ZOoNrqd');
   $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
  $status="chat";
 $message = $_REQUEST["ch"];
@@ -104,7 +106,7 @@ $message = $_REQUEST["ch"];
 
 
 
-$query_device = "select * from `dental3_user_device` where user_id=:user_id";
+$query_device = "select * from `dentalfor_user_device` where user_id=:user_id";
 
         $statement_device = $pdo->prepare($query_device);
 

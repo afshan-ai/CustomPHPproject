@@ -11,7 +11,7 @@ if(isset($_REQUEST['sub']))
 	$con=	$folder.$time.$_FILES['image']['name'];
 	$file = $time.$_FILES['image']['name'];
 	move_uploaded_file($_FILES['image']['tmp_name'], $con);
-	$ongoing_query = "Insert into `dental3_gallery` set `title`=:title,image=:image";
+	$ongoing_query = "Insert into `dentalfor_gallery` set `title`=:title,image=:image";
    
 
         $statement = $pdo->prepare($ongoing_query);

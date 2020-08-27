@@ -13,7 +13,7 @@ if($_SESSION['username']=='')
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<title>For Great Teeth ::ADMIN</title>
+<title>SummerBreeze Dentistry ::ADMIN</title>
     
     
  <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -68,9 +68,8 @@ nav ul
   max-height: 60vh;
 }
   </style>
- 
 	<script src="jquery/js/jquery-ui-1.10.3.custom.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script>
   $(function() {
     $( "#datepicker" ).datepicker({ 
@@ -581,7 +580,7 @@ function autocom(){
    
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <h2 class="heading">Welcome to For Great Teeth</h2>
+            <h2 class="heading">Welcome to SummerBreeze Dentistry</h2>
         </div>
         
     </div>

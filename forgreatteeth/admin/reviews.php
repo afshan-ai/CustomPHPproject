@@ -40,7 +40,7 @@ include("includes/header.php");
  <?php
 
  
- $query_device = "select * from `dental3_review` order by id desc";
+ $query_device = "select * from `dentalfor_review` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -51,7 +51,7 @@ include("includes/header.php");
     {
       
 
-      $ongoing_query1 = "SELECT * from dental3_user where id=:id";
+      $ongoing_query1 = "SELECT * from dentalfor_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -71,7 +71,7 @@ include("includes/header.php");
 ?>
 <tr>
    
-  <td align="left" valign="top" ><?php echo $result1->fullname; ?></td>
+  <td align="left" valign="top" ><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname))); ?></td>
     <td  align="left" valign="top"><?php echo $cat->rating; ?></td>
     <td align="left" valign="top"><?php echo $cat->review; ?></td>
    

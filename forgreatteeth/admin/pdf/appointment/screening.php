@@ -1,5 +1,5 @@
 <?php
-define ('PDF_HEADER_LOGO', 'http://developer.marketingplatform.ca/dentalapp/forgreatteeth/admin/images/login_logo.png');
+
 //============================================================+
 // File name   : example_061.php
 // Begin       : 2010-05-24
@@ -27,7 +27,7 @@ define ('PDF_HEADER_LOGO', 'http://developer.marketingplatform.ca/dentalapp/forg
 
 // Include the main TCPDF library (search for installation path).
 require_once('tcpdf_include.php');
-include("../../config.php");
+include("config.php");
 // create new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -39,7 +39,7 @@ $pdf->SetSubject('Patient Screening Form');
 $pdf->SetKeywords('Patient Screening Form, PDF, Patient Screening Form, Patient Screening Form, Patient Screening Form');
 
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 061', PDF_HEADER_STRING);
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.'', PDF_HEADER_STRING);
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -73,7 +73,7 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 
 $pdf->AddPage();
-$query_device = "select * from `dental1_patient_screening_form` where appointment_id=:appointment_id order by id desc limit 0,1";
+$query_device = "select * from `dentalfor_patient_screening_form` where appointment_id=:appointment_id order by id desc limit 0,1";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -133,29 +133,25 @@ h2{ font-size:24px; display:block;}
  h4{ font-weight:normal;}
 
     </style><div class="formSectionPdf">
-        <h2 style="text-align: right;">Patient Screening Form </h2>
+        <h2 style="text-align: left;">Patient Screening Form </h2>
         
        
             <p>Use this form to screen patients before their appointment and when they arrive for their appointment.</p>
-                <p><label style="width:120px;">Staff screener: <table><tr><th style="width:550px;">'.$result->staff.'</th></tr></table></label></p>
+                <p><label style="width:120px;">Staff screener: <table><tr><th style="width:550px;">'.str_replace($salt,'',base64_decode($result->staff)).'</th></tr></table></label></p>
                 
             <table width="100%">
                 <tr>
-                    <td><label>Patient Name: <table><tr><th style="width:230px;">'.$result->name.'</th></tr></table></label></td>
-                    <td><label>Patient age: <table><tr><th style="width:230px;">'.$result->age.'</th></tr></table></label></td>
+                    <td><label>Patient Name: <table><tr><th style="width:230px;">'.str_replace($salt,'',base64_decode($result->name)).'</th></tr></table></label></td>
+                    <td><label>Patient age: <table><tr><th style="width:230px;">'.str_replace($salt,'',base64_decode($result->age)).'</th></tr></table></label></td>
                 </tr>
             </table>
             
             <table width="100%">
                 <tr>
-                    <td><label>Who answered: <table><tr><th style="width:100px;">';
-                 if($result->answered=='Patient')
+                    <td><label>Who answered: <table><tr><th style="width:100px;">'.str_replace($salt,'',base64_decode($result->answered));
+                 if(str_replace($salt,'',base64_decode($result->answered))!='Patient')
                     {
-                        $html .='</th></tr></table></label></td>
-                    <td><label>Patient <table><tr><th style="width:100px;">';
-                    }
-                    else
-                    {
+                        
                             $html .='</th></tr></table></label></td>
                     <td><label>Other (specify) <table><tr><th style="width:100px;">';
                     }
@@ -167,9 +163,9 @@ h2{ font-size:24px; display:block;}
             <table width="100%">
                 <tr>
                     <td>Contact Method:</td>
-                    <td><label>Phone <table><tr><th style="width:100px;">'.$result->phone.'</th></tr></table></label></td>
-                    <td><label>Email <table><tr><th style="width:100px;">'.$result->email.'</th></tr></table></label></td>
-                    <td><label>Other <table><tr><th style="width:100px;">'.$result->other.'</th></tr></table></label></td>
+                    <td><label>Phone <table><tr><th style="width:100px;">'.str_replace($salt,'',base64_decode($result->phone)).'</th></tr></table></label></td>
+                    <td><label>Email <table><tr><th style="width:100px;">'.str_replace($salt,'',base64_decode($result->email)).'</th></tr></table></label></td>
+                    <td><label>Other <table><tr><th style="width:100px;">'.str_replace($salt,'',base64_decode($result->other)).'</th></tr></table></label></td>
                 </tr>
             </table>
             
@@ -196,7 +192,7 @@ h2{ font-size:24px; display:block;}
                         <tr>
                     
                     ';
-                    if($result->question1=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question1))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -226,7 +222,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                        ';
-                    if($result->question2=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question2))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -256,7 +252,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                        ';
-                    if($result->question3=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question3))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -286,7 +282,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                         ';
-                    if($result->question4=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question4))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -316,7 +312,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                         ';
-                    if($result->question5=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question5))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -346,7 +342,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                         ';
-                    if($result->question6=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question6))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -376,7 +372,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                         ';
-                    if($result->question7=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question7))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';
@@ -406,7 +402,7 @@ h2{ font-size:24px; display:block;}
                     <table width="100%">
                     <tr>
                        ';
-                    if($result->question8=='Yes')
+                    if(str_replace($salt,'',base64_decode($result->question8))=='Yes')
                     {
                         $html .='<td class="csfild"><u>YES</u></td>
                         <td class="csfild">NO</td>';

@@ -7,7 +7,7 @@ include("includes/header.php");
 
 
 <?php
-$ongoing_query = "SELECT * from dental3_appointment where status='In Progress' or status='approved'";
+$ongoing_query = "SELECT * from dentalfor_appointment where status='In Progress' or status='approved'";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -19,7 +19,7 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
             ));
         
          $num_rows=$statement->rowCount();
-        $ongoing_query = "SELECT * from dental3_appointment where status='completed'";
+        $ongoing_query = "SELECT * from dentalfor_appointment where status='completed'";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -32,7 +32,7 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
         
          $num_rows1=$statement->rowCount();
 
-          $ongoing_query = "SELECT * from dental3_review";
+          $ongoing_query = "SELECT * from dentalfor_review";
 
 
        $statement = $pdo->prepare($ongoing_query);
@@ -141,7 +141,7 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <div class="whiteBox">
-            <h3 class="heading">Upcomming Appointments<a href="" class="linkCal">June - July</a></h3>
+            <h3 class="heading">Upcoming Appointments<a href="" class="linkCal"><?php echo date('M');?> - <?php echo date('M',strtotime('first day of +1 month'));?></a></h3>
             
             
             <div Class="secDate">
@@ -219,7 +219,7 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
             
             <ul class="patinet">
                 <?php
-                    $query_device = "select * from `dental3_appointment` where status='approved' order by id desc";
+                    $query_device = "select * from `dentalfor_appointment` where status='approved' order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -228,8 +228,10 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
 
  foreach($appointments as $appointment)
  {
+    if($appointment->appointment_date>date('Y-m-d'))
+{
 
-    $ongoing_query1 = "SELECT * from dental3_user where id=:id";
+    $ongoing_query1 = "SELECT * from dentalfor_user where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -258,10 +260,10 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
                         ?>
                         
                         <div class="text">
-                            <h4><?php echo $result1->fullname;?></h4>
+                            <h4><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?></h4>
                             <span class="appType">Emergency Appointment</span>
                         </div>
-                        <a href="tel:<?php echo $result1->phone;?>" class="call"><i class="fa fa-phone"></i></a>
+                        <a href="tel:<?php echo str_replace($salt,'',base64_decode($result1->phone));?>" class="call"><i class="fa fa-phone"></i></a>
                     </div>
                     <div class="bottom">
                         <span class="time"><i class="fa fa-clock-o"></i> <?php echo $appointment->scheduled_time;?></span>
@@ -270,6 +272,7 @@ $ongoing_query = "SELECT * from dental3_appointment where status='In Progress' o
                 </li>
                 <?php
             }
+        }
             ?>
                
             </ul>

@@ -7,7 +7,7 @@ require("config.php");
 if(isset($_REQUEST['sub']))
 {
 	//echo '<pre>';print_r($_REQUEST);echo '</pre>';
-	 $ongoing_query = "SELECT * from dental3_admin where username=:username and password=:password";
+	 $ongoing_query = "SELECT * from dentalfor_admin where username=:username and password=:password";
 
 
        $statement = $pdo->prepare($ongoing_query);

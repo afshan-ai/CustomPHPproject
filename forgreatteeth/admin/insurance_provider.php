@@ -37,7 +37,7 @@ include("includes/header.php");
       <td align="left" valign="top" width="100px;"><strong>Action</strong> </td>
   </tr>
  <?php
- $query_device = "select * from `dental3_insurance_provider` order by id desc";
+ $query_device = "select * from `dentalfor_insurance_provider` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -65,7 +65,7 @@ include("includes/header.php");
 <?php
 if(isset($_REQUEST['id']))
 {
-   $ongoing_query = "delete from `dental3_insurance_provider`  where id=:id";
+   $ongoing_query = "delete from `dentalfor_insurance_provider`  where id=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);

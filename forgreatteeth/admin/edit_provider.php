@@ -13,7 +13,7 @@ if(isset($_REQUEST['sub']))
 	$con=	$folder.$time.$_FILES['image']['name'];
 	$file = $time.$_FILES['image']['name'];
 	move_uploaded_file($_FILES['image']['tmp_name'], $con);
-	$ongoing_query = "update `dental3_provider` set `title`=:title,bio=:bio,cat_id=:cat_id,page=:page,image=:image where id=:id";
+	$ongoing_query = "update `dentalfor_provider` set `title`=:title,bio=:bio,cat_id=:cat_id,page=:page,image=:image where id=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -30,7 +30,7 @@ if(isset($_REQUEST['sub']))
       }
       else
       {
-        $ongoing_query = "update `dental3_provider` set `title`=:title,bio=:bio,cat_id=:cat_id,page=:page where id=:id";
+        $ongoing_query = "update `dentalfor_provider` set `title`=:title,bio=:bio,cat_id=:cat_id,page=:page where id=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -50,7 +50,7 @@ if(isset($_REQUEST['sub']))
 
 ?>
 <?php
- $query_device = "select * from `dental3_provider` where id=:id order by id desc";
+ $query_device = "select * from `dentalfor_provider` where id=:id order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -73,7 +73,7 @@ if(isset($_REQUEST['sub']))
   <p><label><span>*</span>Designation :</label>
   	<select name="cat_id">
   	<?php
-  	 $query_device = "select * from `dental3_category`";
+  	 $query_device = "select * from `dentalfor_category`";
 
         $statement_device = $pdo->prepare($query_device);
 

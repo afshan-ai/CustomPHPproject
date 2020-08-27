@@ -8,7 +8,7 @@ if(isset($_REQUEST['sub']))
 {
  
 	
-        $ongoing_query = "Update `dental3_dentalxchange` set description=:description where id=:id";
+        $ongoing_query = "Update `dentalfor_dentalxchange` set description=:description where id=:id";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -25,7 +25,7 @@ if(isset($_REQUEST['sub']))
      
       
 }
-$query_device = "select * from `dental3_dentalxchange` where id=:id";
+$query_device = "select * from `dentalfor_dentalxchange` where id=:id";
 
         $statement_device = $pdo->prepare($query_device);
 

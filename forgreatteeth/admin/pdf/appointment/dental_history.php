@@ -1,5 +1,5 @@
 <?php
-define ('PDF_HEADER_LOGO', 'http://developer.marketingplatform.ca/dentalapp/forgreatteeth/admin/images/login_logo.png');
+
 //============================================================+
 // File name   : example_061.php
 // Begin       : 2010-05-24
@@ -27,7 +27,7 @@ define ('PDF_HEADER_LOGO', 'http://developer.marketingplatform.ca/dentalapp/forg
 
 // Include the main TCPDF library (search for installation path).
 require_once('tcpdf_include.php');
-include("../../config.php");
+include("config.php");
 // create new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -39,7 +39,7 @@ $pdf->SetSubject('Dental History Form');
 $pdf->SetKeywords('Dental History Form, PDF, Dental History Form, Dental History Form, Dental History Form');
 
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 061', PDF_HEADER_STRING);
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.'', PDF_HEADER_STRING);
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -73,7 +73,7 @@ $pdf->SetFont('helvetica', '', 10);
 // add a page
 
 $pdf->AddPage();
-$query_device = "select * from `dental1_history_form` where appointment_id=:appointment_id";
+$query_device = "select * from `dentalfor_history_form` where appointment_id=:appointment_id";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -349,343 +349,845 @@ a:focus, button:focus, input:focus,textarea:focus  {outline: none !important; bo
     .formSectionPdf .footerText ul li{margin-bottom: 5px;}
     .formSectionPdf .footerText ul li ul{margin: 10px 0;}
 
-</style><div class="wrapper">
+table{ border:none; }
+ th{ width:150px; border-bottom:1px solid #000;}
+ h4{ font-weight:normal;}
+ td{margin-bottom: 6px;}
+</style>
+<div class="wrapper">
     <div class="formSectionPdf">
         
             <p>The personal information provided below will be protected and kept private by our office. All information will be used and disclosed responsibly according to the Privacy Act standards set up and monitored by our office.</p>
-            <div class="formRow">
-                <div class="formcolf">
-                    <div class="mrsec">Mr. <span class="mrcheck"></span></div>
-                    <div class="mrsec">Mrs. <span class="mrcheck"></span></div>
-                    <div class="mrsec">Miss. <span class="mrcheck"></span></div>
-                    <div class="mrsec">Ms. <span class="mrcheck"></span></div>
-                    <div class="mrsec">Dr. <span class="mrcheck"></span></div>
-                </div>
-                <div class="formcolf2">
+            <table width="100%">
+            <tr>
+                <td width="250px">
+                    <table width="100%">
+                        <tr>';
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Mr.')
+                        {
+                        $html .='
+                            <td width="40px">
+                                <label>Mr.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                           $html .='
+                            <td width="40px">
+                                <label>Mr.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>'; 
+                        }
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Mrs.')
+                        {
+                        $html .='
+                            <td>
+                                <label>Mrs.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                           $html .='
+                            <td>
+                                <label>Mrs.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>'; 
+                        }
+                            if(str_replace($salt,'',base64_decode($result->salutation))=='Miss.')
+                        {
+                        $html .='
+                            <td>
+                                <label>Miss.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                           $html .='
+                            <td>
+                                <label>Miss.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>'; 
+                        }
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Ms.')
+                        {
+                        $html .='
+                            <td>
+                                <label>Ms.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                           $html .='
+                            <td>
+                                <label>Ms.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>'; 
+                        }
+                        if(str_replace($salt,'',base64_decode($result->salutation))=='Dr.')
+                        {
+                        $html .='
+                            <td>
+                                <label>Dr.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                           $html .='
+                            <td>
+                                <label>Dr.</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>'; 
+                        }
+                           $html .='
+                           
+                        </tr>
+                    </table>
+                </td>
+                <td>
                     <label>Given Name:</label>
-                    <div class="formCol"><span class="customForm"></span></div>
-                </div>
-                <div class="formcolf3">
+                    <table width="100%">
+                    <tr><th style="width:110px;">'.str_replace($salt,'',base64_decode($result->fname)).'</th></tr>
+                    </table>
+                </td>
+                <td width="150px">
                     <label>Marital Status:</label>
-                    <div class="formCol"><span class="customForm"></span></div>
-                </div>
-            </div>
-            <div class="formRow2">
-                <div class="formCol2">
+                    <table width="100%">
+                    <tr><th style="width:80px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Surname:</label>
-                    <div class="formCol"><span class="customForm"></span></div>
-                </div>
-                <div class="formCol2-2">
+                    <table width="100%">
+                    <tr><th style="width:130px;">'.str_replace($salt,'',base64_decode($result->lname)).'</th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Pronunciation:</label>
-                    <div class="formCol"><span class="customForm"></span></div>
-                </div>
-                <div class="formCol2-3">
-                    <label>Prafer to be called:</label>
-                    <div class="formCol"><span class="customForm"></span></div>
-                </div>
-            </div>
-            <div class="formRowaddress">
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:120px;"></th></tr>
+                    </table>
+                </td>
+                <td>
+                    <label>Preffer to be called:</label>
+                    <table width="100%">
+                    <tr><th style="width:100px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+            
+            <table width="100%">
+            <tr>
+                <td>
                     <label>Address:</label>
-                    <span>(Street)</span>
-                    <div class="customSect1 firstChild"></div>
-                </div>
-                <div class="formCol3">
-                    <span>(Apt.N.)</span>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3">
-                    <span>(City)</span>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3">
-                    <span>(Postal Code)</span>
-                    <div class="customSect1 lastChild"></div>
-                </div>
-            </div>
-            <div class="formRowPhone">
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:580px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+            
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Home Phone:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:120px;">'.str_replace($salt,'',base64_decode($result->home_phone)).'</th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Work Phone:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-                <div class="formCol3">
-                    <label>X</label>
-                    <div class="customSect1"><span></span></div>
-                </div>
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:120px;">'.str_replace($salt,'',base64_decode($result->work_phone)).'</th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Date of Birth:</label>
-                    <div class="customSect1"><span></span>/<span></span>/<span></span></div>
-                </div>
-            </div>
-            <div class="formRowPhone">
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:130px;">'.str_replace($salt,'',base64_decode($result->dob)).'</th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr width="170px">
+                <td>
                     <label>Fax:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:120px;"></th></tr>
+                    </table>
+                </td>
+                <td width="170px">
                     <label>Other:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-                <div class="formCol3">
-                    <label>X</label>
-                    <div class="customSect1"><span></span></div>
-                </div>
-                <div class="formCol3 lastChild">
-                    <div class="mrsec"><span class="mrcheck"></span> Male</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Female</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Adult</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Child</div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:120px;"></th></tr>
+                    </table>
+                </td>
+                <td width="260px">
+                    <table width="100%">
+                        <tr>';
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Male')
+                        {
+                        $html .='
+                            <td width="60px">
+                                <label>Male</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td width="60px">
+                                <label>Male</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Female')
+                        {
+                        $html .='
+                            <td>
+                                <label>Female</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td>
+                                <label>Female</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Adult')
+                        {
+                        $html .='
+                            <td>
+                                <label>Adult</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td>
+                                <label>Male</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->gender))=='Child')
+                        {
+                        $html .='
+                            <td>
+                                <label>Child</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td width="60px">
+                                <label>Male</label>
+                                <table width="100%">
+                                    <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+                
+                </tr>
+            </table>
             
-            <div class="formRow3">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Employer / School:</label>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3 lastChild">
+                    <table width="100%">
+                    <tr><th style="width:200px;"></th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Occupation:</label>
-                    <div class="customSect1"></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:250px;"></th></tr>
+                    </table>
+                </td>
+                
+                </tr>
+            </table>
             
-            <div class="formRow4">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>eMail Address:</label>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3 lastChild">
+                    <table width="100%">
+                    <tr><th style="width:210px;">'.str_replace($salt,'',base64_decode($result->email)).'</th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Contact Method:</label>
-                    <div class="customSect1"></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:220px;"></th></tr>
+                    </table>
+                </td>
+                
+                </tr>
+            </table>
             
-            <div class="formRow5">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Who may we thank for referring you to this office?</label>
-                    <div class="customSect1"></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:360px;"></th></tr>
+                    </table>
+                </td>
+                
+                </tr>
+            </table>
             
-            <div class="formRowPhone">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Are you likely to be available on short notice for future appointments?</label>
-                </div>
-                <div class="formCol3 lastChild" style="margin-left: 15px;">
-                    <div class="mrsec"><span class="mrcheck"></span> Yes</div>
-                    <div class="mrsec"><span class="mrcheck"></span> No</div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr>
+                    <td>
+                        <label>Yes</label>
+                        <table width="100%">
+                            <tr><th style="width:10px; border:1px solid #000; background: #868686;"> </th></tr>
+                            </table> 
+                        </td> 
+                        <td> 
+                            <label>No</label>
+                            <table width="100%">
+                            <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+                
+                </tr>
+            </table>
             
-            <div class="formRow6">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Family Physician:</label>
-                    <div class="customSect1"><span></span></div>
-                </div>
-                <div class="formCol3 lastSec">
+                    <table width="100%">
+                    <tr><th style="width:210px;"></th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Phone:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:280px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
             
-            <div class="formRow7">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>In Case of Emergency Notify:</label>
-                    <div class="customSect1"><span></span></div>
-                </div>
-                <div class="formCol3 setSec">
+                    <table width="100%">
+                    <tr><th style="width:40px;"></th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Relation:</label>
-                    <div class="customSect1"><span></span></div>
-                </div>
-                <div class="formCol3 lastSec">
+                    <table width="100%">
+                    <tr><th style="width:120px;">'.str_replace($salt,'',base64_decode($result->notify_relation)).'</th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Phone:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:160px;">'.str_replace($salt,'',base64_decode($result->notify_phone)).'</th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
             
-            
-            <div class="formRowPhone">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td width="500px">
                     <label>Person responsible for this accout:</label>
-                </div>
-                <div class="formCol3 lastChild" style="margin-left: 15px;">
-                    <div class="mrsec"><span class="mrcheck"></span> Self</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Spouse</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Parent</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Guardian</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Other: <span class="cln"></span></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr>
+                    <td><label>Self </label>
+                        <table width="100%">
+                            <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                        </table>
+                    </td> 
+                    <td><label>Spouse</label>
+                    <table width="100%">
+                            <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                        </table>
+                    </td>
+                    <td><label>Parent</label>
+                    <table width="100%">
+                            <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                        </table>
+                    </td> 
+                    <td><label>Guardian</label>
+                    <table width="100%">
+                            <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                        </table>
+                    </td>
+                    </tr>
+                    </table>
+                </td>
+                <td width="160px">
+                    <label>Other:</label>
+                    <table width="100%">
+                    <tr><th style="width:100px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
             
-            <div class="formRow3 nameSec">
-                <div class="formCol3">
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Name:</label>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3 lastChild">
+                    <table width="100%">
+                    <tr><th style="width:260px;">'.str_replace($salt,'',base64_decode($result->notify_name)).'</th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Relation:</label>
-                    <div class="customSect1"></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:260px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
             
-            <div class="formRowaddress">
-                <div class="formCol3">
+            <table width="100%">
+            <tr>
+                <td>
                     <label>Address:</label>
-                    <span>(Street)</span>
-                    <div class="customSect1 firstChild"></div>
-                </div>
-                <div class="formCol3">
-                    <span>(Apt.N.)</span>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3">
-                    <span>(City)</span>
-                    <div class="customSect1"></div>
-                </div>
-                <div class="formCol3">
-                    <span>(Postal Code)</span>
-                    <div class="customSect1 lastChild"></div>
-                </div>
-            </div>
-            <div class="formRowPhone">
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:580px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+            
+            <table width="100%">
+                <tr>
+                <td>
                     <label>Home Phone:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:120px;"></th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>Work Phone:</label>
-                    <div class="customSect1"><span></span><span></span><span></span></div>
-                </div>
-                <div class="formCol3">
+                    <table width="100%">
+                    <tr><th style="width:120px;"></th></tr>
+                    </table>
+                </td>
+                <td>
                     <label>X</label>
-                    <div class="customSect1"><span></span></div>
-                </div>
-            </div>
+                    <table width="100%">
+                    <tr><th style="width:130px;"></th></tr>
+                    </table>
+                </td>
+                </tr>
+            </table>
+            
+            
+            
             
 
             <table class="tableSec" width="100%" border="0">
                 <tr>
-                    <th>Primary Insurance</th>
-                    <th>Secondary Insurance</th>
+                    <th style="border:1px solid #000;">Primary Insurance</th>
+                    <th style="border:1px solid #000;">Secondary Insurance</th>
                 </tr>
                 <tr>
                     <td>
-                        <div class="tabRow">
-                            <div class="formCol3">
-                                <label>Subscriber:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                            <div class="formCol3 lastSec">
-                                <label>Date of Birth:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="formRowPhone">
-                            <div class="formCol3">
-                                <label>Relation:</label>
-                            </div>
-                            <div class="formCol3 lastChild" style="margin-left: 15px;">
-                                <div class="mrsec"><span class="mrcheck"></span> Self</div>
-                                <div class="mrsec"><span class="mrcheck"></span> Spouse</div>
-                                <div class="mrsec"><span class="mrcheck"></span> Other: <span class="cln"></span></div>
-                            </div>
-                        </div>
-                        <div class="tabRow tabRow2">
-                            <div class="formCol3">
-                                <label>Subscriber I.D.</label>
-                                <div class="customSect1"></div>
-                            </div>
-                            <div class="formCol3 lastSec">
-                                <label>SIN</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="tabRow3">
-                            <div class="formCol3">
-                                <label>Insurance Co:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="tabRow4">
-                            <div class="formCol3">
-                                <label>Policy/Plan #:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                            <div class="formCol3">
-                                <label>Division/Sect. #:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="formRowPhone">
-                            <div class="formCol3">
-                                <label><strong><em>Are You Familiar with Your Plan Details?</em></strong></label>
-                            </div>
-                            <div class="formCol3 lastChild" style="margin-left: 5px;">
-                                <div class="mrsec"><span class="mrcheck"></span> Yes</div>
-                                <div class="mrsec"><span class="mrcheck"></span> No</div>
-                            </div>
-                        </div>
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Subscriber:</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_name)).'</th></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label>Date of Birth:</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_dob)).'</th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Relation:</label>
+                            <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->primary_realtion))=='self')
+                        {
+                        $html .='
+                            <td>
+                                <label>Self</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                           <td>
+                                <label>Self</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->primary_realtion))=='spouse')
+                        {
+                        $html .='
+                            <td>
+                                <label>Spouse</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                           <td>
+                                <label>Spouse</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->primary_realtion))=='other')
+                        {
+                        $html .='
+                            <td>
+                                <label>Other</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                           <td>
+                                <label>Other</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            
+                            </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                        
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Subscriber I.D.</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_id)).'</th></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label>SIN</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;"></th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Insurance Co:</label>
+                            <table width="100%">
+                            <tr><th style="width:160px;">'.str_replace($salt,'',base64_decode($result->primary_company)).'</th></tr>
+                            </table>
+                        </td>
+                        
+                        </tr>
+                    </table>
+                    
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Policy/Plan #:</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->primary_policy)).'</th></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label>Division/Sect. #:</label>
+                            <table width="100%">
+                            <tr><th style="width:50px;">'.str_replace($salt,'',base64_decode($result->primary_sector)).'</th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                        
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Are You Familiar with Your Plan Details?</label>
+                            <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->primary_familiar))=='yes')
+                            {
+                                $html .='<td><u>Yes</u></td>';
+                            }
+                            else
+                            {
+                                $html .='<td>Yes</td>';
+                            }
+                            if(str_replace($salt,'',base64_decode($result->primary_familiar))=='no')
+                            {
+                                $html .='<td><u>No</u></td>';
+                            }
+                            else
+                            {
+                                $html .='<td>No</td>';
+                            }
+                            $html .='
+                            </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                        
+                        
                     </td>
                     <td>
-                        <div class="tabRow">
-                            <div class="formCol3">
-                                <label>Subscriber:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                            <div class="formCol3 lastSec">
-                                <label>Date of Birth:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="formRowPhone">
-                            <div class="formCol3">
-                                <label>Relation:</label>
-                            </div>
-                            <div class="formCol3 lastChild" style="margin-left: 15px;">
-                                <div class="mrsec"><span class="mrcheck"></span> Self</div>
-                                <div class="mrsec"><span class="mrcheck"></span> Spouse</div>
-                                <div class="mrsec"><span class="mrcheck"></span> Other: <span class="cln"></span></div>
-                            </div>
-                        </div>
-                        <div class="tabRow tabRow2">
-                            <div class="formCol3">
-                                <label>Subscriber I.D.</label>
-                                <div class="customSect1"></div>
-                            </div>
-                            <div class="formCol3 lastSec">
-                                <label>SIN</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="tabRow3">
-                            <div class="formCol3">
-                                <label>Insurance Co:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="tabRow4">
-                            <div class="formCol3">
-                                <label>Policy/Plan #:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                            <div class="formCol3">
-                                <label>Division/Sect. #:</label>
-                                <div class="customSect1"></div>
-                            </div>
-                        </div>
-                        <div class="formRowPhone">
-                            <div class="formCol3">
-                                <label><strong><em>Are You Familiar with Your Plan Details?</em></strong></label>
-                            </div>
-                            <div class="formCol3 lastChild" style="margin-left: 5px;">
-                                <div class="mrsec"><span class="mrcheck"></span> Yes</div>
-                                <div class="mrsec"><span class="mrcheck"></span> No</div>
-                            </div>
-                        </div>
+                        <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Subscriber:</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_name)).'</th></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label>Date of Birth:</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_dob)).'</th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Relation:</label>
+                            <table width="100%">
+                            <tr>
+                             ';
+                            if(str_replace($salt,'',base64_decode($result->secondary_realtion))=='self')
+                        {
+                        $html .='
+                            <td>
+                                <label>Self</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                           <td>
+                                <label>Self</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->secondary_realtion))=='spouse')
+                        {
+                        $html .='
+                            <td>
+                                <label>Spouse</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                           <td>
+                                <label>Spouse</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->secondary_realtion))=='other')
+                        {
+                        $html .='
+                            <td>
+                                <label>Other</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;" bgcolor= "#868686"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                           <td>
+                                <label>Other</label>
+                                <table width="100%">
+                                <tr><th style="width:10px; border:1px solid #000;"></th></tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                        
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Subscriber I.D.</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_id)).'</th></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label>SIN</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;"></th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Insurance Co:</label>
+                            <table width="100%">
+                            <tr><th style="width:160px;">'.str_replace($salt,'',base64_decode($result->secondary_company)).'</th></tr>
+                            </table>
+                        </td>
+                        
+                        </tr>
+                    </table>
+                    
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Policy/Plan #:</label>
+                            <table width="100%">
+                            <tr><th style="width:60px;">'.str_replace($salt,'',base64_decode($result->secondary_policy)).'</th></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <label>Division/Sect. #:</label>
+                            <table width="100%">
+                            <tr><th style="width:50px;">'.str_replace($salt,'',base64_decode($result->secondary_sector)).'</th></tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                        
+                    <table width="100%">
+                        <tr>
+                        <td>
+                            <label>Are You Familiar with Your Plan Details?</label>
+                            <table width="100%">
+                            <tr>';
+                            if(str_replace($salt,'',base64_decode($result->secondary_familiar))=='yes')
+                            {
+                                $html .='<td><u>Yes</u></td>';
+                            }
+                            else
+                            {
+                                $html .='<td>Yes</td>';
+                            }
+                            if(str_replace($salt,'',base64_decode($result->secondary_familiar))=='no')
+                            {
+                                $html .='<td><u>No</u></td>';
+                            }
+                            else
+                            {
+                                $html .='<td>No</td>';
+                            }
+                            $html .='
+                            </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
                     </td>
                 </tr>
                 
@@ -694,750 +1196,2883 @@ a:focus, button:focus, input:focus,textarea:focus  {outline: none !important; bo
             <div class="formRowPhone payment">
                 <div class="formCol3">
                     <label><strong>Method of Payment:</strong></label>
+                    <br>
+                    <table class="formCol3 lastChild" width="100%">
+                        <tr>
+                            <td class="mrsec" width="90px">
+                                <table width="100%">
+                                <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    <td>Cash</td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td class="mrsec" width="120px">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    <td>Cheque</td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td class="mrsec" width="200px">
+                             Credit Card: 
+                                <table width="100%">
+                                <tr><th style="width:100px;"></th></tr>
+                                </table>
+                            </td>
+                            <td class="mrsec">Number: 
+                                <table width="100%">
+                                <tr><th style="width:50px;"></th></tr>
+                                </table>
+                            </td>
+                            <td class="mrsec">Exp: 
+                                <table width="100%">
+                                <tr><th style="width:50px;"></th></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="formCol3 lastChild" style="margin-left: 15px;">
-                    <div class="mrsec"><span class="mrcheck"></span> Cash</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Cheque</div>
-                    <div class="mrsec"><span class="mrcheck"></span> Credit Card: <span class="cln"></span></div>
-                    <div class="mrsec">Number: <span class="cln number"></span></div>
-                    <div class="mrsec">Exp: <span class="cln exp"></span></div>
-                </div>
+                
             </div>
             
-            
-            <div class="newRowSec">
-                <div class="newCol1">The following information is required by the dentist to assist in proper diagnosis and treatment.</div>
-                <div class="newCol2">
-                    <div class="newcolin1">Yes</div>
-                    <div class="newcolin2">Yes</div>
-                </div>
+            <div>
+                <h3>Medical History</h3>
+                <h4>All Information is Confidential</h4>
             </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">1</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Have you ever had a serious illness requiring hospitalization or extensive medical care?</span></div>
+            
+            <table class="newRowSec"  width="100%">
+                <tr>
+                    <td class="newCol1" width="550px">The following information is required by the dentist to assist in proper diagnosis and treatment.</td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            <td class="newcolin1">Yes</td>
+                            <td class="newcolin2">No</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        1 Have you ever had a serious illness requiring hospitalization or extensive medical care?
                         <div class="iintbox2">
                             <label>Please specify:</label>
-                            <div class="colmn2"></div>
+                            <table width="100%">
+                            <tr><th style="width:400px;"></th></tr>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">2</div>
-                    <div class="textbox">
-                        <div class="intBox"><span> Are you presently under the care of a physician?</span></div>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>';
+                            if(str_replace($salt,'',base64_decode($result->question1))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question1))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            
+                            
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        2 Are you presently under the care of a physician?
                         <div class="iintbox2">
                             <label>If so, please explain:</label>
-                            <div class="colmn2"></div>
+                            <table width="100%">
+                            <tr><th style="width:380px;"></th></tr>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">3</div>
-                    <div class="textbox">
-                        <div class="intBox"><span> Have you had a medical examination in the last year?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">4</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do you use any prescription or non-prescription drugs regularly?</span></div>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question2))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question2))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                           $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        3 Have you had a medical examination in the last year?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question3))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question3))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        4 Do you use any prescription or non-prescription drugs regularly?
                         <div class="iintbox2">
                             <label>Please specify:</label>
-                            <div class="colmn2"></div>
+                            <table width="100%">
+                            <tr><th style="width:400px;"></th></tr>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">5</div>
-                    <div class="textbox">
-                        <div class="intBox"><span> Do you have any allergic conditions: e.g. hay fever, skin rash, food allergies, metal, latex?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">6</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do any allergic reactions result in headaches, shortness of breath, chest constriction, nausea?</span></div>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question4))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question4))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        5 Do you have any allergic conditions: e.g. hay fever, skin rash, food allergies, metal, latex?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question5))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question5))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        6 Do any allergic reactions result in headaches, shortness of breath, chest constriction, nausea?
                         <div class="iintbox2">
                             <label>Please specify:</label>
-                            <div class="colmn2"></div>
+                            <table width="100%">
+                            <tr><th style="width:400px;"></th></tr>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">7</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Have you been hospitalized in the last 5 years?</span></div>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                           ';
+                            if(str_replace($salt,'',base64_decode($result->question6))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question6))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        7 Have you been hospitalized in the last 5 years?
                         <div class="iintbox2">
                             <label>Please specify:</label>
-                            <div class="colmn2"></div>
+                            <table width="100%">
+                            <tr><th style="width:400px;"></th></tr>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">8</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Have you ever experienced any unusual reaction to any of the following? (Please circle)</span></div>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question7))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question7))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        8 Have you ever experienced any unusual reaction to any of the following? (Please circle)<br>
+                        local anaesthesia (freezing), aspirin, penicillin, codeine, sulpha drugs, barbiturates (sleeping pills), or any other medicine?
                         <div class="iintbox2">
-                            <label>local anaesthesia (freezing), aspirin, penicillin, codeine, sulpha drugs, barbiturates (sleeping pills), or any other medicine? If so please explain</label>
-                            <div class="colmn2"></div>
+                            <label> If so please explain</label>
+                            <table width="100%">
+                            <tr><th style="width:400px;"></th></tr>
+                            </table>
                         </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">9</div>
-                    <div class="textbox">
-                        <div class="intBox"><span> Have you been warned against taking any drug or medication?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">10</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do you bruise easily or bleed abnormally? </span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">11</div>
-                    <div class="textbox">
-                        <div class="intBox"><span> Do ou ref wire ore-medication for dental treatment </span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">12</div>
-                    <div class="textbox">
-                        <div class="intBox"><span> Have you ecer had any organ implants or medical implants?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">13</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Have you ever fainted?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">14</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do your ankles swell?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">15</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do you experience shortness of breath or chest pain when taking a walk or climbing stairs?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">16</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do you have frequent headaches?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">17</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do you have A.I.D.S. or have you ever tested positive for H.I.V.?</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-            <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">18</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Do you have any of the following? Please check any that apply</span></div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-        <div class="newRowSectl">
-            <div class="newCol-4">
-                <div class="col4-1"><span class="mrcheck"></span> Heart Murmur or Mitral Valve Prolapse</div>
-                <div class="col4-1"><span class="mrcheck"></span> Stomach / Intestinal Problems / Ulcers</div>
-                <div class="col4-1"><span class="mrcheck"></span> Joint Replacement (hip, knee, etc.)</div>
-                <div class="col4-1"><span class="mrcheck"></span> Mental or Nervous Disorder</div>
-                <div class="col4-1"><span class="mrcheck"></span> High Blood Pressure</div>
-                <div class="col4-1"><span class="mrcheck"></span> Low Blood Pressure</div>
-                <div class="col4-1"><span class="mrcheck"></span> Hyper (hypo) Glycemia</div>
-                <div class="col4-1"><span class="mrcheck"></span> Cortisone/Steroid Therapy</div>
-            </div>
-            <div class="newCol-4">
-                <div class="col4-1"><span class="mrcheck"></span> Malignant Hyperthermia</div>
-                <div class="col4-1"><span class="mrcheck"></span> Drug / Alcohol Dependency</div>
-                <div class="col4-1"><span class="mrcheck"></span> Venereal Disease </div>
-                <div class="col4-1"><span class="mrcheck"></span> Lung Disease (i.e. Asthma)</div>
-                <div class="col4-1"><span class="mrcheck"></span> Thyroid Disease</div>
-                <div class="col4-1"><span class="mrcheck"></span> Arthritis or Rheumatism</div>
-                <div class="col4-1"><span class="mrcheck"></span> Scarlet or Rheumatic Fever</div>
-                <div class="col4-1"><span class="mrcheck"></span> Cancer / Chemotherapy</div>
-            </div>
-            <div class="newCol-4">
-                <div class="col4-1"><span class="mrcheck"></span> Epilepsy or Seizures</div>
-                <div class="col4-1"><span class="mrcheck"></span> Liver Disease</div>
-                <div class="col4-1"><span class="mrcheck"></span> Heart Attack</div>
-                <div class="col4-1"><span class="mrcheck"></span> Cold Sores</div>
-                <div class="col4-1"><span class="mrcheck"></span> Jaundice</div>
-                <div class="col4-1"><span class="mrcheck"></span> Tuberculosis </div>
-                <div class="col4-1"><span class="mrcheck"></span> Hepatitis A,B,C</div>
-                <div class="col4-1"><span class="mrcheck"></span> Other <span class="colsLine"></span></div>
-            </div>
-            <div class="newCol-4">
-                <div class="col4-1"><span class="mrcheck"></span> Herpes</div>
-                <div class="col4-1"><span class="mrcheck"></span> Sinus Trouble</div>
-                <div class="col4-1"><span class="mrcheck"></span> Stroke</div>
-                <div class="col4-1"><span class="mrcheck"></span> Kidney Problems</div>
-                <div class="col4-1"><span class="mrcheck"></span> Emphysema</div>
-                <div class="col4-1"><span class="mrcheck"></span> Glaucoma</div>
-                <div class="col4-1"><span class="mrcheck"></span> Diabetes</div>
-            </div>
-        </div>
-        <div class="newRowSec">
-            <div class="newCol1">
-                <div class="numberct">19</div>
-                <div class="textbox">
-                    <div class="intBox"><span>Have you had any injury, surgery or x-ray therapy to your face or jaws?</span></div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec">
-            <div class="newCol1">
-                <div class="numberct">20</div>
-                <div class="textbox">
-                    <div class="intBox"><span>Do you have any disease, condition, or problem that you think the doctor should know about?</span></div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec">
-            <div class="newCol1">
-                <div class="numberct">21</div>
-                <div class="textbox">
-                    <div class="intBox"><span>WOMEN ONLY- Are you pregnant or suspect you might be? If so, what month are you in?</span></div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-            <div class="newRowSec">
-            <div class="newCol1">
-                <div class="numberct"></div>
-                <div class="textbox">
-                    <div class="intBox"><span>Are you taking birth control pills?</span></div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec">
-            <div class="newCol1">
-                <div class="numberct"></div>
-                <div class="textbox">
-                    <div class="intBox"><span>Are you nursing?</span></div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        
-        
-        <h2>Dental History</h2>
-        <div class="newRowSec">
-            <div class="newCol1">&nbsp;</div>
-            <div class="newCol2">
-                <div class="newcolin1">Yes</div>
-                <div class="newcolin2">Yes</div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">1</div>
-                <div class="textbox">
-                    <div class="iintbox2">
-                        <label>Reason for todays visit:</label>
-                        <div class="hcl1"><span class="mrcheck"></span> Exam</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Cleaning</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Emergency</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Other</div>
-                        <div class="colmn2"></div>
-                    </div>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        9 Have you been warned against taking any drug or medication?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question8))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question8))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        10 Do you bruise easily or bleed abnormally?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question9))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question9))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        11 Do you require pre-medication for dental treatment
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question10))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question10))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        12 Have you ever had any organ implants or medical implants?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question11))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question11))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        13 Have you ever fainted?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question12))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question12))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        14 Do your ankles swell?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question13))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question13))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        15 Do you experience shortness of breath or chest pain when taking a walk or climbing stairs?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question14))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question14))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        16 Do you have frequent headaches?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                           ';
+                            if(str_replace($salt,'',base64_decode($result->question15))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question15))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        17 Do you have A.I.D.S. or have you ever tested positive for H.I.V.?
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            ';
+                            if(str_replace($salt,'',base64_decode($result->question16))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->question16))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="newCol1" width="550px">
+                        18 Do you have any of the following? Please check any that apply
+                        <br>
+                    </td>
+                    <td class="newCol2" width="100px">
+                        <table width="100%">
+                            <tr>
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+            </table>
 
-                </div>
-            </div>
-            <div class="newCol2">
-                &nbsp;
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">&nbsp;</div>
-                <div class="textbox">
-                    <div class="intBox"><span>Are you presently having dental pain?</span></div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">&nbsp;</div>
-                <div class="textbox">
-                    <div class="intBox"><span>Is there a dental problem you would like to take care of as soon as possible?</span></div>
+            
+        <table class="newRowSectl" width="100%">
+        <tr>
+            <td width="300px">
+            <table class="newRowSectl" width="100%">
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Heart Murmur or Mitral Valve Prolapse<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Stomach / Intestinal Problems / Ulcers<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Joint Replacement (hip, knee, etc.)<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Mental or Nervous Disorder<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">High Blood Pressure<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Low Blood Pressure<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Hyper (hypo) Glycemia<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Cortisone/Steroid Therapy<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Malignant Hyperthermia<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Drug / Alcohol Dependency<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Venereal Disease<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Lung Disease (i.e. Asthma)<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Thyroid Disease<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Arthritis or Rheumatism<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Scarlet or Rheumatic Fever<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Cancer / Chemotherapy<br></td>
+                </tr>
+            </table>
+            </td>
+            
+            <td width="300px">
+            <table class="newRowSectl" width="100%">
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Epilepsy or Seizures<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Liver Disease<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Heart Attack<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Cold Sores<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Jaundice<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Tuberculosis<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Hepatitis A,B,C<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Herpes<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Sinus Trouble<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Stroke<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Kidney Problems<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Emphysema<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Glaucoma<br></td>
+                </tr>
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Diabetes<br></td>
+                </tr>
+                
+                <tr>
+                    <td width="30px">
+                        <table width="100%">
+                            <tr>
+                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="240px">Other<br></td>
+                </tr>
+            </table>
+            </td>
+            </tr>
+        </table>
+        
+        <table width="100%">
+            <tr>
+                <td class="newCol1" width="550px">
+                    19 Have you had any injury, surgery or x-ray therapy to your face or jaws?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="newcolin2">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    20 Do you have any disease, condition, or problem that you think the doctor should know about?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="newcolin2">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    21 WOMEN ONLY- 
                     <div class="iintbox2">
-                        <label>Please specify:</label>
-                        <div class="colmn3"></div>
+                        <label> Are you pregnant or suspect you might be? If so, what month are you in?</label>
+                        <table width="100%">
+                        <tr><th style="width:100px;"></th></tr>
+                        </table>
                     </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">2</div>
-                <div class="textbox">
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="newcolin2">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    Are you taking birth control pills?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="newcolin2">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    Are you nursing?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="newcolin2">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        
+        
+        
+        
+        <h3>Dental History</h3>
+        
+        <table class="newRowSec"  width="100%">
+            <tr>
+                <td class="newCol1" width="550px"></td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1">Yes</td>
+                        <td class="newcolin2">No</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <label>1 Reason for todays visit:</label><br>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="70px">Exam</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="120px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="90px">Cleaning</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="130px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="100px">Emergency</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="180px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>Other</td>
+                        <td class="newcolin1">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:90px;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    Are you presently having dental pain?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                       ';
+                            if(str_replace($salt,'',base64_decode($result->questiond1))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond1))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    Is there a dental problem you would like to take care of as soon as possible?
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                       ';
+                            if(str_replace($salt,'',base64_decode($result->questiond2))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond2))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
                     <div class="iintbox2">
-                        <label>How frequently do you see your dentist?</label>
-                        <div class="hcl1"><span class="mrcheck"></span> 6 months</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Yearly</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Other</div>
-                        <div class="colmn2 colmn4"></div>
+                        <label> Please specify:</label>
+                        <table width="100%">
+                        <tr><th style="width:450px;"></th></tr>
+                        </table>
                     </div>
+                </td>
+            </tr>
+            <tr>
+                <label>2 How frequently do you see your dentist?</label><br>
+                <td class="newCol2" width="120px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="90px">6 months</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="120px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="90px">Yearly</td>
+                        </tr>
+                    </table>
+                </td>
+                
+                <td class="newCol2" width="180px">
+                    <table width="100%">
+                        <tr>
+                        
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
                     <div class="iintbox2">
-                        <label>Last dental visit: </label>
-                        <div class="colmn5"></div>
+                        <label>Last dental visit:</label>
+                        <table width="100%">
+                        <tr><th style="width:450px;"></th></tr>
+                        </table>
                     </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="300px">
                     <div class="iintbox2">
                         <label>Last cleaning:</label>
-                        <div class="colmn3"></div>
+                        <table width="100%">
+                        <tr><th style="width:200px;"></th></tr>
+                        </table>
                     </div>
+                </td>
+                <td class="newCol1" width="300px">
                     <div class="iintbox2">
                         <label>Full mouth series of x-rays:</label>
-                        <div class="colmn5"></div>
+                        <table width="100%">
+                        <tr><th style="width:160px;"></th></tr>
+                        </table>
                     </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                &nbsp;
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">3</div>
-                <div class="textbox">
-                    
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="400px">
                     <div class="iintbox2">
-                        <label>How often do you brush your teeth?</label>
-                        <div class="colmn6"></div>
+                        <label>3 How often do you brush your teeth?</label>
+                        <table width="100%">
+                        <tr><th style="width:150px;"></th></tr>
+                        </table>
                     </div>
+                </td>
+                <td class="newCol1" width="300px">
                     <div class="iintbox2">
                         <label>Floss?</label>
-                        <div class="colmn3"></div>
+                        <table width="100%">
+                        <tr><th style="width:160px;"></th></tr>
+                        </table>
                     </div>
-                    
-                </div>
-            </div>
-            <div class="newCol2">
-                &nbsp;
-            </div>
-        </div>
-        
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">4</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Do your gums bleed easily?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">5</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Are your teeth sensitive to:</span> 
-                        <div class="hcl1"><span class="mrcheck"></span> Hot</div> 
-                        <div class="hcl1"><span class="mrcheck"></span> Cold</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Biting</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Sweets?</div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">6</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Do you feel you have bad breath at times?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">7</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Have you ever had jaw joint surgery?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">8</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Do you have pain in your jaw joints or suffer from migraine headaches?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">9</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Does any part of your mouth hurt when clenched?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">10</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Does your jaw crack or pop when opened widely?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">11</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Have you had:</span> 
-                        <div class="hcl1"><span class="mrcheck"></span>  Braces</div> 
-                        <div class="hcl1"><span class="mrcheck"></span> Oral surgery</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Gum treatment</div>
-                        <div class="hcl1"><span class="mrcheck"></span> Root canal</div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">12</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Do you grind or clench your teeth during the day or night?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">13</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Do you smoke?Number per day:</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">14</div>
-                <div class="textbox">
-                    
-                    <div class="textbox">
-                    <div class="intBox"><span>Do you or does any family member have a problem with snoring?</span></div>
-                </div>
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">15</div>
-                <div class="textbox">
-                    
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    4 Do your gums bleed easily?
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond3))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond3))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <label>5 Are your teeth sensitive to:</label><br>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="70px">Hot</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="120px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="90px">Cold</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="130px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="100px">Biting</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="200px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>Sweets?</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond4))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond4))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    6 Do you feel you have bad breath at times?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond5))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond5))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    7 Have you ever had jaw joint surgery?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond6))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond6))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    8 Do you have pain in your jaw joints or suffer from migraine headaches?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                       ';
+                            if(str_replace($salt,'',base64_decode($result->questiond7))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond7))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    9 Does any part of your mouth hurt when clenched?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond8))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond8))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    10 Does your jaw crack or pop when opened widely?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond9))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond9))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <label>11 Have you had:</label><br>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="70px">Braces</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="130px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="100px">Oral surgery</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="130px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="100px">Gum treatment</td>
+                        </tr>
+                    </table>
+                </td>
+                
+                <td class="newCol2" width="190px">
+                    <table width="100%">
+                        <tr>
+                        <td class="newcolin1" width="30px">
+                            <table width="100%">
+                                <tr>
+                                <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>Root canal</td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                       ';
+                            if(str_replace($salt,'',base64_decode($result->questiond10))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond10))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    12 Do you grind or clench your teeth during the day or night?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                             if(str_replace($salt,'',base64_decode($result->questiond11))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond11))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="350px">
+                    13 Do you smoke? Number per day:
+                    <br>
+                </td>
+                <td width="200px">
+                    <table width="100%">
+                        <tr><th style="width:150px;"></th></tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond12))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond12))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    14 Do you or does any family member have a problem with snoring?
+                    <br>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond13))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond13))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="500px">
+                    15 Have you ever experienced any growths or sore spots in your mouth? If so, where?
+                    <br>
+                </td>
+                <td width="50px">
+                    <table width="100%">
+                        <tr><th style="width:50px;"></th></tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                       ';
+                           if(str_replace($salt,'',base64_decode($result->questiond14))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond14))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                           $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="400px">
+                    16 Previous problems with dental treatment? Specify:
+                    <br>
+                </td>
+                <td width="150px">
+                    <table width="100%">
+                        <tr><th style="width:150px;"></th></tr>
+                    </table>
+                </td>
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond15))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond15))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
+                    17 Are you satisfied with the appearance of your teeth?
                     <div class="iintbox2">
-                        <label>Have you ever experienced any growths or sore spots in your mouth? If so, where?</label>
-                        <div class="colmn8"></div>
+                        <label>Please specify:</label>
+                        <table width="100%">
+                        <tr><th style="width:400px;"></th></tr>
+                        </table>
                     </div>
+                </td>
+                
+                <td class="newCol2" width="100px">
+                    <table width="100%">
+                        <tr>
+                        ';
+                            if(str_replace($salt,'',base64_decode($result->questiond16))=='yes')
+                        {
+                        $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin1">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        if(str_replace($salt,'',base64_decode($result->questiond16))=='no')
+                        {
+                        $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;" bgcolor= "#868686"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                        else
+                        {
+                            $html .='
+                            <td class="newcolin2">
+                                <table width="100%">
+                                    <tr>
+                                    <th style="width:10px; height:10px; border: 1px solid #cbcbcb;"></th>
+                                    </tr>
+                                </table>
+                            </td>';
+                        }
+                            $html .='
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="newCol1" width="550px">
                     
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">16</div>
-                <div class="textbox">
-                    
-                    <div class="iintbox2">
-                        <label>Previous problems with dental treatment? Specify:</label>
-                        <div class="colmn9"></div>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
+                        <label>18 Other Dental Concerns:</label>
+                        <table width="100%">
+                        <tr><th style="width:400px;"></th></tr>
+                        </table>
+                </td>
+                
+            </tr>
+        </table>
         
-        <div class="newRowSec">
-                <div class="newCol1">
-                    <div class="numberct">17</div>
-                    <div class="textbox">
-                        <div class="intBox"><span>Are you satisfied with the appearance of your teeth?</span></div>
-                        <div class="iintbox2">
-                            <label>Please specify:</label>
-                            <div class="colmn2"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="newCol2">
-                    <div class="newcolin1"><span class="clbox"></span></div>
-                    <div class="newcolin2"><span class="clbox"></span></div>
-                </div>
-            </div>
-        <div class="newRowSec historySec">
-            <div class="newCol1">
-                <div class="numberct">18</div>
-                <div class="textbox">
-                    
-                    <div class="iintbox2">
-                        <label>Other Dental Concerns: </label>
-                        <div class="colmn9"></div>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="newCol2">
-                <div class="newcolin1"><span class="clbox"></span></div>
-                <div class="newcolin2"><span class="clbox"></span></div>
-            </div>
-        </div>
         
+
         
         <div class="textFildSec">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+            <p><b>Privacy Act Notofication:</b> I have been informed of the privacy policy of this office and understand that all information I have supplied will be used and disclosed as set out within this office policy.</p>
+             <p><b>Office Policy:</b> Your appointment time will be reserved for you. If you are unable to keep the appointment we will require 24 hours notice, otherwise it may be necessary to charge for the time lost.</p>
+            <p><b>Patient Release:</b> I, the undersigned, certify that I have provided an accurate and complete personal and medical-dental history and have not knowingly omitted any information. I have had the oppurtunity to ask questions and receive answers to any questions regarding my medical-dental history. I authorize the dentist to perform diagnostic procedures and treatment as may be necessary for proper dental care. I also understand that consultation with my medical doctor may be required, and I consent to my physician being contacted as necessary. I understand that responsibility for payment for the dental services provided for myself and my dependant is mine, and I will assume responsibility for fees associated with these services.</p>
         </div>
         
-        <div class="signSec">
-            <div class="signLeft">
-                <div class="signBox"></div>
-                <div class="SignDtl">
-                    <div>Signature</div>
-                    <div class="hcl1"><span class="mrcheck"></span> Patient</div>
-                    <div class="hcl1"><span class="mrcheck"></span> Parent</div>
-                    <div class="hcl1"><span class="mrcheck"></span> Guardian</div>
-                </div>
-            </div>
-            <div class="signLeft signRight">
-                <div class="signBox">Date:</div>
-                <div class="SignDtl">
-                    <div>Reviewing Dentist</div>
-                </div>
-            </div>
-        </div>
+        <table class="newRowSec"  width="100%">
+            <tr>
+                <td>
+                    <table width="100%">
+                        <tr><th style="width:300px; border: 1px solid #505050;">'.str_replace($salt,'',base64_decode($result->initial)).'</th></tr>
+                        <br>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                        <td width="65px">Signature</td>
+                            <td>
+                            <table width="100%">
+                                <tr>
+                                    <td class="newcolin1" width="25px">
+                                        <table width="100%">
+                                            <tr>
+                                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="90px">Patient</td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td>
+                            <table width="100%">
+                                <tr>
+                                    <td class="newcolin1" width="25px">
+                                        <table width="100%">
+                                            <tr>
+                                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="90px">Parent</td>
+                                </tr>
+                                </table>
+                            </td>
+                            <td>
+                            <table width="100%">
+                                <tr>
+                                    <td class="newcolin1" width="25px">
+                                        <table width="100%">
+                                            <tr>
+                                            <th style="width:10px; height:6px; border: 1px solid #cbcbcb;"></th>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="90px">Guardian</td>
+                                </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table width="100%">
+                        <tr>
+                        <th style="width:120px; border: 1px solid #505050;">'.str_replace($salt,'',base64_decode($result->dt)).'</th>
+                        <th style="width:170px; border: 1px solid #505050;"></th>
+                        </tr>
+                        <br>
+                    </table>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                            Date
+                            </td>
+                            <td>
+                            Reviewing Dentist
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        
             
     </div>
 </div>';

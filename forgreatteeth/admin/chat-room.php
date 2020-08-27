@@ -4,6 +4,7 @@
 */
 include("config.php");
 include("includes/header.php");
+
 ?>   
 <style type="text/css">
 	#chat-conversation, #chat_user
@@ -39,7 +40,7 @@ include("includes/header.php");
                                     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 590px;"><div id="chat_user" style="overflow: hidden; width: auto; height: 590px;">
                                         <ul class="chat-list list-unstyled m-b-0">
                                         	<?php
-                                        	$query_device = "select * from `dental3_user` order by id desc";
+                                        	$query_device = "select * from `dentalfor_user` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -78,7 +79,7 @@ include("includes/header.php");
                              ?>
                                                 
                                                 <div class="about">
-                                                    <div class="name"><?php echo ucfirst($cat->fullname);?></div>
+                                                    <div class="name"><?php echo ucfirst(str_replace($salt,'',base64_decode($cat->fullname)));?></div>
                                                     <div class="status">
                                                         
                                                         </div>
@@ -102,14 +103,14 @@ include("includes/header.php");
                         <div class="chat">
                             <div class="chat-header clearfix">
                                 <?php 
-                                $query_device = "select * from `dental3_user` where id=:user_id order by id desc";
+                                $query_device = "select * from `dentalfor_user` where id=:user_id order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
         $statement_device->execute(array("user_id"=>$user_id));
     $result_user = $statement_device->fetch();
 
-    $query_device = "select * from `dental3_appointment`  where user_id=:user_id order by id desc";
+    $query_device = "select * from `dentalfor_appointment`  where user_id=:user_id order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -131,13 +132,13 @@ include("includes/header.php");
                              }
                              ?>
                                 <div class="chat-about">
-                                    <div class="chat-with"><?php echo $result_user->fullname;?></div>
+                                    <div class="chat-with"><?php echo str_replace($salt,'',base64_decode($result_user->fullname));?></div>
                                     <div class="row action">
                                         <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <div class="chat-num-messages"><i class="fa fa-phone"></i> <span><?php echo $result_user->phone;?></span></div>
+                                            <div class="chat-num-messages"><i class="fa fa-phone"></i> <span><?php echo str_replace($salt,'',base64_decode($result_user->phone));?></span></div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <div class="chat-num-messages"><i class="fa fa-envelope"></i> <span><?php echo $result_user->email;?></span></div>
+                                            <div class="chat-num-messages"><i class="fa fa-envelope"></i> <span><?php echo str_replace($salt,'',base64_decode($result_user->email));?></span></div>
                                         </div>
                                         <div class="col-md-4 col-sm-4 col-xs-4">
                                             <div class="chat-num-messages"><i class="fa fa-calendar"></i> <span>Upcoming Appointment Date: <?php echo $result_user1->appointment_date;?></span></div>
@@ -151,7 +152,7 @@ include("includes/header.php");
                             	<div class="chat-history" id="chat-conversation" style="overflow: hidden; width: auto; height: 300px;">
                                 <ul>
                                 	<?php
-                                   $ongoing_query1 = "SELECT * from dental3_chat where (user_id=:user_id and from_user=0) or (from_user=:from_user and user_id=0) order by id";
+                                   $ongoing_query1 = "SELECT * from dentalfor_chat where (user_id=:user_id and from_user=0) or (from_user=:from_user and user_id=0) order by id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -174,13 +175,13 @@ include("includes/header.php");
                                             &nbsp; &nbsp;
                                             <span class="message-data-name">Admin</span>
                                         </div>
-                                        <div class="message other-message float-right"> <?php echo $result->message;?> </div>
+                                        <div class="message other-message float-right"> <?php echo str_replace($salt,'',base64_decode($result->message));?> </div>
                                     </li>
                                     <?php
         }
         else
         {
-            $ongoing_query1 = "SELECT * from dental3_user where id=:user_id";
+            $ongoing_query1 = "SELECT * from dentalfor_user where id=:user_id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
@@ -194,11 +195,11 @@ include("includes/header.php");
         	?>
         	<li>
                                         <div class="message-data">
-                                            <span class="message-data-name"><?php echo ucfirst($result1->fullname);?> </span>
+                                            <span class="message-data-name"><?php echo ucfirst(str_replace($salt,'',base64_decode($result1->fullname)));?> </span>
                                             <span class="message-data-time"><?php echo $result->dt;?></span>
                                         </div>
                                         <div class="message my-message">
-                                            <p><?php echo $result->message;?></p>
+                                            <p><?php echo str_replace($salt,'',base64_decode($result->message));?></p>
                                             <div class="row">
                                             </div>
                                         </div>

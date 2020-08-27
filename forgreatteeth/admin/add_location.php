@@ -8,7 +8,7 @@ if(isset($_REQUEST['sub']))
 {
  
 	
-        $ongoing_query = "Insert into `dental3_location` set `location`=:location,address=:address,city=:city,state=:state,zip=:zip";
+        $ongoing_query = "Insert into `dentalfor_location` set `location`=:location,address=:address,city=:city,state=:state,zip=:zip";
    
 
         $statement = $pdo->prepare($ongoing_query);

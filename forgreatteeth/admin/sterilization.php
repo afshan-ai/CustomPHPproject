@@ -42,7 +42,7 @@ include("includes/header.php");
          <td align="left" valign="top" width="140px;"><strong>Action</strong> </td>
   </tr>
  <?php
-  $query_device = "select * from `dental3_sterilization` order by id desc";
+  $query_device = "select * from `dentalfor_sterilization` order by id desc";
 
         $statement_device = $pdo->prepare($query_device);
 
@@ -76,7 +76,7 @@ include("includes/header.php");
 <?php
 if(isset($_REQUEST['id']))
 {
-  $ongoing_query1 = "Delete from dental3_sterilization where id=:id";
+  $ongoing_query1 = "Delete from dentalfor_sterilization where id=:id";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 

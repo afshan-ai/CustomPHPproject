@@ -7,7 +7,7 @@ include("includes/header.php");
 if(isset($_REQUEST['sub']))
 {
 	
-	$ongoing_query = "Insert into `dental3_insurance_provider` set `title`=:title,description=:description";
+	$ongoing_query = "Insert into `dentalfor_insurance_provider` set `title`=:title,description=:description";
    
 
         $statement = $pdo->prepare($ongoing_query);

@@ -145,7 +145,7 @@ if (!defined('PDF_AUTHOR')) {
 }
 
 if (!defined('PDF_HEADER_TITLE')) {
-	define ('PDF_HEADER_TITLE', 'TCPDF Example');
+	define ('PDF_HEADER_TITLE', '');
 }
 
 if (!defined('PDF_HEADER_STRING')) {
