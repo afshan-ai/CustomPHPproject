@@ -228,6 +228,8 @@ $ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' 
 
  foreach($appointments as $appointment)
  {
+    if($appointment->appointment_date>date('Y-m-d'))
+{
 
     $ongoing_query1 = "SELECT * from dentalsb_user where id=:id";
 
@@ -270,6 +272,7 @@ $ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' 
                 </li>
                 <?php
             }
+        }
             ?>
                
             </ul>
