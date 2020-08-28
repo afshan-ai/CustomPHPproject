@@ -58,10 +58,28 @@ include("includes/header.php");
 
         $statement1->execute(array(
          
-           "id"=>$cat->id
+           "id"=>$_REQUEST['id']
            
             ));
         $result4= $statement1->fetch();
+
+        echo '<pre>';print_r($result4); echo '</pre>';
+
+        $ongoing_query5 = "SELECT * from dentalsb_checkin_status";
+
+        $statement5 = $pdo->prepare($ongoing_query5);
+
+        $statement5->execute(array(
+         
+           
+           
+            ));
+        $result5= $statement5->fetch();
+
+        echo '<pre>';print_r($result5); echo '</pre>';
+
+
+
 ?>
  <div class="height10"></div>
 <div class="add-schedule">
@@ -84,7 +102,7 @@ include("includes/header.php");
   <?php echo $cat->scheduled_time; ?>
   </p>
 <p><label>Office Location :</label>
-  <?php echo $cat->location; ?>
+  <?php echo $cat->office; ?>
   </p>
 <p><label>Appointment Type :</label>
   <?php echo $result3->title; ?> (<?php echo $result3->duration; ?>)
