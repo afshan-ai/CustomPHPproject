@@ -63,20 +63,7 @@ include("includes/header.php");
             ));
         $result4= $statement1->fetch();
 
-        echo '<pre>';print_r($result4); echo '</pre>';
-
-        $ongoing_query5 = "SELECT * from dentalsb_checkin_status";
-
-        $statement5 = $pdo->prepare($ongoing_query5);
-
-        $statement5->execute(array(
-         
-           
-           
-            ));
-        $result5= $statement5->fetch();
-
-        echo '<pre>';print_r($result5); echo '</pre>';
+        
 
 
 
