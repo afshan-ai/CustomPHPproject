@@ -144,7 +144,7 @@ $ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' 
             <h3 class="heading">Upcoming Appointments<a href="" class="linkCal"><?php echo date('M');?> - <?php echo date('M',strtotime('first day of +1 month'));?></a></h3>
             
             
-            <div Class="secDate">
+            <!--<div Class="secDate">
                 
                 <div id="owl-demo" class="owl-carousel owl-theme">
                     
@@ -215,7 +215,7 @@ $ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' 
                 
                 
                 
-            </div>
+            </div>-->
             
             <ul class="patinet">
                 <?php
@@ -266,6 +266,7 @@ $ongoing_query = "SELECT * from dentalsb_appointment where status='In Progress' 
                         <a href="tel:<?php echo str_replace($salt,'',base64_decode($result1->phone));?>" class="call"><i class="fa fa-phone"></i></a>
                     </div>
                     <div class="bottom">
+                         <span class="time"><i class="fa fa-calendar-o"></i> <?php echo $appointment->appointment_date;?></span>
                         <span class="time"><i class="fa fa-clock-o"></i> <?php echo $appointment->scheduled_time;?></span>
                         <span class="pay">$ 200</span>
                     </div>
