@@ -519,7 +519,7 @@ $ongoing_query = "SELECT * from dentalfor_user where id=:user_id and token=:toke
  if($num_token > 0)
     {
       $parent['token']='yes';
-    $ongoing_query = "Insert into `dentalfor_user_screening_form` set `name`=:name,`age`=:age,email=:email,phone=:phone,other=:other,staff=:staff,appointment_id=:appointment_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,answered=:answered";
+    $ongoing_query = "Insert into `dentalfor_user_screening_form` set `name`=:name,`age`=:age,email=:email,phone=:phone,other=:other,staff=:staff,user_id=:user_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,answered=:answered";
    
 
         $statement = $pdo->prepare($ongoing_query);
@@ -530,7 +530,7 @@ $ongoing_query = "SELECT * from dentalfor_user where id=:user_id and token=:toke
             "name" => base64_encode($salt.$event_encoded["name"]),
             "age" => base64_encode($salt.$event_encoded["age"]),
             "email" => base64_encode($salt.$event_encoded["email"]),
-            "appointment_id" => $event_encoded["appointment_id"],
+            "user_id" => $event_encoded["user_id"],
             "phone" => base64_encode($salt.$event_encoded["phone"]),
             "other" => base64_encode($salt.$event_encoded["other"]),
             "staff" => base64_encode($salt.$event_encoded["staff"]),

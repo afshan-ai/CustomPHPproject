@@ -122,7 +122,8 @@ if(isset($_REQUEST['search']))
       <span class="view"><a href="view_user.php?id=<?php echo $cat->id; ?>">View</a> </span>
       <span class="edit"><a href="edit_user.php?id=<?php echo $cat->id; ?>">Edit</a> </span>
       <span class="delete"><a href="list_users.php?id=<?php echo $cat->id; ?>" onclick="return confirm('Are you sure?');">Delete</a> </span>
-      <span class="pdf1"><a href="pdf/appointment/dental_history.php?id=<?php echo $result4->id; ?>" target="_blank">Medical and Dental History form</a> </span>
+      <span class="pdf1"><a href="pdf/appointment/dental_history.php?id=<?php echo $result4->id; ?>" target="_blank">Medical and Dental History Form</a> </span>
+      <span class="pdf2"><a href="pdf/appointment/user_screening.php?id=<?php echo $cat->id; ?>" target="_blank">User Screening Form</a> </span>
    </td>
 </tr>
 <?php
@@ -203,7 +204,8 @@ if(isset($_REQUEST['search']))
       <span class="view"><a href="view_user.php?id=<?php echo $cat->id; ?>">View</a> </span>
       <span class="edit"><a href="edit_user.php?id=<?php echo $cat->id; ?>">Edit</a> </span>
       <span class="delete"><a href="list_users.php?id=<?php echo $cat->id; ?>" onclick="return confirm('Are you sure?');">Delete</a> </span>
-      <span class="pdf1"><a href="pdf/appointment/dental_history.php?id=<?php echo $result4->id; ?>" target="_blank">Medical and Dental History form</a> </span>
+      <span class="pdf1"><a href="pdf/appointment/dental_history.php?id=<?php echo $result4->id; ?>" target="_blank">Medical and Dental History Form</a> </span>
+      <span class="pdf2"><a href="pdf/appointment/user_screening.php?id=<?php echo $cat->id; ?>" target="_blank">User Screening Form</a> </span>
    </td>
 </tr>
 <?php 

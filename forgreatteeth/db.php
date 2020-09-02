@@ -28,7 +28,7 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
   `question2` varchar(250) NOT NULL,
   `question3` varchar(250) NOT NULL,
   `answered` varchar(250) NOT NULL,
-  `appointment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `question4` text NOT NULL,
   `question5` text NOT NULL,
   `question6` text NOT NULL,
