@@ -503,6 +503,78 @@ $ongoing_query = "SELECT * from dentalfor_user where id=:user_id and token=:toke
         $parent['token']='no';
       }
   }
+  else if($event_encoded["actiontype"] == "user_screening_form") {
+$ongoing_query = "SELECT * from dentalfor_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+    $ongoing_query = "Insert into `dentalfor_user_screening_form` set `name`=:name,`age`=:age,email=:email,phone=:phone,other=:other,staff=:staff,appointment_id=:appointment_id,question1=:question1,question2=:question2,question3=:question3,question4=:question4,question5=:question5,question6=:question6,question7=:question7,question8=:question8,answered=:answered";
+   
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           
+            "name" => base64_encode($salt.$event_encoded["name"]),
+            "age" => base64_encode($salt.$event_encoded["age"]),
+            "email" => base64_encode($salt.$event_encoded["email"]),
+            "appointment_id" => $event_encoded["appointment_id"],
+            "phone" => base64_encode($salt.$event_encoded["phone"]),
+            "other" => base64_encode($salt.$event_encoded["other"]),
+            "staff" => base64_encode($salt.$event_encoded["staff"]),
+            "question1" => base64_encode($salt.$event_encoded["question1"]),
+            "question2" => base64_encode($salt.$event_encoded["question2"]),
+            "question3" => base64_encode($salt.$event_encoded["question3"]),
+            "question4" => base64_encode($salt.$event_encoded["question4"]),
+            "question5" => base64_encode($salt.$event_encoded["question5"]),
+            "question6" => base64_encode($salt.$event_encoded["question6"]),
+
+            "question7" => base64_encode($salt.$event_encoded["question7"]),
+            "question8" => base64_encode($salt.$event_encoded["question8"]),
+            
+
+            "answered" => base64_encode($salt.$event_encoded["answered"])
+            ));  
+            
+                
+        $meal['name'] = $event_encoded["name"];
+         $meal['age'] = $event_encoded["age"];
+         $meal['email'] = $event_encoded["email"];
+          $meal['user_id'] = $event_encoded["user_id"];
+         $meal['phone'] = $event_encoded["phone"];
+         $meal['other'] = $event_encoded["other"];
+         $meal['staff'] = $event_encoded["staff"];
+         $meal['question1'] = $event_encoded["question1"];
+           $meal['question2'] = $event_encoded["question2"];
+         $meal['question3'] = $event_encoded["question3"];
+         $meal['question4'] = $event_encoded["question4"];
+           $meal['question5'] = $event_encoded["question5"];
+         $meal['question6'] = $event_encoded["question6"];
+         $meal['question7'] = $event_encoded["question7"];
+           $meal['question8'] = $event_encoded["question8"];
+         
+         $meal['answered'] = $event_encoded["answered"];
+        
+         
+        $parent['status'] = "yes";
+      }
+      else
+      {
+        $parent['token']='no';
+      }
+  }
   else if($event_encoded["actiontype"] == "patient_acknowledge_form") {
     $ongoing_query = "SELECT * from dentalfor_user where id=:user_id and token=:token";
 
