@@ -16,11 +16,16 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 
 
 
+ $ongoing_query = "Truncate TABLE `dentalfor_user_device`
+ ";
 
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute();
          
 
          $ongoing_query = "ALTER TABLE `dentalfor_user_device`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT";
 
         $statement = $pdo->prepare($ongoing_query);
