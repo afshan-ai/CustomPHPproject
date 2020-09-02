@@ -25,8 +25,8 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
          
 
          $ongoing_query = "ALTER TABLE `dentalfor_user_device`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT";
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1";
+
 
         $statement = $pdo->prepare($ongoing_query);
 
