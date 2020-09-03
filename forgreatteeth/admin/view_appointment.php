@@ -69,7 +69,7 @@ include("includes/header.php");
 <input type="hidden" name="id" value="<?php echo $_REQUEST["id"]; ?>"  />
 <div class="shedule-form">
   <p><label>Patient Name :</label>
-  <?php echo $result1->fullname; ?>
+  <?php echo str_replace($salt,'',base64_decode($result1->fullname)); ?>
   </p>
 <p><label>Provider Name :</label>
   <?php echo $result2->title; ?>
@@ -84,7 +84,7 @@ include("includes/header.php");
   <?php echo $cat->scheduled_time; ?>
   </p>
 <p><label>Office Location :</label>
-  <?php echo $cat->location; ?>
+  <?php echo $cat->office; ?>
   </p>
 <p><label>Appointment Type :</label>
   <?php echo $result3->title; ?> (<?php echo $result3->duration; ?>)
