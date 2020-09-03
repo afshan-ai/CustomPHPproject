@@ -22,12 +22,7 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 
         $statement->execute();
 
-           $ongoing_query = "ALTER TABLE `dentalfor_provider`
-  ADD PRIMARY KEY (`id`)";
-
-        $statement = $pdo->prepare($ongoing_query);
-
-        $statement->execute();
+         
 
 
         $ongoing_query = "ALTER TABLE `dentalfor_provider`
