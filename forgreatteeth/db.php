@@ -16,31 +16,13 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
 
 
 
- $ongoing_query = "CREATE TABLE `dentalfor_user_screening_form` (
-  `id` int(11) NOT NULL,
-  `staff` varchar(250) NOT NULL,
-  `name` varchar(250) NOT NULL,
-  `age` varchar(250) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `phone` varchar(250) NOT NULL,
-  `other` varchar(250) NOT NULL,
-  `question1` varchar(250) NOT NULL,
-  `question2` varchar(250) NOT NULL,
-  `question3` varchar(250) NOT NULL,
-  `answered` varchar(250) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `question4` text NOT NULL,
-  `question5` text NOT NULL,
-  `question6` text NOT NULL,
-  `question7` text NOT NULL,
-  `question8` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+ $ongoing_query = "TRUNCATE TABLE `dentalfor_provider`";
 
         $statement = $pdo->prepare($ongoing_query);
 
         $statement->execute();
 
-           $ongoing_query = "ALTER TABLE `dentalfor_user_screening_form`
+           $ongoing_query = "ALTER TABLE `dentalfor_provider`
   ADD PRIMARY KEY (`id`)";
 
         $statement = $pdo->prepare($ongoing_query);
@@ -48,7 +30,7 @@ $pdo = new PDO($dsn, $user, $pass, $opt);
         $statement->execute();
 
 
-        $ongoing_query = "ALTER TABLE `dentalfor_user_screening_form`
+        $ongoing_query = "ALTER TABLE `dentalfor_provider`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1";
 
         $statement = $pdo->prepare($ongoing_query);

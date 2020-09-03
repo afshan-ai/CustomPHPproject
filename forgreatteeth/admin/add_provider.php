@@ -33,7 +33,7 @@ if(isset($_REQUEST['sub']))
  <div class="height10"></div>
 <div class="add-schedule">
 <form method="post" action="" name="manufacturers" enctype="multipart/form-data">
-<input type="hidden" name="a_ID" value="<?php echo $modelRs["id"]; ?>"  />
+
 <div class="shedule-form">
   <p><label><span>*</span>Name :</label>
   <input type="text" name="title" requied />
