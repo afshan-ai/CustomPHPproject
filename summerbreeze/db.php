@@ -14,14 +14,19 @@ $opt = [
 ];
 $pdo = new PDO($dsn, $user, $pass, $opt);
          
-
-    /*    $ongoing_query = "ALTER TABLE `dentalsb_review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160";
+         $ongoing_query = "Truncate TABLE `dentalsb_referral`";
 
         $statement = $pdo->prepare($ongoing_query);
 
         $statement->execute();
-*/
+
+       $ongoing_query = "ALTER TABLE `dentalsb_referral`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute();
+
          
 
         

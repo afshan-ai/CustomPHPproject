@@ -64,28 +64,20 @@ include("includes/header.php");
         $result1 = $statement1->fetch();
 
 
-      $ongoing_query1 = "SELECT * from dentalsb_insurance_provider where id=:id";
-
-        $statement1 = $pdo->prepare($ongoing_query1);
-
-        $statement1->execute(array(
-         
-           "id"=>$cat->insurance_id
-           
-            ));
-        $result2 = $statement1->fetch();
+     
 
 
           
 
 
-
+if($cat->insurance_id!='')
+{
 
 ?>
 <tr>
    
 	 <td align="left" valign="top" ><?php echo str_replace($salt,'',base64_decode($result1->fullname)); ?></td>
-    <td  align="left" valign="top"><?php echo $result2->title; ?></td>
+    <td  align="left" valign="top"><?php echo $cat->insurance_id; ?></td>
     <td align="left" valign="top"><?php echo $cat->dental_amount; ?></td>
    
     <td align="left" valign="top"><?php echo $cat->total_coverage; ?></td>
@@ -93,6 +85,7 @@ include("includes/header.php");
 </tr>
 <?php 
 
+}
 }
 ?>
 </table>

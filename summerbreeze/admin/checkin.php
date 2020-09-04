@@ -93,7 +93,7 @@ include("includes/header.php");
             ));
         $result3 = $statement1->fetch();
 
-         $ongoing_query1 = "SELECT * from dentalsb_checkin_status where appointment_id=:id";
+         $ongoing_query1 = "SELECT * from dentalsb_checkin_status where appointment_id=:id order by id desc";
 
         $statement1 = $pdo->prepare($ongoing_query1);
 
