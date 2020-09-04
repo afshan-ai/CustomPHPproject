@@ -534,7 +534,16 @@ function autocom(){
                                                                                     } ?>><span><a href="insurance_provider.php" class="menu-icon4">Insurance Providers</a></span></li>   
 
                     <li <?php if ($link == 'list_users.php') { ?> class="selected" <?php 
-                                                                                } ?>><span><a href="list_users.php" class="user-icon">Users</a></span></li>    
+                                                                                } ?>><span><a href="list_users.php" class="user-icon">Users</a></span></li> 
+
+
+                                                                                <li <?php if ($link == 'checkin.php') { ?> class="selected" <?php 
+                                                                                } ?>><span><a href="checkin.php" class="menu-icon2">Check In</a></span></li>
+                                                                                 <li <?php if ($link == 'coverage.php') { ?> class="selected" <?php 
+                                                                                } ?>><span><a href="coverage.php" class="menu-icon4">Insurance Coverage</a></span></li> 
+
+
+
                                                                                 <li <?php if ($link == 'chat-room.php') { ?> class="selected" <?php 
                                                                                 } ?>><span><a href="chat-room.php" class="menu-icon5">Chat</a></span></li>
                                                                                 <li <?php if ($link == 'gallery.php') { ?> class="selected" <?php 

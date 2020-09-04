@@ -609,7 +609,7 @@ table{ border:none; }
                         {
                             $html .='
                             <td>
-                                <label>Male</label>
+                                <label>Adult</label>
                                 <table width="100%">
                                     <tr><th style="width:10px; border:1px solid #000;"></th></tr>
                                 </table>
@@ -629,7 +629,7 @@ table{ border:none; }
                         {
                             $html .='
                             <td width="60px">
-                                <label>Male</label>
+                                <label>Child</label>
                                 <table width="100%">
                                     <tr><th style="width:10px; border:1px solid #000;"></th></tr>
                                 </table>

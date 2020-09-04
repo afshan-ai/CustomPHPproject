@@ -371,7 +371,7 @@ else if($event_encoded["actiontype"] == "add_referral") {
             "user_id" => $event_encoded["user_id"]
             ));  
             
-      $to = "senjuti.micronixsystem@gmail.com";
+     /* $to = "senjuti.micronixsystem@gmail.com";
 $subject = "App Referral";
 
 $body = "
@@ -396,7 +396,7 @@ $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= 'From: Dentistry At Cooksville<chandradip.ghosh@gmail.com>' . "\r\n";
 
 
-mail($to,$subject,$body,$headers);
+mail($to,$subject,$body,$headers);*/
 
 $meal['name'] = $event_encoded["name"];
          $meal['message'] = $event_encoded["message"];
