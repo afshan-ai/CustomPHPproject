@@ -1952,7 +1952,7 @@ else if($event_encoded["actiontype"] == "provider_list") {
 $parent['token']='yes';
 
     
-     $ongoing_query = "SELECT * from dentalfor_provider order by id desc";
+     $ongoing_query = "SELECT * from dentalfor_provider where page='1' order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -2006,9 +2006,24 @@ $parent['token']='yes';
 }
 else if($event_encoded["actiontype"] == "provider_home") {
     
+    $ongoing_query = "SELECT * from dentalfor_user where id=:user_id and token=:token";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+         
+           "user_id"=>$event_encoded["user_id"],
+           "token"=>$event_encoded["token"]
+           
+            ));
+        
+         $num_token=$statement->rowCount();
+ if($num_token > 0)
+    {
+      $parent['token']='yes';
+$parent['token']='yes';
     
-    
-     $ongoing_query = "SELECT * from dentalfor_provider where page='1' order by id desc";
+     $ongoing_query = "SELECT * from dentalfor_provider  order by id desc";
 
         $statement = $pdo->prepare($ongoing_query);
 
@@ -2042,6 +2057,11 @@ else if($event_encoded["actiontype"] == "provider_home") {
     {
        $parent['status']='no';
     }
+  }
+  else
+  {
+    $parent['token']='no';
+  }
         
 }
  else if($event_encoded['actiontype'] == "login")
