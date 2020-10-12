@@ -45,6 +45,7 @@ if($event_encoded == null || $event_encoded == '') {
 //print_r($event_encoded);
 
 $current_date = date("Y-m-d H:i:s");
+$otp_pw_change=rand(100000,999999);
 
 
 if($event_encoded["actiontype"] == "change_password")
@@ -2296,6 +2297,43 @@ $meal["registration_date"]=date('Y-m-d');
         
 
  }
+
+ else if($event_encoded["actiontype"] == "forgotpassword") {
+  $email = $event_encoded["email"];
+
+    
+       if($email!='')
+       {
+        $ongoing_query = "SELECT * FROM `dentalfor_user` where email=:email";
+
+        $statement = $pdo->prepare($ongoing_query);
+
+        $statement->execute(array(
+        "email" => base64_encode($salt.$email)));
+        $user_details = $statement->fetch();
+        $num_rows = $statement->rowCount();
+        if($num_rows>0)
+        {
+          $token = rand(100000,999999);
+          $parent['status']='yes';
+          $meal['token']=$token;
+          $to      = $user_details->email;
+          $subject = 'Request for password change';
+          $message = $token;
+          $headers = 'From: webmaster@example.com' . "\r\n" .
+          'Reply-To: webmaster@example.com' . "\r\n" .
+          'X-Mailer: PHP/' . phpversion();
+  
+          mail($to, $subject, $message, $headers);
+        }
+        
+      }
+  }
+  // else if($event_encoded["actiontype"] == "forgotpassword_otp_submit") {
+  //   $otp=$event_encoded["otp"];
+  //   $email=
+  // }
+ 
 
 $parent['data'] = $meal;
 echo json_encode($parent);
